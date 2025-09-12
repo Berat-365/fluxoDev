@@ -7,6 +7,12 @@ Dev Beta için: [Fluxo](https://berat-365.github.io/fluxoDev/)
 
 ---
 
+
+## ⚠️ Önemli Uyarı
+Dev sürümü ile ana sürüm birbirine bağlı verileri silmeyiniz!
+
+---
+
 ## 🔧 Geliştirme Ortamı
 
 Projeyi yerel bilgisayarınızda çalıştırmak için:  
