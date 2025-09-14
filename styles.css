@@ -82,10 +82,10 @@ body.light .weather-widget {
     color: #000;
 }
 .weather-widget:hover {
-    background-color: rgb(60, 64, 67);
+    border: 1px solid var(--accent-color);
 }
 body.light .weather-widget:hover {
-    background-color: rgb(224, 224, 224);
+    border: 1px solid var(--accent-color);
 }
 .weather-widget.hidden { display: none; }
 .weather-error {
@@ -155,8 +155,15 @@ body.light #voiceTranscript {
 }
 #voiceSearchModal .accent:hover {
     transform: scale(1.08);
-    background-color: var(--accent-color);
+    background-color: #202124;
+    color: var(--accent-color);
+    border: 1px solid var(--accent-color);
     box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+}
+body.light #voiceSearchModal .accent:hover {
+    background-color: #e0e0e0;
+    color: var(--accent-color);
+    border: 1px solid var(--accent-color);
 }
 #voiceIcon {
     color: white;
@@ -300,12 +307,14 @@ body.light .search-bar input:focus {
 }
 .buttons button:hover {
     transform: scale(1.08);
-    background-color: var(--accent-color);
-    box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+    background-color: #303134;
+    color: var(--accent-color);
+    border: 1px solid var(--accent-color);
 }
 body.light .buttons button:hover {
-    background-color: var(--accent-color);
-    color: #ffffff;
+    background-color: #f1f3f4;
+    color: var(--accent-color);
+    border: 1px solid var(--accent-color);
 }
 .favorites {
     margin-top: 30px;
@@ -419,7 +428,6 @@ body.light .buttons button:hover {
     height: 60px;
     font-weight: bold;
     cursor: pointer;
-    border: none;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -530,7 +538,7 @@ body.light #accountButton:hover {
     max-height: 80vh;
     overflow-y: auto;
     scrollbar-width: thin;
-    scrollbar-color: #5c5e60 #303134;
+    scrollbar-color: #5c5e60 #ffffff00;
     animation: modalFadeIn 0.18s;
     contain: content; /* İçeriğin taşmasını engeller */
 }
@@ -549,7 +557,7 @@ body.light #accountButton:hover {
 body.light #menuPanel {
     background-color: #f1f3f4;
     color: #000;
-    scrollbar-color: #d1d1d1 #f1f3f4;
+    scrollbar-color: #d1d1d1 #f1f3f400;
 }
 body.light #menuPanel::-webkit-scrollbar-track {
     background: #f1f3f4;
@@ -584,7 +592,8 @@ body.light .tab-menu {
 }
 
 .tab-button.active {
-    color: var(--accent-color); /* Aktif buton için vurgu rengi */
+    color: #303134;
+    border: 1px solid var(--accent-color);
     position: relative;
 }
 
@@ -600,24 +609,31 @@ body.light .tab-menu {
 
 /* Açık tema için aktif buton rengi */
 body.light .tab-button {
-    color: #333; /* Açık tema için buton rengi */
+    color: #e0e0e0; /* Açık tema için buton rengi */
 }
 
 body.light .tab-button.active {
-    color: var(--accent-color);
+    color: #e0e0e0;
 }
 body.light .tab-button {
     color: #000;
 }
 .tab-button.active {
-    color: var(--accent-color);
+    color: #303134;
+    border: 1px solid var(--accent-color);
+    border-bottom: 2px solid var(--accent-color);
+}
+body.light .tab-button.active {
+    color: #000;
+    background-color: #e0e0e0;
+    border: 1px solid var(--accent-color);
     border-bottom: 2px solid var(--accent-color);
 }
 .tab-button:hover {
     background: rgba(255, 255, 255, 0.1);
 }
 body.light .tab-button:hover {
-    background: rgba(0, 0, 0, 0.1);
+    background: #e0e0e0;
 }
 .tab-content {
     display: none;
@@ -664,13 +680,19 @@ body.light #menuPanel select {
     width: 100%;
     border: none;
     border-radius: 50px;
-    background-color: var(--accent-color);
-    color: #000;
+    background-color: #202124;
+    color: var(--accent-color);
+    border: 1px solid var(--accent-color);
     font-weight: bold;
     cursor: pointer;
     transition: transform 0.2s, box-shadow 0.2s, filter 0.2s;
     will-change: transform, box-shadow;
     pointer-events: auto;
+}
+body.light  #menuPanel button {
+    background-color: #e0e0e0;
+    color: var(--accent-color);
+    border: 1px solid var(--accent-color);
 }
 #menuPanel button:hover {
     transform: scale(1.05);
@@ -925,13 +947,13 @@ body.light #addFavoriteModal button {
     color: #000;
 }
 body.light #addFavoriteModal button:hover {
-    background-color: var(--accent-color);
-    color: #ffffff;
+    color: var(--accent-color);
+    border: 1px solid var(--accent-color);
 }
 #addFavoriteModal button:hover {
     transform: scale(1.05);
-    background-color: var(--accent-color);
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+    color: var(--accent-color);
+    border: 1px solid var(--accent-color);
 }
 #addFavoriteModal button:active {
     transform: scale(0.95);
@@ -943,6 +965,15 @@ body.light #addFavoriteModal button:hover {
     font-size: 22px;
     cursor: pointer;
     color: #e8eaed;
+}
+#addFavoriteModal .close:hover {
+    color: var(--accent-color);
+}
+body.light #addFavoriteModal .close {
+    color: #050505;
+}
+body.light #addFavoriteModal .close:hover {
+    color: var(--accent-color);
 }
 #accountModal {
     display: none;
@@ -961,8 +992,19 @@ body.light #addFavoriteModal button:hover {
 }
 #accountModal .accent:hover {
     transform: scale(1.08);
-    background-color: var(--accent-color);
+    background-color: #202124;
+    color: var(--accent-color);
+    border: 1px solid var(--accent-color);
     box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+}
+body.light #accountModal .accent {
+    background-color: #e0e0e0;
+    color: #000;
+}
+body.light #accountModal .accent:hover {
+    background-color: #e0e0e0;
+    color: var(--accent-color);
+    border: 1px solid var(--accent-color);
 }
 #accountModal.active {
     display: block;
@@ -1026,13 +1068,19 @@ body.light #accountModalInner::-webkit-scrollbar-thumb:hover {
     top: 10px;
     right: 14px;
     font-size: 1.7rem;
-    color: #888;
+    color: #e8eaed;
     cursor: pointer;
     transition: color 0.15s;
     z-index: 2;
 }
+body.light #accountModalInner .close {
+    color: #050505;
+}
 #accountModalInner .close:hover {
-    color: #202124;
+    color: var(--accent-color);
+}
+body.light #accountModalInner .close:hover {
+    color: var(--accent-color);
 }
 #accountForm {
     display: flex;
@@ -1181,10 +1229,10 @@ body.light .history-remove-btn {
     color: #363333;
 }
 .history-remove-btn:hover {
-    color: #ff6666;
+    color: var(--accent-color);
 }
 body.light .history-remove-btn:hover {
-    color: #ff3333;
+    color: var(--accent-color);
 }
 @media (forced-colors: active) {
     :root {
@@ -1322,15 +1370,36 @@ body.light #recentBgList .recent-bg-item span {
     background-color: #202124;
     transition: background-color 0.2s;
 }
+.recentBgList .remove-bg-btn {
+    margin-left: auto;
+    color: var(--accent-color);
+}
+.recentBgList .remove-bg-btn.hover {
+    color: var(--accent-color);
+}
 #bgFileInput {
-    background-color: #303134;        /* Koyu arka plan */
-    color: #e8eaed;                   /* Açık yazı */
-    border: 1px solid #5c5e60;        /* İnce gri çerçeve */
-    border-radius: 12px;              /* Yuvarlatılmış köşeler */
-    padding: 8px 12px;                /* İç boşluk */
-    font-size: 14px;                  /* Yazı boyutu */
-    width: 100%;                      /* Tam genişlik */
-    cursor: pointer;                  /* El işareti */
+    background-color: #303134;          /* Koyu arka plan */
+    color: #e8eaed;                     /* Açık yazı */
+    border: 1px solid #5c5e60;          /* İnce gri çerçeve */
+    border-radius: 12px;                /* Yuvarlatılmış köşeler */
+    padding: 10px 16px;                 /* İç boşluk genişletildi */
+    font-size: 14px;                     /* Yazı boyutu */
+    width: 100%;                          /* Tam genişlik */
+    cursor: pointer;                      /* El işareti */
+    transition: background-color 0.2s, border-color 0.2s, box-shadow 0.2s; /* Geçişler */
+}
+#bgFileInput::-webkit-file-upload-button {
+    background-color: #303134;
+    color: #e8eaed;
+    border: 1px solid var(--accent-color);
+    border-radius: 12px;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+body.light #bgFileInput::-webkit-file-upload-button {
+    background-color: #e0e0e0;
+    color: #000000;
+    border: 1px solid var(--accent-color);
 }
 body.light .recent-bg-item {
     background-color: #e0e0e0;       /* Açık arka plan */
@@ -1343,7 +1412,7 @@ body.light .recent-bg-item {
 }
 .remove-bg-btn {
     cursor: pointer;
-    color: #ff4444;
+    color: var(--accent-color);
     font-weight: bold;
     font-size: 16px;
     padding: 0 8px;
@@ -1351,7 +1420,8 @@ body.light .recent-bg-item {
 }
 
 .remove-bg-btn:hover {
-    color: #cc0000;
+    color: var(--accent-color);
+
 }
 .hidden {
     display: none !important;
@@ -1412,8 +1482,9 @@ body.light #feedbackForm input[type="file"] {
 }
 
 #feedbackForm button.accent {
-    background-color: var(--accent-color);
-    color: #000;
+    background-color: #202124;
+    color: var(--accent-color);
+    border: 1px solid var(--accent-color);
     padding: 12px;
     border-radius: 30px;
     font-weight: bold;
@@ -1444,4 +1515,33 @@ body.light #feedbackForm input[type="file"] {
 
 body.light #feedbackStatus.success {
     color: #009900;
+}
+#accentColor::-webkit-color-swatch-wrapper {
+    padding: 0;
+}
+
+#accentColor::-webkit-color-swatch {
+    border-radius: 6px;
+    color: var(--accent-color);
+    border: 1px solid var(--accent-color);
+}
+#resetBrowserBtn {
+    background-color: #202124;
+    color: var(--accent-color);
+    border: 1px solid var(--accent-color);
+    border-radius: 30px;
+    padding: 10px 20px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s, filter 0.2s;
+}
+#resetBrowserBtn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+    filter: brightness(1.1);
+}
+body.light #resetBrowserBtn {
+    background-color: #e0e0e0;
+    color: var(--accent-color);
+    border: 1px solid var(--accent-color);
 }
