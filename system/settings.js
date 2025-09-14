@@ -1,3 +1,4 @@
+// settings.js
 export function selectColor(color) {
     console.log("Seçilen renk:", color);
     document.getElementById("accentColor").value = color;
@@ -526,4 +527,45 @@ export function resetBrowser() {
 
     // Sayfayı yeniden yükle
     window.location.reload();
+}
+export function openImportExportModal() {
+    document.getElementById("importExportModal").style.display = "block";
+}
+
+export function closeImportExportModal() {
+    document.getElementById("importExportModal").style.display = "none";
+}
+
+export function exportSettings() {
+    const settings = {};
+    for (let key in localStorage) {
+        settings[key] = localStorage.getItem(key);
+    }
+    const blob = new Blob([JSON.stringify(settings, null, 2)], { type: "application/json" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "fluxodev_settings.json";
+    a.click();
+    URL.revokeObjectURL(url);
+    closeImportExportModal();
+}
+
+export function importSettings(file) {
+    const reader = new FileReader();
+    reader.onload = (evt) => {
+        try {
+            const settings = JSON.parse(evt.target.result);
+            for (let key in settings) {
+                localStorage.setItem(key, settings[key]);
+            }
+            applySettings(loadCachedBackground, updateLanguage, loadFavorites, updateSearchEnginePreview, fetchWeather, bindShortcuts, startWeatherUpdate);
+            alert(translations[localStorage.getItem("language") || "tr"].importSuccess || "Ayarlar başarıyla yüklendi!");
+            window.location.reload(); // Yeni ek: Değişiklikleri tam uygulamak için reload
+        } catch (err) {
+            alert(translations[localStorage.getItem("language") || "tr"].invalidFile || "Geçersiz dosya: " + err.message);
+        }
+        closeImportExportModal();
+    };
+    reader.readAsText(file);
 }
