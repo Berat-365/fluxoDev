@@ -29,7 +29,7 @@
         <source src="" type="video/mp4">
     </video>
     <iframe id="backgroundYouTube" frameborder="0" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; object-fit: cover; transform: scale(1.1); will-change: transform;" allow="autoplay; encrypted-media"></iframe>
-    <div class="weather-widget" id="weatherWidget" onclick=>...</div>
+    <div class="weather-widget" id="weatherWidget" onclick=> ... </div>
     <div class="info-bar" id="infoBar">
         FluxoDev 4 | Vanilla | <span id="languageDisplay"></span>
         <span id="accountInfo" style="margin-left:0px;"></span>
@@ -174,22 +174,22 @@
         </select>
         <label for="accentColor" data-lang-key="accentColor">Vurgu Rengi:</label>
         <div id="colorPalette" class="flex flex-wrap gap-2 mt-2">
-            <div class="color-option" style="background-color: #00bcd4;" onclick="selectColor('#00bcd4')"></div>
+            <div class="color-option" style="background-color: #6F958D;" onclick="selectColor('#6F958D')"></div>
+            <div class="color-option" style="background-color: #4caf99;" onclick="selectColor('#4caf99')"></div>
+            <div class="color-option" style="background-color: #4caf50;" onclick="selectColor('#4caf50')"></div>
+            <div class="color-option" style="background-color: #006405;" onclick="selectColor('#006405')"></div>            
             <div class="color-option" style="background-color: #006dd4;" onclick="selectColor('#006dd4')"></div>
             <div class="color-option" style="background-color: #0400d4;" onclick="selectColor('#0400d4')"></div>
             <div class="color-option" style="background-color: #ffeb3b;" onclick="selectColor('#ffeb3b')"></div>
             <div class="color-option" style="background-color: #ff5722;" onclick="selectColor('#ff5722')"></div>
             <div class="color-option" style="background-color: #ff2222;" onclick="selectColor('#ff2222')"></div>
             <div class="color-option" style="background-color: #582b00;" onclick="selectColor('#582b00')"></div>
-            <div class="color-option" style="background-color: #4caf99;" onclick="selectColor('#4caf99')"></div>
-            <div class="color-option" style="background-color: #4caf50;" onclick="selectColor('#4caf50')"></div>
-            <div class="color-option" style="background-color: #006405;" onclick="selectColor('#006405')"></div>
             <div class="color-option" style="background-color: #df10c3;" onclick="selectColor('#df10c3')"></div>
             <div class="color-option" style="background-color: #8f186b;" onclick="selectColor('#8f186b')"></div>
             <div class="color-option" style="background-color: #6a1bd1;" onclick="selectColor('#6a1bd1')"></div>
-            <div class="color-option" style="background-color: #7218a7;" onclick="selectColor('#7218a7')"></div>
+            <div class="color-option" style="background-color: #450d66;" onclick="selectColor('#7218a7')"></div>
         </div>
-        <input type="color" id="accentColor" value="#00bcd4">
+        <input type="color" id="accentColor" value="#6F958D">
         <label for="logoDisplaySelect" data-lang-key="logoDisplay">Logo Görüntüleme:</label>
         <select id="logoDisplaySelect">
             <option value="logo" data-lang-key="logoOnly">Sadece Logo</option>
@@ -200,6 +200,11 @@
             <option value="left" data-lang-key="logoPositionLeft">Sol</option>
             <option value="center" data-lang-key="logoPositionCenter">Merkez</option>
             <option value="right" data-lang-key="logoPositionRight">Sağ</option>
+        </select>
+        <select name="logoColorSelect" id="logoColorSelect">
+            <option value="colored" data-lang-key="logoColored">Renkli (Varsayılan)</option>
+            <option value="light" data-lang-key="logoColorLight">Beyaz</option>
+            <option value="dark" data-lang-key="logoColorDark">Koyu</option>
         </select>
         <select name="logoNameColor" id="logoNameColorSelect">
             <option value="lightFont" data-lang-key="lightFont">Beyaz</option>
@@ -222,6 +227,7 @@
             <option value="ar" data-lang-key="arabic">العربية</option>
             <option value="az" data-lang-key="azerbaijani">Azərbaycan Türkçesi</option>
             <option value="tk" data-lang-key="turkmen">Türkmençe</option>
+            <option value="gag" data-lang-key="gagauz">Gagavuzca</option>
             <option value="kk" data-lang-key="kazakh">Қазақша</option>
             <option value="ky" data-lang-key="kyrgyz">Кыргызча</option>
             <option value="uz" data-lang-key="uzbek">O'zbekcha</option>
@@ -252,6 +258,7 @@
         <select id="linkBehavior">
             <option value="newTab" data-lang-key="newTab">Yeni Sekmede Aç</option>
             <option value="closeCurrent" data-lang-key="closeCurrent">Bu Sayfayı Kapat</option>
+            <option value="newbrowser" data-lang-key="newbrowser">Yeni Tarayıcıda Aç</option>
             <option value="sideTab" data-lang-key="sideTab">Yan Sekmede Aç</option>
         </select>
 
@@ -278,10 +285,10 @@
         </select>
                 <label for="maxFavorites" data-lang-key="maxFavorites">Maksimum Favori Sayısı:</label>
         <select id="maxFavorites">
-            <option value="5">5</option>        
-            <option value="10">10</option>
-            <option value="15">15</option>
-            <option value="20">20 (Büyük ekranlar için önerilir)</option>
+            <option value="5" data-lang-key="maxFavorites5">5</option>        
+            <option value="10" data-lang-key="maxFavorites10">10</option>
+            <option value="15" data-lang-key="maxFavorites15">15</option>
+            <option value="20" data-lang-key="maxFavorites20">20 (Büyük ekranlar için önerilir)</option>
         </select>
                <label for="showSearch" data-lang-key="showSearch">Arama Barını Göster:</label>
         <select id="showSearch">
@@ -295,6 +302,11 @@
         </select>
                <label for="showAISearch" data-lang-key="showAISearch">AI Ara Butonunu Göster:</label>
         <select id="showAISearch">
+            <option value="true" data-lang-key="yes">Evet</option>
+            <option value="false" data-lang-key="no">Hayır</option>
+        </select>
+               <label for="showScienceSearch" data-lang-key="showScienceSearch">Bilimsel Ara Butonunu Göster:</label>
+        <select id="showScienceSearch">
             <option value="true" data-lang-key="yes">Evet</option>
             <option value="false" data-lang-key="no">Hayır</option>
         </select>
@@ -339,6 +351,11 @@
         <select id="privateModeOptions">
             <option value="privateModeDisable" data-lang-key="no">Kapalı</option>
             <option value="privateModeEnable" data-lang-key="yes">Açık</option>
+        </select>
+            <label for="fluxoSecureMax" data-lang-key="fluxoSecureMax">Fluxo Secure Max</label>
+        <select id="fluxoSecureMaxOptions">
+            <option value="fluxoSecureMaxDisable" data-lang-key="active">Aktif</option>
+            <option value="fluxoSecureMaxEnable" data-lang-key="deactive">Deaktif</option>
         </select>
 
             <h3 data-lang-key="widgetsSet">Araç Ayarları</h3>
@@ -408,8 +425,8 @@
         <label for="feedbackMessage">Şikayet/Geri Bildirim</label>
         <input type="text" id="feedbackTitle" name="title" placeholder="Geri bildirim başlığı" required>
         <textarea id="feedbackMessage" name="message" placeholder="Geri bildiriminizi buraya yazın" rows="5" required></textarea>
-        
-        <button type="submitFeedbackBtn" class="accent">Geri Bildirim Gönder</button>
+
+        <button type="submitFeedbackBtn" data-lang-key="submitFeedback" class="accent">Geri Bildirim Gönder</button>
         <div id="feedbackStatus" class="error-message"></div>
     </form>
 </div>
@@ -424,7 +441,6 @@
         <label for="modalUrl" data-lang-key="favoriteUrl">URL:</label>
         <input type="text" id="modalUrl" placeholder="https://...">
         <button id="addFavoriteModalBtn" class="accent" data-lang-key="add">Ekle</button>
-        <button id="addFavoriteModalBtn" class="accent" data-lang-key="addFolder">Klasöre Ekle</button>
     </div>
     <div id="voiceSearchModal" class="modal">
         <div id="voiceTranscript" contenteditable="true" class="transcript" data-placeholder="Söyledikleriniz burada görünecek..."></div>
@@ -439,7 +455,7 @@
             </a>
         </div>
         <div class="search-bar" id="searchBar">
-            <span class="icon-left"><img id="searchIcon" src="ico/search.png" alt="Arama"></span>
+            <span class="icon-left"><img id="multiSearchIcon" src="ico/multisearch.png" alt="Çoklu Arama"></span>
             <input type="text" id="searchInput" placeholder="Arama yap..." autofocus>
             <span class="icon-right" id="voiceSearchBtn"><img id="voiceIcon" src="ico/mic.png" alt="Sesli Arama"></span>
 
@@ -453,7 +469,7 @@
     <button id="searchAIBtn" class="accent" data-lang-key="aiSearch">AI Arama</button>
 </div>
         <div class="favorites" id="favorites">
-            <div id="addFavoriteBtn" class="favorite-item accent" data-lang-key="addFavorite">+ Favori Ekle</div>
+            <div id="addFavoriteBtn" class="favorite-item accent" data-lang-key="addFavorite"> + </div>
         </div>
     </div>
     <div id="accountModal">
@@ -466,6 +482,7 @@
                 <div>
                     <button id="accountLoginBtn" class="accent" data-lang-key="login">Giriş Yap</button>
                     <button id="accountRegisterBtn" class="accent" data-lang-key="register">Kayıt Ol</button>
+                    <button id="googleLoginBtn" class="accent" data-lang-key="googleLogin">Google ile Giriş Yap</button>                    
                 </div>
                 <span id="accountError" class="error-message" data-lang-key="accountError">Hatalı kullanıcı adı veya şifre.</span>
             </div>
@@ -475,6 +492,14 @@
             </div>
         </div>
     </div>
+<!-- Sağ tık menüsü -->
+<div id="favoriteContextMenu" >
+    <div class="fav-menu-item" data-action="open" data-lang-key="openFav" style="padding:8px 16px; cursor:pointer;">Aç</div>
+    <div class="fav-menu-item" data-action="renameFav" data-lang-key="renameFav" style="padding:8px 16px; cursor:pointer;">Yeniden Adlandır</div>    
+    <div class="fav-menu-item" data-action="moveLeft" data-lang-key="moveLeftFav" style="padding:8px 16px; cursor:pointer;">Sola Kaydır</div>
+    <div class="fav-menu-item" data-action="moveRight" data-lang-key="moveRightFav" style="padding:8px 16px; cursor:pointer;">Sağa Kaydır</div>
+    <div class="fav-menu-item" data-action="remove" data-lang-key="removeFav" style="padding:8px 16px; cursor:pointer; color:#ff4444;">Sil</div>
+</div>
 <script type="module">
     import { translations } from './system/language.js';
     import { resetBrowser } from './system/settings.js';
@@ -534,49 +559,48 @@ function updateLanguage(lang) {
 
 // Arka plan uygula: dosya, url veya geçmişten
 function applyBackground(bgUrl) {
-    const video = document.getElementById('backgroundVideo');
-    const yt = document.getElementById('backgroundYouTube');
-    if (!bgUrl) {
-        video.style.display = 'none';
-        yt.style.display = 'none';
-        video.src = '';
-        yt.src = '';
-        document.body.style.backgroundImage = '';
-        return;
+        const video = document.getElementById('backgroundVideo');
+        const yt = document.getElementById('backgroundYouTube');
+        if (!bgUrl) {
+            video.style.display = 'none';
+            yt.style.display = 'none';
+            video.src = '';
+            yt.src = '';
+            document.body.style.backgroundImage = '';
+            return;
+        }
+        if (bgUrl.startsWith('data:video') || bgUrl.match(/\.(mp4|webm|ogg)$/i)) {
+            video.src = bgUrl;
+            video.style.display = 'block';
+            yt.style.display = 'none';
+            yt.src = '';
+            document.body.style.backgroundImage = '';
+        } else if (bgUrl.includes('youtube.com') || bgUrl.includes('youtu.be')) {
+            const match = bgUrl.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/)([A-Za-z0-9_\-]+)/);
+            const vid = match ? match[1] : '';
+            yt.src = vid ? `https://www.youtube.com/embed/${vid}?autoplay=1&mute=1&loop=1&playlist=${vid}&controls=0&modestbranding=1&showinfo=0` : ''; // Değişiklik: Ek parametreler
+            yt.style.display = 'block';
+            video.style.display = 'none';
+            video.src = '';
+            document.body.style.backgroundImage = '';
+        } else if (bgUrl.startsWith('data:image') || bgUrl.match(/\.(jpg|jpeg|png|webp|gif)$/i)) {
+            video.style.display = 'none';
+            yt.style.display = 'none';
+            video.src = '';
+            yt.src = '';
+            document.body.style.backgroundImage = `url('${bgUrl}')`;
+            document.body.style.backgroundSize = 'cover';
+            document.body.style.backgroundPosition = 'center';
+        } else {
+            video.style.display = 'none';
+            yt.style.display = 'none';
+            video.src = '';
+            yt.src = '';
+            document.body.style.backgroundImage = `url('${bgUrl}')`;
+            document.body.style.backgroundSize = 'cover';
+            document.body.style.backgroundPosition = 'center';
+        }
     }
-    if (bgUrl.startsWith('data:video') || bgUrl.match(/\.(mp4|webm|ogg)$/i)) {
-        video.src = bgUrl;
-        video.style.display = 'block';
-        yt.style.display = 'none';
-        yt.src = '';
-        document.body.style.backgroundImage = '';
-    } else if (bgUrl.includes('youtube.com') || bgUrl.includes('youtu.be')) {
-        const match = bgUrl.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/)([A-Za-z0-9_\-]+)/);
-        const vid = match ? match[1] : '';
-        yt.src = vid ? `https://www.youtube.com/embed/${vid}?autoplay=1&mute=1&loop=1&playlist=${vid}` : '';
-        yt.style.display = 'block';
-        video.style.display = 'none';
-        video.src = '';
-        document.body.style.backgroundImage = '';
-    } else if (bgUrl.startsWith('data:image') || bgUrl.match(/\.(jpg|jpeg|png|webp|gif)$/i)) {
-        video.style.display = 'none';
-        yt.style.display = 'none';
-        video.src = '';
-        yt.src = '';
-        document.body.style.backgroundImage = `url('${bgUrl}')`;
-        document.body.style.backgroundSize = 'cover';
-        document.body.style.backgroundPosition = 'center';
-    } else {
-        // Varsayılan URL (resim varsayımıyla)
-        video.style.display = 'none';
-        yt.style.display = 'none';
-        video.src = '';
-        yt.src = '';
-        document.body.style.backgroundImage = `url('${bgUrl}')`;
-        document.body.style.backgroundSize = 'cover';
-        document.body.style.backgroundPosition = 'center';
-    }
-}
 
 // Dosya seçilince uygula ve geçmişe ekle
 document.getElementById("bgFileInput").addEventListener("change", function(e) {
@@ -598,24 +622,21 @@ document.getElementById("bgFileInput").addEventListener("change", function(e) {
 
 // URL girilince uygula ve geçmişe ekle
 document.getElementById("bgUrlInput").addEventListener("change", function() {
-    const url = this.value.trim();
-    if (!url) return;
-    localStorage.setItem("bgUrl", url);
-    let wallpapers = JSON.parse(localStorage.getItem("wallpapers") || "[]");
-    wallpapers.unshift({ type: "url", name: url, url: url, time: Date.now() });
-    localStorage.setItem("wallpapers", JSON.stringify(wallpapers.slice(0, 20)));
-    applyBackground(url);
-    updateRecentBgList(); // Geçmişi güncelle
-});
+        const url = this.value.trim();
+        if (!url) return;
+        localStorage.setItem("bgUrl", url);
+        let wallpapers = JSON.parse(localStorage.getItem("wallpapers") || "[]");
+        wallpapers.unshift({ type: "url", name: url, url: url, time: Date.now() });
+        localStorage.setItem("wallpapers", JSON.stringify(wallpapers.slice(0, 20)));
+        applyBackground(url);
+        updateRecentBgList(); 
+    });
 
 // Duvar Kağıtlarım panelini güncelle
 function updateRecentBgList() {
     const recentBgList = document.getElementById("recentBgList");
-    if (!recentBgList) {
-        console.error("Hata: recentBgList elementi bulunamadı!");
-        return;
-    }
-    recentBgList.innerHTML = ""; // Listeyi temizle
+    if (!recentBgList) return;
+    recentBgList.innerHTML = "";
     let wallpapers = JSON.parse(localStorage.getItem("wallpapers") || "[]");
     const lang = localStorage.getItem("language") || "tr";
 
@@ -625,27 +646,21 @@ function updateRecentBgList() {
     }
 
     wallpapers.forEach((w, index) => {
-        if (!w.url || !w.name) {
-            console.warn(`Geçersiz duvar kağıdı atlanıyor: ${JSON.stringify(w)}`);
-            return;
-        }
-
+        if (!w.url || !w.name) return;
         const div = document.createElement("div");
         div.className = "recent-bg-item";
         div.style = "display: flex; align-items: center; gap: 8px; cursor: pointer; margin-bottom: 4px;";
 
-        let thumbnailUrl = "";
+        let thumbnailUrl = "ico/default-thumbnail.png";
         if (w.type === "file" && w.url.startsWith("data:image")) {
             thumbnailUrl = w.url;
         } else if (w.type === "file" && w.url.startsWith("data:video")) {
-            thumbnailUrl = w.url; // Video için önizleme
+            thumbnailUrl = w.url;
         } else if (w.type === "url" && w.url.includes("youtube.com")) {
             const videoId = w.url.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/)([A-Za-z0-9_\-]+)/)?.[1];
-            thumbnailUrl = videoId ? `https://img.youtube.com/vi/${videoId}/default.jpg` : "ico/default-thumbnail.png";
+            thumbnailUrl = videoId ? `https://img.youtube.com/vi/${videoId}/0.jpg` : "ico/default-thumbnail.png";
         } else if (w.type === "url" && w.url.match(/\.(jpg|jpeg|png|webp|gif)$/i)) {
             thumbnailUrl = w.url;
-        } else {
-            thumbnailUrl = "ico/default-thumbnail.png";
         }
 
         div.innerHTML = `
@@ -654,26 +669,32 @@ function updateRecentBgList() {
             <span class="remove-bg-btn" style="cursor: pointer; color: #ff4444; font-weight: bold; margin-left: auto;">×</span>
         `;
 
-        // Silme butonuna tıklama olayı
+        // Yeni: Tıklama ile uygulama
+        div.addEventListener("click", () => {
+            localStorage.setItem("bgUrl", w.url);
+            applyBackground(w.url);
+        });
+
         const removeBtn = div.querySelector(".remove-bg-btn");
         removeBtn.addEventListener("click", (e) => {
-            e.stopPropagation(); // Genel div tıklama olayını engelle
-            console.log("Silme butonuna tıklandı, indeks:", index); // Hata ayıklama için
+            e.stopPropagation(); // Tıklama eventini engelle
             removeBackground(index);
         });
 
         recentBgList.appendChild(div);
     });
 
-    recentBgList.classList.remove("hidden"); // Listeyi göster
+    recentBgList.classList.remove("hidden");
 }
 
 // Sayfa ilk açıldığında arka planı uygula
 window.addEventListener("DOMContentLoaded", () => {
-    const bgUrl = localStorage.getItem("bgUrl");
-    if (bgUrl) applyBackground(bgUrl);
-    updateRecentBgList(); // Sayfa yüklenince geçmişi de güncelle
-});
+        const bgUrl = localStorage.getItem("bgUrl");
+        if (bgUrl) applyBackground(bgUrl);
+        let wallpapers = JSON.parse(localStorage.getItem("wallpapers") || "[]");
+        localStorage.setItem("wallpapers", JSON.stringify(wallpapers.slice(0, 20))); // Değişiklik: Sınırlama
+        updateRecentBgList();
+    });
 
 // Geçmişteki bir duvar kağıdını sil
 function removeBackground(index) {
@@ -839,16 +860,16 @@ function removeBackground(index) {
     }
 
     // Arama geçmişi kaydını kontrol et
-    if (!disableSearchHistoryLog) {
-        let searchHistory = JSON.parse(localStorage.getItem("searchHistory") || "[]");
-        let searchHistoryEngines = JSON.parse(localStorage.getItem("searchHistoryEngines") || "[]");
-        if (!searchHistory.includes(q)) {
-            searchHistory.unshift(q);
-            searchHistoryEngines.unshift(type === "ai" ? aiProvider : engine);
-            localStorage.setItem("searchHistory", JSON.stringify(searchHistory));
-            localStorage.setItem("searchHistoryEngines", JSON.stringify(searchHistoryEngines));
-        }
-        loadSearchHistory();
+if (!disableSearchHistoryLog) {
+            let searchHistory = JSON.parse(localStorage.getItem("searchHistory") || "[]");
+            let searchHistoryEngines = JSON.parse(localStorage.getItem("searchHistoryEngines") || "[]");
+            if (!searchHistory.includes(q)) {
+                searchHistory.unshift(q);
+                searchHistoryEngines.unshift(type === "ai" ? aiProvider : engine);
+                localStorage.setItem("searchHistory", JSON.stringify(searchHistory));
+                localStorage.setItem("searchHistoryEngines", JSON.stringify(searchHistoryEngines));
+            }
+            loadSearchHistory();
     }
         loadSearchHistory();
         document.getElementById("searchInput").value = "";
@@ -890,37 +911,40 @@ function removeBackground(index) {
             localStorage.setItem("userFavorites", "[]");
         }
 
-        favs.forEach((f, i) => {
-            if (!f.url || !f.name) {
-                console.warn(`Geçersiz favori atlanıyor: ${JSON.stringify(f)}`);
-                return;
-            }
-            let faviconUrl = "ico/default-favicon.png";
-            try {
-                faviconUrl = `https://www.google.com/s2/favicons?domain=${new URL(f.url).hostname}`;
-            } catch (e) {
-                console.warn(`Geçersiz URL: ${f.url}`, e);
-            }
+    favs.forEach((f, i) => {
+        if (!f.url || !f.name) {
+            console.warn(`Geçersiz favori atlanıyor: ${JSON.stringify(f)}`);
+            return;
+        }
+        let faviconUrl = "ico/default-favicon.png";
+        try {
+            faviconUrl = `https://www.google.com/s2/favicons?domain=${new URL(f.url).hostname}`;
+        } catch (e) {
+            console.warn(`Geçersiz URL: ${f.url}`, e);
+        }
 
-            const btn = document.createElement("div");
-            btn.className = "favorite-item";
-            btn.setAttribute("draggable", "true");
-            btn.setAttribute("data-index", i);
-            btn.innerHTML = `
-                <div style="display:flex; flex-direction: column; align-items: center; gap:4px; text-align: center;">
-                    <img src="${faviconUrl}" style="width:32px;height:32px;border-radius:6px;" onerror="this.src='ico/default-favicon.png'">
-                    <a href="${f.url}" ${linkBehavior === "closeCurrent" ? "" : 'target="_blank"'}>${f.name}</a>
-                </div>
-                <span class="remove-btn">×</span>`;
-            btn.addEventListener("dragstart", handleDragStart);
-            btn.addEventListener("dragover", handleDragOver);
-            btn.addEventListener("drop", handleDrop);
-            const removeBtn = btn.querySelector(".remove-btn");
-            removeBtn.addEventListener("click", () => removeFavorite(i));
-            cont.appendChild(btn);
+        const btn = document.createElement("div");
+        btn.className = "favorite-item";
+        btn.setAttribute("draggable", "true");
+        btn.setAttribute("data-index", i);
+        btn.innerHTML = `
+            <div style="display:flex; flex-direction: column; align-items: center; gap:4px; text-align: center;">
+                <img src="${faviconUrl}" style="width:32px;height:32px;border-radius:6px;" onerror="this.src='ico/default-favicon.png'">
+                <a href="${f.url}" ${linkBehavior === "closeCurrent" ? "" : 'target="_blank"'}>${f.name}</a>
+            </div>
+            <!-- × butonu kaldırıldı -->
+        `;
+        btn.addEventListener("dragstart", handleDragStart);
+        btn.addEventListener("dragover", handleDragOver);
+        btn.addEventListener("drop", handleDrop);
+        btn.addEventListener("contextmenu", (e) => {
+            e.preventDefault();
+            showFavoriteContextMenu(e, i, f);
         });
+        cont.appendChild(btn);
+    });
 
-        const addBtn = document.createElement("div");
+    const addBtn = document.createElement("div");
         addBtn.id = "addFavoriteBtn";
         addBtn.className = "favorite-item accent";
         addBtn.textContent = translations[lang]?.addFavorite || "+ Favori Ekle";
@@ -1095,6 +1119,7 @@ function removeBackground(index) {
             "ba": "ba-RU",
             "ug": "ug-CN",
             "sah": "sah-RU",
+            "gag": "gag-RU",
             "cv": "cv-RU",
             "he": "he-IL",
             "hi": "hi-IN",
@@ -1146,7 +1171,7 @@ function removeBackground(index) {
 
         const voiceIcon = document.getElementById("voiceIcon");
 
-        recognition.onstart = () => {
+        recognition.onstart = () => {       
             console.log("Ses tanıma başladı");
             voiceIcon.classList.add("active");
         };
@@ -1162,6 +1187,8 @@ function removeBackground(index) {
             transcriptDiv.textContent = translations[lang].voiceSearch || "Söyledikleriniz burada görünecek...";
         };
 
+
+        // 10 saniye sonra otomatik durdur
         setTimeout(() => {
             if (recognition && recognition.state === "recording") {
                 recognition.stop();
@@ -1380,9 +1407,6 @@ document.getElementById("clearHistoryBtn").onclick = () => {
         const showSearchShortcuts = localStorage.getItem("showSearchShortcuts") || "true";
         const showAccountButton = localStorage.getItem("showAccountButton") || "true";
         const showAccountInfoText = localStorage.getItem("showAccountInfoText") || "true";
-        const logoDisplay = localStorage.getItem("logoDisplay") || "logo-name";
-        const logoPosition = localStorage.getItem("logoPosition") || "center";
-        const logoNameColor = localStorage.getItem("logoNameColor") || "lightFont";
         localStorage.setItem("weatherAPI", "wttrin"); // Varsayılan olarak wttr.in
         localStorage.setItem("openWeatherMapApiKey", ""); // Varsayılan olarak boş
         localStorage.setItem("weatherApiKey", ""); // Varsayılan olarak boş
@@ -1394,10 +1418,15 @@ document.getElementById("clearHistoryBtn").onclick = () => {
         const searchInput = document.getElementById("searchInput");
         const suggestionsBox = document.getElementById("suggestions");  // Düzeltme: suggestionsBox tanımlandı
         let selectedIndex = -1;
+        const bgUrl = localStorage.getItem("bgUrl") || "";
 
         // Logo görüntüleme ayarları
     const logoImg = document.getElementById("logoImg");
     const logoName = document.getElementById("logoName");
+    const logoDisplay = localStorage.getItem("logoDisplay") || "logo-name";
+    const logoPosition = localStorage.getItem("logoPosition") || "center";
+    const logoNameColor = localStorage.getItem("logoNameColor") || "lightFont";
+
     if (logoDisplay === "logo") {
         logoImg.style.display = "block";
         logoName.style.display = "none";
@@ -1410,8 +1439,12 @@ document.getElementById("clearHistoryBtn").onclick = () => {
     }
 
     // Logo konumu
-    const logoContainer = document.getElementById("logo").parentElement;
-    logoContainer.style.justifyContent = logoPosition === "left" ? "flex-start" : logoPosition === "right" ? "flex-end" : "center";
+    const logoContainer = document.getElementById("logo");
+    if (logoContainer && logoContainer.parentElement) {
+        logoContainer.parentElement.style.justifyContent =
+            logoPosition === "left" ? "flex-start" :
+            logoPosition === "right" ? "flex-end" : "center";
+    }
 
     // Logo ismi rengi
     logoName.classList.remove("lightFont", "darkFont");
@@ -1511,6 +1544,9 @@ document.getElementById("weatherAPI").addEventListener("change", (e) => {
         loadFavorites();
         bindShortcuts();
         loadCachedBackground();
+        updateRecentBgList();
+        applyBackground(bgUrl);  // Yeni: Direkt localStorage'dan uygula
+        updateRecentBgList();
 
         function fetchSuggestions(query) {
             if (localStorage.getItem("showSuggestions") === "false") return;
@@ -1625,5 +1661,78 @@ document.addEventListener("click", (e) => {
         }
     });
 
+// Sağ tık favori menüsü fonksiyonu EKLENDİ
+function showFavoriteContextMenu(e, index, fav) {
+    const menu = document.getElementById("favoriteContextMenu");
+    menu.style.display = "block";
+    menu.style.left = `${e.pageX}px`;
+    menu.style.top = `${e.pageY}px`;
+    menu.setAttribute("data-index", index);
+
+    // Favori öğesini vurgula (isteğe bağlı)
+    document.querySelectorAll(".favorite-item").forEach(item => item.classList.remove("context-active"));
+    const favItems = document.querySelectorAll(".favorite-item");
+    if (favItems[index]) favItems[index].classList.add("context-active");
+}
+
+// Sağ tık menüsünü dışarı tıklayınca kapat
+document.addEventListener("click", (e) => {
+    const menu = document.getElementById("favoriteContextMenu");
+    if (!e.target.closest("#favoriteContextMenu")) {
+        menu.style.display = "none";
+        document.querySelectorAll(".favorite-item").forEach(item => item.classList.remove("context-active"));
+    }
+});
+
+// Sağ tık menüsü tıklama olayları
+document.getElementById("favoriteContextMenu").addEventListener("click", function(e) {
+    const action = e.target.getAttribute("data-action");
+    const index = parseInt(this.getAttribute("data-index"));
+    let favs = JSON.parse(localStorage.getItem("userFavorites") || "[]");
+    if (isNaN(index) || index < 0 || index >= favs.length) return;
+
+    if (action === "remove") {
+        favs.splice(index, 1);
+        localStorage.setItem("userFavorites", JSON.stringify(favs));
+        document.getElementById("favoriteContextMenu").style.display = "none";
+        document.querySelectorAll(".favorite-item").forEach(item => item.classList.remove("context-active"));
+        if (typeof loadFavorites === "function") loadFavorites();
+    } else if (action === "moveRight") {
+        if (index < favs.length - 1) {
+            const temp = favs[index];
+            favs[index] = favs[index + 1];
+            favs[index + 1] = temp;
+            localStorage.setItem("userFavorites", JSON.stringify(favs));
+            if (typeof loadFavorites === "function") loadFavorites();
+        }
+        document.getElementById("favoriteContextMenu").style.display = "none";
+        document.querySelectorAll(".favorite-item").forEach(item => item.classList.remove("context-active"));
+    } else if (action === "moveLeft") {
+        if (index > 0) {
+            const temp = favs[index];
+            favs[index] = favs[index - 1];
+            favs[index - 1] = temp;
+            localStorage.setItem("userFavorites", JSON.stringify(favs));
+            if (typeof loadFavorites === "function") loadFavorites();
+        }
+        document.getElementById("favoriteContextMenu").style.display = "none";
+        document.querySelectorAll(".favorite-item").forEach(item => item.classList.remove("context-active"));
+    } else if (action === "open") {
+        window.open(favs[index].url, "_blank");
+        document.getElementById("favoriteContextMenu").style.display = "none";
+        document.querySelectorAll(".favorite-item").forEach(item => item.classList.remove("context-active"));
+    } else if (action === "renameFav") {
+        // Yeniden adlandır fonksiyonu
+        const fav = favs[index];
+        const newName = prompt("Yeni favori adı:", fav.name);
+        if (newName && newName.trim()) {
+            favs[index].name = newName.trim();
+            localStorage.setItem("userFavorites", JSON.stringify(favs));
+            if (typeof loadFavorites === "function") loadFavorites();
+        }
+        document.getElementById("favoriteContextMenu").style.display = "none";
+        document.querySelectorAll(".favorite-item").forEach(item => item.classList.remove("context-active"));
+    }
+});
 </script>
 
