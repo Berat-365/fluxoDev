@@ -1,19 +1,43 @@
 # 📑 Changelog
 
 Bu dosya projede yapılan tüm önemli değişiklikleri takip eder.  
-Format: [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)  
-Sürüm numaraları: [Semantic Versioning](https://semver.org/).
+Sürüm numaraları: Fluxo 4 (Part 1'den Part 10'a)
 
 ---
 
 ## [Unreleased]
 - Ayarlardaki işlevsiz sistemlere işlev kazandırılacak
-- Favoriler için klasörler ve sağ tık menüsü
 - Yeni **Araçlar** eklenecek (Saat, Borsa araçları...)
 - Telefonlar için yeni arayüz
 - Css güncellemesi (Vanilla)
 - Hesaplar için **Google** desteği
 - Hesaplar için yenilikler
+- 5 Günlük hava durumu tahmini
+
+---
+
+## [Fluxo 4 Part 10] - 2025-09-17
+### Eklendi (Added)
+- Tüm diller güncellendi ve optimize edildi
+- Gagavuzca yeniden eklendi
+- Logomuzu yeniledik artık daha keskin ve ince
+- Favoriler için sağ tık menüsü eklendi
+- Görünüm güncellemeleri ve hata giderme
+- Varsayılan vurgu rengi değiştirildi #6F958D
+- Arama önerilerindeki alt scrollbar kaldırıldı (Bir hataydı)
+- Ayarlara yeni seçenekler eklendi (Bazı seçenekler işlevsiz)
+- Script Optimize edildi
+
+### Düzenlendi (Fixed)
+- Hesap ikonunun hatalı pozisyonu düzeltildi
+- Duvar kağıtlarının yeniden başlatma sırasında kaybolması hatası giderildi
+- Duvar kağıtlarının kayıt edilmeme hatası giderildi
+- Aydınlık temada favorilerin hatalı görünümü giderildi
+- Hover animasyonları sırasında titreme sorunu giderildi
+
+### Test Edilen Sistemler (Tested systems)
+- Favori klasörleme sistemi test edildi --Sonuç > İşlevsiz kullanım nedeniyle erteleme
+- MultiSearch --Sonuç > Sistemi test ediyorum
 
 ---
 
