@@ -115,30 +115,29 @@ export function extractYouTubeId(url) {
     return match ? match[1] : null;
 }
 
-export function loadCachedBackground(url) {
+export async function loadCachedBackground(url) {
     const videoElement = document.getElementById('backgroundVideo');
     const youTubeElement = document.getElementById('backgroundYouTube');
     const isVideo = /\.(mp4|webm|ogg)$/i.test(url);
     const isYouTube = /youtube\.com|youtu\.be/i.test(url);
+    const isImage = /\.(jpg|jpeg|png|webp|gif)$/i.test(url);
 
-    if (isYouTube) {
+if (isYouTube) {
         videoElement.style.display = 'none';
-        videoElement.pause && videoElement.pause();
+        if (videoElement.pause) videoElement.pause();
         videoElement.querySelector('source').src = '';
-        videoElement.load && videoElement.load();
+        if (videoElement.load) videoElement.load();
 
         const cached = localStorage.getItem(`bgCache_${url}`);
         const videoId = extractYouTubeId(cached || url);
         if (videoId) {
-            youTubeElement.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1&loop=1&playlist=${videoId}&controls=0&showinfo=0&autohide=1&playsinline=1&rel=0&iv_load_policy=3&vq=hd720`;
+            youTubeElement.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1&loop=1&playlist=${videoId}&controls=0&showinfo=0&autohide=1&playsinline=1&rel=0&iv_load_policy=3&vq=hd720&enablejsapi=1`;  // Ek: enablejsapi=1
             youTubeElement.style.display = 'block';
             document.body.style.backgroundImage = 'none';
-            // Dinamik ölçeklendirme
             const aspectRatio = window.innerWidth / window.innerHeight;
             youTubeElement.style.transform = aspectRatio < 1.6 ? 'scale(1.15)' : 'scale(1.1)';
             cacheBackgroundImage(url);
 
-            // YouTube yükleme hatası için kontrol
             youTubeElement.onerror = () => {
                 console.error("YouTube iframe yüklenemedi:", url);
                 alert("YouTube videosu yüklenemedi. Reklam engelleyicinizi kapatmayı veya başka bir video URL'si denemeyi deneyin.");
@@ -153,26 +152,46 @@ export function loadCachedBackground(url) {
             youTubeElement.src = '';
             document.body.style.backgroundImage = 'none';
         }
-    } else if (isVideo) {
+    } else if (isVideo || isImage) {
         youTubeElement.style.display = 'none';
         youTubeElement.src = '';
 
-        const cached = localStorage.getItem(`bgCache_${url}`);
-        if (cached) {
-            videoElement.querySelector('source').src = cached;
-        } else {
-            videoElement.querySelector('source').src = url;
-            cacheBackgroundImage(url);
+        let cached = localStorage.getItem(`bgCache_${url}`);
+        if (!cached) {
+            try {
+                const response = await fetch(url);  // Await fetch ekle
+                if (!response.ok) throw new Error("Failed to fetch");
+                const blob = await response.blob();
+                cached = await new Promise((resolve) => {
+                    const reader = new FileReader();
+                    reader.onloadend = () => resolve(reader.result);
+                    reader.readAsDataURL(blob);
+                });
+                localStorage.setItem(`bgCache_${url}`, cached);  // Cache data: URL
+            } catch (e) {
+                console.error("Arka plan yükleme hatası:", e);
+                return;
+            }
         }
-        videoElement.style.display = 'block';
-        videoElement.load();
-        videoElement.play && videoElement.play();
-        document.body.style.backgroundImage = 'none';
+
+        if (isVideo) {
+            videoElement.querySelector('source').src = cached;
+            videoElement.style.display = 'block';
+            videoElement.load();
+            if (videoElement.play) videoElement.play();
+            document.body.style.backgroundImage = 'none';
+        } else {
+            videoElement.style.display = 'none';
+            if (videoElement.pause) videoElement.pause();
+            videoElement.querySelector('source').src = '';
+            if (videoElement.load) videoElement.load();
+            document.body.style.backgroundImage = `url('${cached}')`;
+        }
     } else {
         videoElement.style.display = 'none';
-        videoElement.pause && videoElement.pause();
+        if (videoElement.pause) videoElement.pause();
         videoElement.querySelector('source').src = '';
-        videoElement.load && videoElement.load();
+        if (videoElement.load) videoElement.load();
         youTubeElement.style.display = 'none';
         youTubeElement.src = '';
 
@@ -301,12 +320,12 @@ export function applySettings(loadCachedBackground, updateLanguage, loadFavorite
     document.body.classList.add(theme);
     const logoImg = document.getElementById("logoImg");
     const logoName = document.getElementById("logoName");
-    const searchIcon = document.getElementById("searchIcon");
+    const multiSearchIcon = document.getElementById("multiSearchIcon");
     const voiceIcon = document.getElementById("voiceIcon");
     const accountIcon = document.getElementById("accountIcon");
     const menuIcon = document.getElementById("menuIcon");
     logoImg.src = theme === "light" ? "ico/logo-dark.png" : "ico/logo.png";
-    searchIcon.src = theme === "light" ? "ico/search-dark.png" : "ico/search.png";
+    multiSearchIcon.src = theme === "light" ? "ico/multisearch.png" : "ico/multisearch.png";
     voiceIcon.src = theme === "light" ? "ico/mic-dark.png" : "ico/mic.png";
     menuIcon.src = theme === "light" ? "ico/menu-dark.png" : "ico/menu.png";
     accountIcon.src = theme === "light" ? "ico/account-dark.png" : "ico/account.png";
