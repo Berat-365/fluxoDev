@@ -67,6 +67,7 @@ body.light .logo .logo-name {
     color: #e8eaed;
     padding: 12px 16px;
     border-radius: 20px;
+    border: 1px solid transparent;
     font-size: 14px;
     font-family: var(--site-font);
     max-width: 250px;
@@ -146,7 +147,7 @@ body.light #voiceTranscript {
     color: white;
     background-color: #202124;
     padding: 0.5rem 2rem;
-    border: none;
+    border: 1px solid transparent;
     border-radius: 30px;
     cursor: pointer;
     font-size: 0.875rem;
@@ -176,10 +177,10 @@ body.light #voiceSearchModal .accent:hover {
     color: red;
 }
 .accent {
-    background-color: #00bcd4;
+    background-color: #4CAF99;
     color: white;
     padding: 8px 16px;
-    border: none;
+    border: 1px solid transparent;
     border-radius: 5px;
     cursor: pointer;
 }
@@ -293,7 +294,7 @@ body.light .search-bar input:focus {
 .buttons button {
     background-color: #303134;
     color: #e8eaed;
-    border: none;
+    border: 1px solid transparent;
     padding: 10px 20px;
     border-radius: 50px;
     font-size: 14px;
@@ -348,22 +349,14 @@ body.light .buttons button:hover {
 .favorite-item:hover a, #addFavoriteBtn:hover {
     color: #ffffff !important;
 }
+/* Fix: In light mode, keep favorite name black on hover */
+body.light .favorite-item:hover a,
+body.light #addFavoriteBtn:hover {
+    color: #000 !important;
+}
 .favorite-item:active, #addFavoriteBtn:active {
     transform: scale(0.96);
     filter: brightness(0.95);
-}
-.favorite-item .remove-btn {
-    position: absolute;
-    top: 5px;
-    right: 5px;
-    width: 18px;
-    height: 18px;
-    background: rgba(245, 40, 145, 0);
-    border: none;
-    border-radius: 50%;
-    cursor: pointer;
-    transition: background 0.2s, transform 0.2s;
-    z-index: 10;
 }
 .favorite-item:hover span {
     opacity: 1;
@@ -510,26 +503,28 @@ body.light #menuButton {
     box-shadow: 0 2px 8px rgba(0,0,0,0.25);
 }
 body.light #accountButton {
-    background: #fff;
+    background: #f1f3f4;
     color: #000;
 }
 body.light #accountButton:hover {
     background: #e0e0e0;
     color: #000;
 }
+#accountModal
 #accountButton img {
     width: 20px;
     height: 20px;
-    vertical-align: middle;
+    display: block;
+    margin: auto;
 }
 #menuPanel {
     display: none;
     position: fixed;
+    padding: 0 20px 20px 20px;
     top: 85px;
     right: 20px;
     background-color: #303134;
     color: white;
-    padding: 20px;
     border-radius: 20px;
     width: 350px;
     text-align: left;
@@ -569,14 +564,26 @@ body.light #menuPanel::-webkit-scrollbar-thumb:hover {
     background: #b0b0b0;
 }
 .tab-menu {
+    position: sticky;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100%; /* Tam genişlik, taşma yok */
+    margin-left: 0;
+    margin-right: 0;
     display: flex;
-    gap: 20px; /* Butonlar arasındaki boşluğu artırdık (10px -> 20px) */
-    margin-bottom: 20px; /* Çizgi ile içerik arasındaki boşluğu artırdık */
-    padding-bottom: 10px; /* Çizginin butonlardan uzaklaşması için alt dolguyu ekledik */
-    border-bottom: 2px solid #444; /* Mevcut çizgi */
+    justify-content: center; 
+    align-items: center;
+    background-color: #303134;
+    z-index: 99999;
+    gap: 20px;
+    padding: 15px 0;
+    box-sizing: border-box;
+    border-bottom: 2px solid #444;
 }
 body.light .tab-menu {
     border-bottom: 2px solid #ccc; /* Açık tema için çizgi rengi */
+    background-color: #f1f3f4;
 }
 
 .tab-button {
@@ -600,7 +607,7 @@ body.light .tab-menu {
 .tab-button.active::after {
     content: '';
     position: absolute;
-    bottom: -12px; /* Çizgiyi butondan uzaklaştırmak için (border-bottom ile çakışmaması için) */
+    bottom: -15px; /* Çizgiyi butondan uzaklaştırmak için (border-bottom ile çakışmaması için) */
     left: 0;
     width: 100%;
     height: 2px;
@@ -777,7 +784,7 @@ body.light #recentBgList .bg-preview:hover {
     max-height: 60vh;
     overflow-y: auto;
     scrollbar-width: thin;
-    scrollbar-color: #5c5e60 #303134;
+    scrollbar-color: #5c5e60 #ffffff00;
 }
 #historyList::-webkit-scrollbar {
     width: 8px;
@@ -832,14 +839,17 @@ body.light #historyList .history-item:hover {
     list-style: none;
     padding: 8px 0;
     margin: 0;
-    border-radius: 12px;
+    border-radius: 15px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    overflow-x: hidden;
     display: none;
     max-height: 200px;
     overflow-y: auto;
     z-index: 1003;
     opacity: 0;
     transition: opacity 0.3s ease;
+    scrollbar-color: #ffffff41 #ffffff00;
+    scrollbar-width: thin;
 }
 #suggestions[style*="block"] {
     opacity: 1;
@@ -898,6 +908,7 @@ body.light #suggestions::-webkit-scrollbar-thumb:hover {
     transform: translate(-50%, -50%);
     background-color: #303134;
     padding: 20px;
+    border: 1px solid transparent;
     border-radius: 20px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
     z-index: 10000;
@@ -927,15 +938,16 @@ body.light #addFavoriteModal button {
     padding: 10px;
     margin-bottom: 12px;
     border-radius: 20px;
-    border: none;
+    border: 1px solid transparent;
     background-color: #202124;
     color: white;
 }
 #addFavoriteModal button {
     padding: 10px 20px;
-    border: none;
+    border: 1px solid transparent;
     border-radius: 30px;
     background-color: #202124;
+    margin-top: 2%;
     color: #ffffff;
     font-weight: bold;
     cursor: pointer;
@@ -1152,6 +1164,13 @@ body.light .error-message {
         top: 60px;
     }
 }
+@media (max-width: 600px) {
+    .tab-menu {
+        padding: 10px 0;
+        gap: 10px;
+        width: 100%;
+    }
+}
 #backgroundVideo {
     position: fixed;
     top: 0;
@@ -1316,7 +1335,7 @@ div#voiceTranscript.transcript:focus {
     color: white;                       /* Yazılar beyaz */
     padding: 10px;                      /* İç boşluk genişletildi */
     border-radius: 13px;                /* Daha yuvarlak köşeler */
-    width: 270px;                       /* Standart genişlik */
+    width: 300px;                       /* Standart genişlik */
     text-align: left;                   /* Yazılar sola hizalı */
     z-index: 1005;                      /* Üste çıksın */
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3); /* Derin gölge */
@@ -1447,7 +1466,7 @@ body.light #feedbackForm label {
     width: 100%;
     padding: 10px;
     border-radius: 10px;
-    border: none;
+    border: 1px solid transparent;
     background-color: #202124;
     color: #e8eaed;
     font-size: 14px;
@@ -1544,4 +1563,23 @@ body.light #resetBrowserBtn {
     background-color: #e0e0e0;
     color: var(--accent-color);
     border: 1px solid var(--accent-color);
+}
+#resetBrowserBtn:active {
+    transform: scale(0.95);
+    filter: brightness(0.9);
+}
+#favoriteContextMenu {
+    display: none;
+    position: absolute;
+    background-color: #303134;
+    color: #e8eaed;
+    border-radius: 20px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    z-index: 10000;
+    min-width: 150px;
+    overflow: hidden;
+}
+body.light #favoriteContextMenu {
+    background-color: #f1f3f4;
+    color: #000;
 }
