@@ -11,6 +11,9 @@ Dev Beta için: [Fluxo](https://berat-365.github.io/fluxoDev/)
 ## ⚠️ Önemli Uyarı
 Dev sürümü ile ana sürüm birbirine bağlı verileri silmeyiniz!
 
+## ⚠️ Önemli Uyarı
+Bu sürüm birden fazla hata içeriyor kullanmadan önce bunu dikkate almanız önerilir!
+
 ---
 
 ## 🔧 Geliştirme Ortamı
