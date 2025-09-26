@@ -7,14 +7,14 @@
     <link rel="icon" type="image/icon" href="ico/favicon.ico">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Open+Sans:wght@400;700&family=Lato:wght@400;700&family=Montserrat:wght@400;700&family=Inter:wght@400;700&family=Lavishly+Yours&family=Rouge+Script&family=Fascinate&family=Qahiri&family=Roboto+Mono:wght@400;700&family=Fira+Sans:wght@400;700&family=Meow+Script&family=Source+Code+Pro:wght@400;700&family=JetBrains+Mono:wght@400;700&family=Poppins:wght@400;700&family=Raleway:wght@400;700&family=Ubuntu:wght@400;700&family=Merriweather:wght@400;700&family=Dancing+Script:wght@400;700&family=Pacifico&family=Satisfy&family=Zilla+Slab:wght@400;700&family=Spectral:wght@400;700&family=Noto+Sans:wght@400;700&family=Noto+Serif:wght@400;700&family=Playfair+Display:wght@400;700&family=Alegreya:wght@400;700&family=Alegreya+Sans:wght@400;700&family=Source+Sans+Pro:wght@400;700&family=Source+Serif+Pro:wght@400;700&family=Fraunces:wght@400;700&family=Inknut+Antiqua:wght@400;700&family=BioRhyme:wght@400;700&family=Karla:wght@400;700&family=Lora:wght@400;700&family=Work+Sans:wght@400;700&family=Rubik:wght@400;700&family=Space+Mono:wght@400;700&family=IBM+Plex+Sans:wght@400;700&family=IBM+Plex+Serif:wght@400;700&family=IBM+Plex+Mono:wght@400;700&family=Crimson+Text:wght@400;700&family=Arvo:wght@400;700&family=Nunito:wght@400;700&family=Cardo:wght@400;700&family=EB+Garamond:wght@400;700&family=Oswald:wght@400;700&family=Bitter:wght@400;700&family=Libre+Baskerville:wght@400;700&family=Tangerine:wght@400;700&family=Bad+Script&family=Sacramento&family=Archivo+Narrow:wght@400;700&family=Domine:wght@400;700&family=Josefin+Sans:wght@400;700&family=Vollkorn:wght@400;700&family=PT+Sans:wght@400;700&family=PT+Serif:wght@400;700&family=Cabin:wght@400;700&family=Overpass:wght@400;700&family=Quicksand:wght@400;700&family=Heebo:wght@400;700&family=Fjalla+One&family=Catamaran:wght@400;700&family=Mukta:wght@400;700&family=Barlow:wght@400;700&family=Signika:wght@400;700&family=Cormorant:wght@400;700&family=Space+Grotesk:wght@400;700&family=Syne:wght@400;700&family=Bebas+Neue&family=Anton&family=Chivo:wght@400;700&family=Manrope:wght@400;700&family=Red+Hat+Display:wght@400;700&family=Exo+2:wght@400;700&family=Comfortaa:wght@400;700&family=Mulish:wght@400;700&family=Asap:wght@400;700&family=Kumbh+Sans:wght@400;700&family=Lexend:wght@400;700&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
-    <script type="text/javascript">
-        (function(){
-            emailjs.init({
+    <link id="themeStylesheet" rel="stylesheet" href="./styles/vanilla.css">
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+        <script type="text/javascript">
+            (function(){
+                emailjs.init({
                 publicKey: "aq-zHpAOGx4vIhf5o",
             });
-        })();
+            })();
     </script>
     <script src="/system/feedbackScript.js"></script>
     <style>         
@@ -165,12 +165,8 @@
         <label for="systemthemeSelect" data-lang-key="systemtheme">Sistem Teması:</label>
         <select id="systemThemeSelect">
             <option value="vanilla" data-lang-key="vanilla">Vanilla (Varsayılan)</option>
-            <option value="flatvanilla" data-lang-key="flatvanilla">Flat Vanilla (Eski)</option>
-            <option value="frostedglass" data-lang-key="frostedglass">Frosted Glass</option>
-            <option value="dreamland" data-lang-key="dreamland">Dreamland</option>
-            <option value="googlematerial" data-lang-key="googlematerial">Google Material</option>
+            <option value="neomorph" data-lang-key="neomorph">Neomorph</option>
             <option value="transparent" data-lang-key="transparent">Transparent</option>
-            <option value="sharp" data-lang-key="sharp">SharpBox</option>
         </select>
         <label for="accentColor" data-lang-key="accentColor">Vurgu Rengi:</label>
         <div id="colorPalette" class="flex flex-wrap gap-2 mt-2">
@@ -249,7 +245,6 @@
             <option value="brave">Brave</option>
             <option value="yandex">Yandex</option>
             <option value="yahoo">Yahoo</option>
-            <option value="wikipedia">Wikipedia</option>
         </select>
         <div id="searchEnginePreview" style="margin-top: 10px; text-align: center;">
             <img src="" alt="Arama Motoru Önizlemesi" style="max-height: 40px; display: none;" id="engineLogo">
@@ -258,8 +253,6 @@
         <select id="linkBehavior">
             <option value="newTab" data-lang-key="newTab">Yeni Sekmede Aç</option>
             <option value="closeCurrent" data-lang-key="closeCurrent">Bu Sayfayı Kapat</option>
-            <option value="newbrowser" data-lang-key="newbrowser">Yeni Tarayıcıda Aç</option>
-            <option value="sideTab" data-lang-key="sideTab">Yan Sekmede Aç</option>
         </select>
 
         <h3 data-lang-key="viewparts">Görünüm</h3>
@@ -743,7 +736,7 @@ function removeBackground(index) {
                 url = `https://chat.openai.com/?q=${encodeURIComponent(q)}`;
             } else if (aiProvider === "claude") {
                 url = `https://claude.anthropic.com/?q=${encodeURIComponent(q)}`;
-            } else if (aiProvider === "Copilot") {
+            } else if (aiProvider === "copilot") {
                 url = `https://copilot.microsoft.com/search?q=${encodeURIComponent(q)}`;
             } else if (aiProvider === "perplexity") {
                 url = `https://www.perplexity.ai/search?q=${encodeURIComponent(q)}`;
@@ -809,16 +802,6 @@ function removeBackground(index) {
                 } else {
                      url = `https://search.brave.com/search?q=${encodeURIComponent(q)}`;
                 }
-            } else if (engine === "wikipedia") {
-                if (type === 'images') {
-                    url = `https://images.search.wikipedia.org/search/images?p=${encodeURIComponent(q)}`;
-                } else if (type === 'shopping') {
-                     url = `https://search.wikipedia.org/search?q=${encodeURIComponent(q)}&source=web&show=shop`;
-                } else if (type === 'news') {
-                     url = `https://search.wikipedia.org/news?q=${encodeURIComponent(q)}`;
-                } else {
-                     url = `https://search.wikipedia.org/search?q=${encodeURIComponent(q)}`;
-                }
             } else if (engine === "yahoo") {
                 if (type === 'images') {
                     url = `https://images.search.yahoo.com/search/images?p=${encodeURIComponent(q)}`;
@@ -853,9 +836,6 @@ function removeBackground(index) {
         }
         else if (engine === "yandex") {
             url += (url.includes("?") ? "&" : "?") + "is_safesearch=1";
-        }
-        else if (engine === "wikipedia") {
-            url += (url.includes("?") ? "&" : "?") + "safe=active";
         }
     }
 
@@ -1378,8 +1358,9 @@ document.getElementById("clearHistoryBtn").onclick = () => {
             return;
         }
         const bg = document.getElementById("bgUrlInput").value.trim() || localStorage.getItem("bgUrl") || '';
-        const f = localStorage.getItem("font") || "'Ubuntu', sans-serif";
+        const f = localStorage.getItem("font") || "'Open Sans', sans-serif";
         const t = localStorage.getItem("theme") || "dark";
+        const st = localStorage.getItem("systemTheme") || "vanilla";
         const c = localStorage.getItem("accentColor") || "#4CAF99";
         const l = localStorage.getItem("language") || "tr";
         const se = localStorage.getItem("searchEngine") || "google";
@@ -1503,6 +1484,7 @@ document.getElementById("importFileInput").onchange = (e) => {
     const file = e.target.files[0];
     if (file) importSettings(file);
 };
+document.getElementById("systemThemeSelect").value = st;
 
         
         document.getElementById("searchWebBtn").addEventListener("click", () => search("web"));
