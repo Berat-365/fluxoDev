@@ -158,6 +158,9 @@ const translations = {
     maxFavorites20: "20 (Büyük ekranlar için önerilir)",
     active: "Aktif",
     deactive: "Deaktif",
+    systemTheme: "Sistem Teması:",
+    neomorph: "Neomorfizm",
+    transparent: "Şəffaf",
   },
   az: {
     bgUrl: "Arxa Plan URL:",
