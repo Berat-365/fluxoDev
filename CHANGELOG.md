@@ -16,6 +16,25 @@ Sürüm numaraları: Fluxo 4 (Part 1'den Part 10'a)
 
 ---
 
+## [Fluxo 4 Part 11] - 2025-09-26
+### Eklendi (Added)
+- Yeni Temalar Eklendi!
+-   Neomorphism
+-   Transparent
+
+### Düzenlendi (Fixed)
+- Bazı işlevsiz ayarlar kaldırıldı
+
+### Bilinen Hatalar (Erors)
+- Vurgu rengi seçiminde sorunlar
+- Firefox tabanlı tarayıcılarda sistem çökmesi
+- Bazı hatalı çeviriler
+- (Failed to load resource: the server responded with a status of 404 ()) hatası
+- Çeviri hataları
+- Hava Durumu çalışmama hatası
+
+---
+
 ## [Fluxo 4 Part 10] - 2025-09-17
 ### Eklendi (Added)
 - Tüm diller güncellendi ve optimize edildi
