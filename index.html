@@ -29,7 +29,7 @@
         <source src="" type="video/mp4">
     </video>
     <iframe id="backgroundYouTube" frameborder="0" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; object-fit: cover; transform: scale(1.1); will-change: transform;" allow="autoplay; encrypted-media"></iframe>
-    <div class="weather-widget" id="weatherWidget" onclick=> ... </div>
+    <div class="weather-widget" id="weatherWidget" onclick="openWeatherWidget()"> ... </div>
     <div class="info-bar" id="infoBar">
         FluxoDev 4 | Vanilla | <span id="languageDisplay"></span>
         <span id="accountInfo" style="margin-left:0px;"></span>
@@ -165,8 +165,9 @@
         <label for="systemthemeSelect" data-lang-key="systemtheme">Sistem Teması:</label>
         <select id="systemThemeSelect">
             <option value="vanilla" data-lang-key="vanilla">Vanilla (Varsayılan)</option>
+            <option value="box" data-lang-key="box">Box</option>
             <option value="neomorph" data-lang-key="neomorph">Neomorph</option>
-            <option value="transparent" data-lang-key="transparent">Transparent</option>
+            <option value="glassmorph" data-lang-key="glassmorph">Glassmorph</option>
         </select>
         <label for="accentColor" data-lang-key="accentColor">Vurgu Rengi:</label>
         <div id="colorPalette" class="flex flex-wrap gap-2 mt-2">
@@ -186,26 +187,6 @@
             <div class="color-option" style="background-color: #450d66;" onclick="selectColor('#7218a7')"></div>
         </div>
         <input type="color" id="accentColor" value="#6F958D">
-        <label for="logoDisplaySelect" data-lang-key="logoDisplay">Logo Görüntüleme:</label>
-        <select id="logoDisplaySelect">
-            <option value="logo" data-lang-key="logoOnly">Sadece Logo</option>
-            <option value="logo-name" data-lang-key="logoAndName">Logo ve İsim</option>
-            <option value="none" data-lang-key="none">Hiçbiri</option>
-        </select>
-        <select name="logoPosition" id="logoPositionSelect">
-            <option value="left" data-lang-key="logoPositionLeft">Sol</option>
-            <option value="center" data-lang-key="logoPositionCenter">Merkez</option>
-            <option value="right" data-lang-key="logoPositionRight">Sağ</option>
-        </select>
-        <select name="logoColorSelect" id="logoColorSelect">
-            <option value="colored" data-lang-key="logoColored">Renkli (Varsayılan)</option>
-            <option value="light" data-lang-key="logoColorLight">Beyaz</option>
-            <option value="dark" data-lang-key="logoColorDark">Koyu</option>
-        </select>
-        <select name="logoNameColor" id="logoNameColorSelect">
-            <option value="lightFont" data-lang-key="lightFont">Beyaz</option>
-            <option value="darkFont" data-lang-key="darkFont">Koyu</option>
-        </select>
 
         <h3 data-lang-key="system">Sistem</h3>
                 <label for="languageSelect" data-lang-key="language">Dil:</label>
@@ -256,6 +237,26 @@
         </select>
 
         <h3 data-lang-key="viewparts">Görünüm</h3>
+            <label for="logoDisplaySelect" data-lang-key="logoDisplay">Logo Görüntüleme:</label>
+        <select id="logoDisplaySelect">
+            <option value="logo" data-lang-key="logoOnly">Sadece Logo</option>
+            <option value="logo-name" data-lang-key="logoAndName">Logo ve İsim</option>
+            <option value="none" data-lang-key="none">Hiçbiri</option>
+        </select>
+        <select name="logoPosition" id="logoPositionSelect">
+            <option value="left" data-lang-key="logoPositionLeft">Sol</option>
+            <option value="center" data-lang-key="logoPositionCenter">Merkez</option>
+            <option value="right" data-lang-key="logoPositionRight">Sağ</option>
+        </select>
+        <select name="logoColorSelect" id="logoColorSelect">
+            <option value="colored" data-lang-key="logoColored">Renkli (Varsayılan)</option>
+            <option value="light" data-lang-key="logoColorLight">Beyaz</option>
+            <option value="dark" data-lang-key="logoColorDark">Koyu</option>
+        </select>
+        <select name="logoNameColor" id="logoNameColorSelect">
+            <option value="lightFont" data-lang-key="lightFont">Beyaz</option>
+            <option value="darkFont" data-lang-key="darkFont">Koyu</option>
+        </select>
         <label for="showInfoBar" data-lang-key="showInfoBar">Bilgi Barını Göster:</label>
         <select id="showInfoBar">
             <option value="true" data-lang-key="yes">Evet</option>
@@ -451,7 +452,6 @@
             <span class="icon-left"><img id="multiSearchIcon" src="ico/multisearch.png" alt="Çoklu Arama"></span>
             <input type="text" id="searchInput" placeholder="Arama yap..." autofocus>
             <span class="icon-right" id="voiceSearchBtn"><img id="voiceIcon" src="ico/mic.png" alt="Sesli Arama"></span>
-
             <ul id="suggestions" role="listbox" aria-label="Arama önerileri"></ul>
         </div>
 <div id="buttons" class="buttons">
@@ -927,7 +927,7 @@ if (!disableSearchHistoryLog) {
     const addBtn = document.createElement("div");
         addBtn.id = "addFavoriteBtn";
         addBtn.className = "favorite-item accent";
-        addBtn.textContent = translations[lang]?.addFavorite || "+ Favori Ekle";
+        addBtn.textContent = translations[lang]?.addFavorite || '+ Favori Ekle';
         addBtn.onclick = () => {
             document.getElementById("addFavoriteModal").style.display = "block";
             document.getElementById("modalName").focus();
@@ -1395,7 +1395,7 @@ document.getElementById("clearHistoryBtn").onclick = () => {
         localStorage.setItem("linkBehavior", "newTab"); // Varsayılan olarak yeni sekmede aç
         localStorage.setItem("aiProvider", "chatgpt"); // Varsayılan olarak ChatGPT
         localStorage.setItem("customAiUrl", ""); // Varsayılan olarak boş
-        localStorage.setItem("showAISearch", "True"); // Varsayılan olarak açık
+        localStorage.setItem('showAISearch', 'true');
         const searchInput = document.getElementById("searchInput");
         const suggestionsBox = document.getElementById("suggestions");  // Düzeltme: suggestionsBox tanımlandı
         let selectedIndex = -1;
@@ -1460,31 +1460,28 @@ document.getElementById("clearHistoryBtn").onclick = () => {
         document.getElementById("showAISearch").value = showAISearch;
         document.getElementById("searchAIBtn").style.display = showAISearch ? "inline-block" : "none";
         document.getElementById("weatherAPI").value = localStorage.getItem("weatherAPI") || "openweathermap";
-        document.getElementById("showAISearch").value = showAISearch;
-       document.getElementById("searchBar").style.display = showSearch === "true" ? "flex" : "none";
-    document.getElementById("favorites").style.display = showFavorites === "true" ? "flex" : "none";
-    document.getElementById("suggestions").style.display = showSuggestions === "true" && document.getElementById("searchInput").value.trim() ? "block" : "none";
-    document.getElementById("weatherWidget").style.display = showWeather === "true" ? "block" : "none";
-    document.getElementById("infoBar").style.display = showInfoBar === "true" ? "flex" : "none";
-    document.getElementById("searchAIBtn").style.display = showAISearch === "true" ? "inline-block" : "none";
-    document.getElementById("accountButton").style.display = showAccountButton === "true" ? "block" : "none";
-    document.getElementById("accountInfo").style.display = showAccountInfoText === "true" && localStorage.getItem("accountUsername") ? "inline" : "none";
-    document.getElementById("showSearch").value = showSearch;
-document.getElementById("showSearchShortcuts").value = showSearchShortcuts;
-document.getElementById("showAISearch").value = showAISearch;
-document.getElementById("showAccountButton").value = showAccountButton;
-document.getElementById("showAccountInfoText").value = showAccountInfoText;
-document.getElementById("logoDisplaySelect").value = logoDisplay;
-document.getElementById("logoPositionSelect").value = logoPosition;
-document.getElementById("logoNameColorSelect").value = logoNameColor;
-document.getElementById("importSettingsBtn").onclick = openImportExportModal;
-document.getElementById("exportSettingsBtn").onclick = exportSettings;
-document.getElementById("importSettingsBtnModal").onclick = () => document.getElementById("importFileInput").click();
-document.getElementById("importFileInput").onchange = (e) => {
-    const file = e.target.files[0];
-    if (file) importSettings(file);
-};
-document.getElementById("systemThemeSelect").value = st;
+        document.getElementById("searchBar").style.display = showSearch === "true" ? "flex" : "none";
+        document.getElementById("favorites").style.display = showFavorites === "true" ? "flex" : "none";
+        document.getElementById("suggestions").style.display = showSuggestions === "true" && document.getElementById("searchInput").value.trim() ? "block" : "none";
+        document.getElementById("weatherWidget").style.display = showWeather === "true" ? "block" : "none";
+        document.getElementById("infoBar").style.display = showInfoBar === "true" ? "flex" : "none";
+        document.getElementById("accountButton").style.display = showAccountButton === "true" ? "block" : "none";
+        document.getElementById("accountInfo").style.display = showAccountInfoText === "true" && localStorage.getItem("accountUsername") ? "inline" : "none";
+        document.getElementById("showSearch").value = showSearch;
+        document.getElementById("showSearchShortcuts").value = showSearchShortcuts;
+        document.getElementById("showAccountButton").value = showAccountButton;
+        document.getElementById("showAccountInfoText").value = showAccountInfoText;
+        document.getElementById("logoDisplaySelect").value = logoDisplay;
+        document.getElementById("logoPositionSelect").value = logoPosition;
+        document.getElementById("logoNameColorSelect").value = logoNameColor;
+        document.getElementById("importSettingsBtn").onclick = openImportExportModal;
+        document.getElementById("exportSettingsBtn").onclick = exportSettings;
+        document.getElementById("importSettingsBtnModal").onclick = () => document.getElementById("importFileInput").click();
+        document.getElementById("importFileInput").onchange = (e) => {
+            const file = e.target.files[0];
+            if (file) importSettings(file);
+        };
+        document.getElementById("systemThemeSelect").value = st;
 
         
         document.getElementById("searchWebBtn").addEventListener("click", () => search("web"));
@@ -1493,10 +1490,10 @@ document.getElementById("systemThemeSelect").value = st;
         document.getElementById("searchNewsBtn").addEventListener("click", () => search("news"));
         document.getElementById("searchAIBtn").addEventListener("click", () => search("ai"));
         document.getElementById("searchBar").style.display = showSearch === "true" ? "flex" : "none";
-document.querySelector(".buttons").style.display = showSearchShortcuts === "true" ? "flex" : "none";
-document.getElementById("searchAIBtn").style.display = showAISearch === "true" ? "inline-block" : "none";
-document.getElementById("accountButton").style.display = showAccountButton === "true" ? "block" : "none";
-document.getElementById("accountInfo").style.display = showAccountInfoText === "true" && localStorage.getItem("accountUsername") ? "inline" : "none";
+        document.querySelector(".buttons").style.display = showSearchShortcuts === "true" ? "flex" : "none";
+        document.getElementById("searchAIBtn").style.display = showAISearch === "true" ? "inline-block" : "none";
+        document.getElementById("accountButton").style.display = showAccountButton === "true" ? "block" : "none";
+        document.getElementById("accountInfo").style.display = showAccountInfoText === "true" && localStorage.getItem("accountUsername") ? "inline" : "none";
 
         document.getElementById("weatherAPI").addEventListener("change", (e) => {
             localStorage.setItem("weatherAPI", e.target.value);
@@ -1504,8 +1501,8 @@ document.getElementById("accountInfo").style.display = showAccountInfoText === "
         });
 
 
-document.getElementById("weatherAPI").addEventListener("change", (e) => {
-     const api = e.target.value;
+            document.getElementById("weatherAPI").addEventListener("change", (e) => {
+                const api = e.target.value;
             document.getElementById("openWeatherMapKeyInput").classList.toggle("active", api === "openweathermap");
             document.getElementById("weatherApiKeyInput").classList.toggle("active", api === "weatherapi");
             document.getElementById("visualCrossingKeyInput").classList.toggle("active", api === "visualcrossing");
@@ -1515,7 +1512,7 @@ document.getElementById("weatherAPI").addEventListener("change", (e) => {
             document.getElementById("openWeatherMapKeyInput").classList.toggle("active", api === "openweathermap");
             document.getElementById("weatherApiKeyInput").classList.toggle("active", api === "weatherapi");
             document.getElementById("visualCrossingKeyInput").classList.toggle("active", api === "visualcrossing");
-});
+        });
 
         fetchWeather();
         startWeatherUpdate();
@@ -1588,7 +1585,7 @@ document.getElementById("weatherAPI").addEventListener("change", (e) => {
             }
         });
 
-searchInput.addEventListener("keydown", (e) => {
+        searchInput.addEventListener("keydown", (e) => {
             const suggestions = suggestionsBox.querySelectorAll("li");
             if (e.key === "ArrowDown") {
                 e.preventDefault();
