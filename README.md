@@ -5,6 +5,11 @@ Fluxo’nun geliştirme deposu.
 Ana proje için: [Fluxo](https://github.com/Berat-365/fluxo)
 Dev Beta için: [Fluxo](https://berat-365.github.io/fluxoDev/)
 
+## Changelog
+
+Tüm değişiklikler için [CHANGELOG.md](CHANGELOG.md) dosyasına bakabilirsiniz.
+
+
 ---
 
 
