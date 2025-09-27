@@ -9,10 +9,36 @@ Sürüm numaraları: Fluxo 4 (Part 1'den Part 10'a)
 - Ayarlardaki işlevsiz sistemlere işlev kazandırılacak
 - Yeni **Araçlar** eklenecek (Saat, Borsa araçları...)
 - Telefonlar için yeni arayüz
-- Css güncellemesi (Vanilla)
 - Hesaplar için **Google** desteği
 - Hesaplar için yenilikler
 - 5 Günlük hava durumu tahmini
+
+---
+
+## [Fluxo 4 Part 12] - 2025-09-27
+### Eklendi (Added)
+- Yeni Tema "Box" Eklendi
+- Vanilla teması güncellendi
+- Yeni favoriler görünümü ve animasyonları eklendi
+- Yeni çeviriler eklendi
+- Ayarlar sayfasındaki düzen yenilendi
+
+### Düzenlendi (Fixed)
+- Hava durumunun çalışmama hatası giderildi
+- Artık Export/İmport sistemi çalışıyor
+- Çeviri hataları giderildi
+- (Failed to load resource: the server responded with a status of 404 ()) hatası giderildi (bazı sistemlerde görünebiliyor lütfen gördüğünüzde bize ulaşın)
+- Değişikliklerin kayıt edilememe hatası giderildi
+
+### Bilinen Hatalar (Erors)
+- Vurgu rengi seçiminde sorunlar
+- Firefox tabanlı tarayıcılarda sistem çökmesi
+- AI butonunu göster ayarındaki hata
+
+### Test Edilen Sistemler (Tested systems)
+- Duvar kağıdını kaldırma > 13 yamasında getirilecek
+- FluxoSecureMax > 13 yamasında devreye alınacak
+- Google Lens eklentisi > 13 yamasında eklenecek
 
 ---
 
