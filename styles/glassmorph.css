@@ -96,11 +96,12 @@ body.light .logo .logo-name {
     background-color: var(--element-color);
     color: var(--text-color);
     padding: 12px 16px;
-    border-radius: 20px;
+    border-radius: 30px;
     border: 1px solid var(--border-highlight);
-    font-size: 14px;
+    font-size: clamp(9px, 3vw, 13px);
     font-family: var(--site-font);
-    max-width: 250px;
+    max-width: 280px;
+    height: 50px;
     z-index: 1001;
     white-space: normal;
     word-wrap: break-word;
@@ -225,7 +226,6 @@ body.light .weather-error {
     color: var(--text-color);
     transition: color 0.3s ease;
 }
-
 #voiceIcon.active,
 .voice-icon.active {
     color: #ff0000;
@@ -455,13 +455,15 @@ body.light .url-sidebar::-webkit-scrollbar-thumb:hover {
 }
 
 .favorites {
-    margin-top: 30px;
+    margin-top: 20px;
     display: flex;
     justify-content: center;
-    gap: 19px;
+    gap: 25px 10px;
     flex-wrap: wrap;
     z-index: 1000;
+    max-width: 550px;
     position: relative;
+    margin: 20px auto 0 auto;
 }
 
 .favorites.hidden {
@@ -469,7 +471,7 @@ body.light .url-sidebar::-webkit-scrollbar-thumb:hover {
 }
 
 .favorite-item {
-    border-radius: 40%;
+    border-radius: 50%;
     width: 60px;
     height: 60px;
     padding: 10px;
@@ -477,7 +479,7 @@ body.light .url-sidebar::-webkit-scrollbar-thumb:hover {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    cursor: move;
+    cursor: grab;
     background-color: var(--element-color);
     border: 1px solid var(--border-highlight);
     box-shadow: var(--shadow);
@@ -515,38 +517,24 @@ body.light .url-sidebar::-webkit-scrollbar-thumb:hover {
     margin-top: 20px;
 }
 
-.favorite-item span {
-    position: absolute;
-    top: 40px;
-    right: 19px;
-    background: transparent;
-    border-radius: 50%;
-    padding: 2px 6px;
-    font-size: 13px;
-    opacity: 0;
-    transition: opacity 0.3s;
-    z-index: 10;
-    cursor: pointer;
-    pointer-events: auto;
-}
-
 .favorite-item:hover span {
     opacity: 1;
 }
 
 .favorite-item a {
     text-decoration: none;
-    display: flex;
+    display: flex;          
     flex-direction: column;
     align-items: center;
+    justify-content: center; 
     font-weight: 600;
     font-size: 12px;
-    color: var(--text-color);
     text-align: center;
-    max-width: 70px;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+    gap: 6px;   
+    color: var(--text-color);
     gap: 10px;
     text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
 }
@@ -564,7 +552,7 @@ body.light .url-sidebar::-webkit-scrollbar-thumb:hover {
 #addFavoriteBtn {
     background-color: var(--element-color);
     color: var(--text-color);
-    border-radius: 40%;
+    border-radius: 50%;
     width: 60px;
     height: 60px;
     font-weight: bold;
@@ -1828,4 +1816,8 @@ body.light #feedbackStatus.success {
     min-width: 150px;
     overflow: hidden;
     text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+#lensIcon {
+  margin-left: 6px; /* mikrofonla arasında boşluk */
+  cursor: pointer;
 }
