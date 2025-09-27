@@ -113,8 +113,8 @@ const translations = {
     noWallpapers: "Henüz hiç duvar kağıdı yok.",
     support: "Destek",
     feedbackMessage: "Şikayet/Geri Bildirim",
-    import: "Aktar",
-    export: "Al",
+    import: "Al",
+    export: "Aktar",
     importExportTitle: "Ayarları Aktarma/Alma",
     importExport: "Aktar/Al",
     myWallpapers: "Duvar Kağıtlarım",
@@ -160,7 +160,9 @@ const translations = {
     deactive: "Deaktif",
     systemTheme: "Sistem Teması:",
     neomorph: "Neomorfizm",
-    transparent: "Şəffaf",
+    glassmorph: "Glassmorfizm",
+    box: "Kutu",
+
   },
   az: {
     bgUrl: "Arxa Plan URL:",
@@ -318,6 +320,10 @@ const translations = {
     maxFavorites20: "20 (Böyük ekranlar üçün tövsiyə olunur)",
     active: "Aktiv",
     deactive: "Deaktiv edin",
+    systemTheme: "Sistem Mövzusu:",
+    neomorph: "Neomorfizm",
+    glassmorph: "Glassmorfizm",
+    box: "Kutu",
   },
   tk: {
     bgUrl: "Arka plan URL-si:",
@@ -473,7 +479,11 @@ const translations = {
     showScienceSearch: "Ylym gözlegi düwmesini görkez",
     maxFavorites20: "20 (Uly ekranlar üçin maslahat berilýär)",
     active: "Aktiw",
-    deactive: "Deaktiw"
+    deactive: "Deaktiw",
+    systemTheme: "Sistema Temasy:",
+    neomorph: "Neomorfizm",
+    glassmorph: "Glassmorfizm",
+    box: "Gut",
   },
   kk: {
     bgUrl: "Фон URL:",
@@ -629,7 +639,11 @@ const translations = {
     showScienceSearch: "Ғылыми іздеу батырмасын көрсету",
     maxFavorites20: "20 (Үлкен экрандар үшін ұсынылады)",
     active: "Белсенді",
-    deactive: "Белсенді емес"
+    deactive: "Белсенді емес",
+    systemTheme: "Жүйө Темасы:",
+    neomorph: "Неоморфизм",
+    glassmorph: "Глассморфизм",
+    box: "Қорап",
   },
   ky: {
     bgUrl: "Фон URL:",
@@ -785,7 +799,11 @@ const translations = {
     showScienceSearch: "Илим издөөнүн баскычын көрсөтүү",
     maxFavorites20: "20 (Чоң экрандар үчүн сунушталат)",
     active: "Активдүү",
-    deactive: "Активдүү эмес"
+    deactive: "Активдүү эмес",
+    systemTheme: "Система Темасы:",
+    neomorph: "Неоморфизм",
+    glassmorph: "Глассморфизм",
+    box: "Куту",
   },
   uz: {
     bgUrl: "Fon URL:",
@@ -945,7 +963,11 @@ const translations = {
     showScienceSearch: "Ilmiy qidiruv tugmasini ko‘rsatish",
     maxFavorites20: "20 (Katta ekranlar uchun tavsiya etiladi)",
     active: "Faol",
-    deactive: "Faol emas"
+    deactive: "Faol emas",
+    systemTheme: "Tizim Temasi:",
+    neomorph: "Neomorfizm",
+    glassmorph: "Glassmorfizm",
+    box: "Quti",
   },
   tt: {
     bgUrl: "Фон URL:",
@@ -1101,7 +1123,11 @@ const translations = {
     showScienceSearch: "Фәнни эзләү төймәсен күрсәтү",
     maxFavorites20: "20 (Зур экраннар өчен тәкъдим ителә)",
     active: "Актив",
-    deactive: "Актив түгел"
+    deactive: "Актив түгел",
+    systemTheme: "Система Темасы:",
+    neomorph: "Неоморфизм",
+    glassmorph: "Глассморфизм",
+    box: "Куты",
   },
   ba: {
     bgUrl: "Фон URL:",
@@ -1257,7 +1283,11 @@ const translations = {
     showScienceSearch: "Фәнни эҙләү төймәһен күрһәтеү",
     maxFavorites20: "20 (Зур экрандар өсөн тәҡдим ителә)",
     active: "Актив",
-    deactive: "Актив түгел"
+    deactive: "Актив түгел",
+    systemTheme: "Система Темасы:",
+    neomorph: "Неоморфизм",
+    glassmorph: "Глассморфизм",
+    box: "Ҡуты",
   },
   ug: {
     bgUrl: "تەگلىك URL:",
@@ -1413,7 +1443,11 @@ const translations = {
     showScienceSearch: "پەن ئىزدەش كۇنۇپكىسىنى كۆرسىتىش",
     maxFavorites20: "20 (چوڭ ئېكرانلارغا تەۋسىيە قىلىنىدۇ)",
     active: "ئاكتىپ",
-    deactive: "ئاكتىپ ئەمەس"
+    deactive: "ئاكتىپ ئەمەس",
+    systemTheme: "سىستېما تېمىسى:",
+    neomorph: "نېئومورفىزىم",
+    glassmorph: "گلاسس مورفىزىم",
+    box: "قۇتۇ",
   },
   sah: {
     bgUrl: "Фон URL:",
@@ -1569,7 +1603,11 @@ const translations = {
     showScienceSearch: "Билими сиэрбэт тугук күрһэт",
     maxFavorites20: "20 (Оҕоло экранна ыйытыыла)",
     active: "Актив",
-    deactive: "Актив эбэ"
+    deactive: "Актив эбэ",
+    systemTheme: "Система Темата:",
+    neomorph: "Неоморфизм",
+    glassmorph: "Глассморфизм",
+    box: "Куту",
   },
   cv: {
     bgUrl: "Фон URL:",
@@ -1725,7 +1763,11 @@ const translations = {
     showScienceSearch: "Фән эзлĕнĕ туймасен юлаҫ",
     maxFavorites20: "20 (Çур экрансеме тавсиә)",
     active: "Актив",
-    deactive: "Актив юк"
+    deactive: "Актив юк",
+    systemTheme: "Система Теми:",
+    neomorph: "Неоморфизм",
+    glassmorph: "Глассморфизм",
+    box: "Пуҫ",
   },
   en: {
     bgUrl: "Background URL:",
@@ -1881,6 +1923,10 @@ const translations = {
     maxFavorites20: "20 (For Big Screens)",
     active: "Active",
     deactive: "Inactive",
+    systemTheme: "System Theme:",
+    neomorph: "Neomorphism",
+    glassmorph: "Glassmorphism",
+    box: "Box",
     
   },
   es: {
@@ -2038,7 +2084,11 @@ const translations = {
     showScienceSearch: "Mostrar Búsqueda Científica",
     maxFavorites20: "20 (Recomendado para pantallas grandes)",
     active: "Activo",
-    deactive: "Inactivo"
+    deactive: "Inactivo",
+    systemTheme: "Tema del Sistema:",
+    neomorph: "Neomorfismo",
+    glassmorph: "Glassmorfismo",
+    box: "Caja",
   },
   jp: {
     bgUrl: "背景URL:",
@@ -2208,7 +2258,11 @@ const translations = {
     showScienceSearch: "科学検索ボタンを表示",
     maxFavorites20: "20（大型画面に推奨）",
     active: "アクティブ",
-    deactive: "非アクティブ"
+    deactive: "非アクティブ",
+    systemTheme: "システムテーマ:",
+    neomorph: "ネオモーフィズム",
+    glassmorph: "グラスモーフィズム",
+    box: "ボックス",
   },
   zh: {
     bgUrl: "背景URL:",
@@ -2367,7 +2421,11 @@ const translations = {
     showScienceSearch: "显示科学搜索按钮",
     maxFavorites20: "20（推荐用于大屏幕）",
     active: "启用",
-    deactive: "禁用"
+    deactive: "禁用",
+    systemTheme: "系统主题:",
+    neomorph: "新拟态",
+    glassmorph: "玻璃拟态",
+    box: "盒子",
   },
   ko: {
     bgUrl: "배경 URL:",
@@ -2524,7 +2582,11 @@ const translations = {
     showScienceSearch: "과학 검색 버튼 표시",
     maxFavorites20: "20 (대형 화면에 권장)",
     active: "활성",
-    deactive: "비활성"
+    deactive: "비활성",
+    systemTheme: "시스템 테마:",
+    neomorph: "네오모피즘",
+    glassmorph: "글라스모피즘",
+    box: "박스",
   },
   de: {
     bgUrl: "Hintergrund-URL:",
@@ -2681,7 +2743,11 @@ const translations = {
     showScienceSearch: "Wissenschaftssuche anzeigen",
     maxFavorites20: "20 (Empfohlen für große Bildschirme)",
     active: "Aktiv",
-    deactive: "Inaktiv"
+    deactive: "Inaktiv",
+    systemTheme: "Systemthema:",
+    neomorph: "Neumorphism",
+    glassmorph: "Glasmorphism",
+    box: "Box",
   },
   fr: {
     bgUrl: "URL de l'arrière-plan:",
@@ -2838,7 +2904,11 @@ const translations = {
     showScienceSearch: "Afficher la recherche scientifique",
     maxFavorites20: "20 (Recommandé pour les grands écrans)",
     active: "Actif",
-    deactive: "Inactif"
+    deactive: "Inactif",
+    systemTheme: "Thème du système:",
+    neomorph: "Néomorphisme",
+    glassmorph: "Verre morphisme",
+    box: "Boîte",
   },
   ar: {
     bgUrl: "رابط الخلفية:",
@@ -2995,7 +3065,11 @@ const translations = {
     showScienceSearch: "إظهار زر البحث العلمي",
     maxFavorites20: "20 (موصى به للشاشات الكبيرة)",
     active: "نشط",
-    deactive: "غير نشط"
+    deactive: "غير نشط",
+    systemTheme: "سمة النظام:",
+    neomorph: "نيو مورفيزم",
+    glassmorph: "جلاس مورفيزم",
+    box: "صندوق",
   },
   ru: {
     bgUrl: "URL фона:",
@@ -3152,7 +3226,11 @@ const translations = {
     showScienceSearch: "Показать кнопку научного поиска",
     maxFavorites20: "20 (Рекомендуется для больших экранов)",
     active: "Активный",
-    deactive: "Неактивный"
+    deactive: "Неактивный",
+    systemTheme: "Системная тема:",
+    neomorph: "Немоморфизм",
+    glassmorph: "Стекломорфизм",
+    box: "Коробка",
   },
 mn: {
   bgUrl: "Арлын зураг URL:",
@@ -3311,7 +3389,11 @@ mn: {
   showScienceSearch: "Шинжлэх ухааны хайлтын товчийг харуулах",
   maxFavorites20: "20 (Том дэлгэцэд зөвлөж байна)",
   active: "Идэвхтэй",
-  deactive: "Идэвхгүй"
+  deactive: "Идэвхгүй",
+  systemTheme: "Системийн сэдэв:",
+  neomorph: "Неоморфизм",
+  glassmorph: "Шилэн морфизм",
+  box: "Хайрцаг",
 },
 he: {
   bgUrl: "כתובת רקע:",
@@ -3470,7 +3552,11 @@ he: {
   showScienceSearch: "הצג כפתור חיפוש מדעי",
   maxFavorites20: "20 (מומלץ למסכים גדולים)",
   active: "פעיל",
-  deactive: "לא פעיל"
+  deactive: "לא פעיל",
+  systemTheme: "ערכת נושא מערכת:",
+  neomorph: "ניומורפיזם",
+  glassmorph: "גלאסמורפיזם",
+  box: "קופסה",
 
 },
 hi: {
@@ -3630,7 +3716,11 @@ hi: {
   showScienceSearch: "वैज्ञानिक खोज बटन दिखाएँ",
   maxFavorites20: "20 (बड़े स्क्रीन के लिए अनुशंसित)",
   active: "सक्रिय",
-  deactive: "निष्क्रिय"
+  deactive: "निष्क्रिय",
+  systemTheme: "सिस्टम थीम:",
+  neomorph: "नियोमॉर्फ़िज़्म",
+  glassmorph: "ग्लासमॉर्फ़िज़्म",
+  box: "बॉक्स",
 },
 el: {
   bgUrl: "Διεύθυνση URL φόντου:",
@@ -3789,7 +3879,11 @@ el: {
   showScienceSearch: "Εμφάνιση κουμπιού επιστημονικής αναζήτησης",
   maxFavorites20: "20 (Συνιστάται για μεγάλες οθόνες)",
   active: "Ενεργό",
-  deactive: "Ανενεργό"
+  deactive: "Ανενεργό",
+  systemTheme: "Θέμα Συστήματος:",
+  neomorph: "Νεομορφισμός",
+  glassmorph: "Γυάλινος μορφισμός",
+  box: "Κουτί",
 },
 it: {
   bgUrl: "URL sfondo:",
@@ -3948,7 +4042,11 @@ it: {
   showScienceSearch: "Mostra ricerca scientifica",
   maxFavorites20: "20 (Consigliato per grandi schermi)",
   active: "Attivo",
-  deactive: "Inattivo"
+  deactive: "Inattivo",
+  systemTheme: "Tema di sistema:",
+  neomorph: "Neomorfismo",
+  glassmorph: "Glassmorfismo",
+  box: "Box",
 },
 gag: {
   bgUrl: "Fon URL:",
@@ -4105,7 +4203,11 @@ gag: {
   showScienceSearch: "Bilimsel Ara Butonunu Göster",
   maxFavorites20: "20 (Büyük ekranlar için önerilir)",
   active: "Aktif",
-  deactive: "Deaktif"
+  deactive: "Deaktif",
+  systemTheme: "Sistem Teması:",
+  neomorph: "Neomorfizm",
+  glassmorph: "Glassmorfizm",
+  box: "Kutu",
 }
 
 };
