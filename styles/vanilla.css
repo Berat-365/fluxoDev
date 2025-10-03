@@ -423,6 +423,9 @@ body.light #addFavoriteBtn:hover {
     will-change: transform, box-shadow;
     margin: 0 8px;
 }
+body.light #addFavoriteBtn {
+    background-color: #f1f3f4;
+}
 #addFavoriteModalBtn.accent {
     margin-right: 10px;
 }
@@ -1581,4 +1584,107 @@ body.light #favoriteContextMenu {
 #lensButton {
   margin-left: 6px; /* mikrofonla arasında boşluk */
   cursor: pointer;
+}
+.multi-search-menu {
+    position: absolute;
+    background-color: #303134;
+    color: #e8eaed;
+    border: 1px solid #444;
+    border-radius: 20px;
+    padding: 8px 0;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    z-index: 10000;
+    min-width: 200px;
+    display: none;
+    font-family: var(--site-font);
+    transition: opacity 0.3s ease, transform 0.18s ease-out;
+    transform: translateY(-10px) scale(0.95);
+}
+
+.multi-search-menu[style*="block"] {
+    display: block;
+    animation: scaleIn 0.18s ease-out forwards;
+}
+
+body.light .multi-search-menu {
+    background-color: #f1f3f4;
+    color: #000;
+    border: 1px solid #ccc;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.multi-search-item {
+    padding: 10px 15px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    color: #e8eaed;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+body.light .multi-search-item {
+    color: #000;
+}
+
+.multi-search-item:hover {
+    background-color: #3c4043;
+    transform: scale(1.02);
+}
+
+body.light .multi-search-item:hover {
+    background-color: #e0e0e0;
+}
+
+.multi-search-item.selected {
+    background-color: #4a4e5200;
+    color: var(--accent-color);
+    font-weight: 600;
+}
+
+body.light .multi-search-item.selected {
+    background-color: #d1d1d100;
+}
+
+.search-icon {
+    width: 16px;
+    height: 16px;
+}
+
+.multi-search-select-all {
+    padding: 10px 15px;
+    cursor: pointer;
+    border-top: 1px solid #44444400;
+    font-weight: 600;
+    color: #e8eaed;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+body.light .multi-search-select-all {
+    border-top: 1px solid #cccccc00;
+    color: #000;
+}
+
+.multi-search-select-all:hover {
+    background-color: #3c4043;
+    border-radius: 15px;
+    color: var(--accent-color);
+}
+
+body.light .multi-search-select-all:hover {
+    background-color: #e0e0e0;
+    border-radius: 15px;    
+    color: var(--accent-color);
+}
+
+@keyframes scaleIn {
+    0% {
+        opacity: 0;
+        transform: translateY(-10px) scale(0.95);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
 }
