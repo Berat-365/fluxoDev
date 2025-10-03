@@ -38,7 +38,15 @@ Sürüm numaraları: Fluxo 4 (Part 1'den Part 13'e)
 - Türkçe harflerin hesap oluşturmada kullanılamaması
 - MultiSearch fonksiyonu açıkken AISearch çalışmama hatası
 - Vanilla harici temalarda görünüm hataları
-
+- Yazı tipleri uygulanmıyor
+- Sistem temaları uygulanmama hatası
+- Aşırı bellek kullanımı
+- Aydınlık temanın çalışmaması
+- Aydınlık temada karanlık obje hatası
+- havadurumu widgetinde hatalı ikon görünümleri
+- Duvar kağıtlarını tamamen kaldırınca gelen hata
+- Firefox tabanlı tarayıcılarda tamamen kullanılmaz durum
+  
 ### Test Edilen Sistemler (deferred systems)
 - Bölünmüş görünümde aç > Yeniden gündeme alınabilir html üzerinde çalışıyorum hataları giderdikten sonra eklenebilir
 - 5 Günlük hava tahmini ve detaylı görünüm > Hava durumu widgeti için sadeleştirmeden sonra eklenmesi planlanıyor
