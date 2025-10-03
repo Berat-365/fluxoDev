@@ -9,12 +9,12 @@
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link id="themeStylesheet" rel="stylesheet" href="./styles/vanilla.css">
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
-        <script type="text/javascript">
-            (function(){
-                emailjs.init({
+    <script type="text/javascript">
+        (function(){
+            emailjs.init({
                 publicKey: "aq-zHpAOGx4vIhf5o",
             });
-            })();
+        })();
     </script>
     <script src="/system/feedbackScript.js"></script>
     <style>         
@@ -35,406 +35,417 @@
         <span id="accountInfo" style="margin-left:0px;"></span>
     </div>
     <div class="url-sidebar" id="urlSidebar"></div>
-<button id="menuButton">
-    <img id="menuIcon" src="ico/menu.png" alt="Menü">
-</button>
-<div id="menuPanel">
-    <div class="tab-menu">
-        <button class="tab-button" data-tab="settings" data-lang-key="settings">Ayarlar</button>
-        <button class="tab-button" data-tab="history" data-lang-key="history">Geçmiş</button>
-        <button class="tab-button" data-tab="support" data-lang-key="support">Destek</button>
-    </div>
-    <div id="settingsContent" class="tab-content active">
-        <button id="applySettingsBtn" class="accent" data-lang-key="apply">Uygula</button>
-        <button id="importSettingsBtn" class="accent" data-lang-key="importExport">Aktar/Al</button>
-        <div id="importExportModal" class="modal">
-    <h3 data-lang-key="importExportTitle">Ayarları Aktar/Al</h3>
-    <button id="exportSettingsBtn" class="accent" data-lang-key="export">Aktar</button>
-    <button id="importSettingsBtnModal" class="accent" data-lang-key="import">Al</button>
-    <input type="file" id="importFileInput" accept=".json" style="display: none;">
-</div>
-        <h3 data-lang-key="personalization">Kişiselleştirme</h3>
-<div class="flex flex-col gap-2 mt-2 mb-2 max-w-md">
-    <button id="wallpapersBtn" class="accent px-3 py-1 rounded mt-2 w-full" data-lang-key="myWallpapers">Duvar Kağıtlarım</button>
-  <input type="text" id="bgUrlInput" placeholder="https://... (jpg, png, mp4, webm, ogg, youtube.com)">
-<input type="file" id="bgFileInput" accept="image/*,video/*">
-<div id="recentBgList" class="hidden"></div>
-</div>
-        <label for="fontSelect" data-lang-key="font">Yazı Tipi:</label>
-        <select id="fontSelect">
-    <option value="'Segoe UI', sans-serif">Segoe UI</option>
-    <option value="'Arial', sans-serif">Arial</option>
-    <option value="'Courier New', monospace">Courier New</option>
-    <option value="'Georgia', serif">Georgia</option>
-    <option value="'Roboto', sans-serif">Roboto</option>
-    <option value="'Open Sans', sans-serif">Open Sans</option>
-    <option value="'Lato', sans-serif">Lato</option>
-    <option value="'Montserrat', sans-serif">Montserrat</option>
-    <option value="'Inter', sans-serif">Inter</option>
-    <option value="'Times New Roman', serif">Times New Roman</option>
-    <option value="'Comic Sans MS', cursive">Comic Sans MS</option>
-    <option value="'Impact', sans-serif">Impact</option>
-    <option value="'Verdana', sans-serif">Verdana</option>
-    <option value="'Trebuchet MS', sans-serif">Trebuchet MS</option>
-    <option value="'Tahoma', sans-serif">Tahoma</option>
-    <option value="'Garamond', serif">Garamond</option>
-    <option value="'Baskerville', serif">Baskerville</option>
-    <option value="'Playfair Display', serif">Playfair Display</option>
-    <option value="'Fira Sans', sans-serif">Fira Sans</option>
-    <option value="'Meow Script', cursive">Meow Script</option>
-    <option value="'Source Code Pro', monospace">Source Code Pro</option>
-    <option value="'Roboto Mono', monospace">Roboto Mono</option>
-    <option value="'Fira Code', monospace">Fira Code</option>
-    <option value="'JetBrains Mono', monospace">JetBrains Mono</option>
-    <option value="'Poppins', sans-serif">Poppins</option>
-    <option value="'Raleway', sans-serif">Raleway</option>
-    <option value="'Ubuntu', sans-serif">Ubuntu</option>
-    <option value="'Merriweather', serif">Merriweather</option>
-    <option value="'Dancing Script', cursive">Dancing Script</option>
-    <option value="'Pacifico', cursive">Pacifico</option>
-    <option value="'Satisfy', cursive">Satisfy</option>
-    <option value="'Zilla Slab', serif">Zilla Slab</option>
-    <option value="'Spectral', serif">Spectral</option>
-    <option value="'Noto Sans', sans-serif">Noto Sans</option>
-    <option value="'Noto Serif', serif">Noto Serif</option>
-    <option value="'Lavishly Yours', cursive">Lavishly Yours</option>
-    <option value="'Rouge Script', cursive">Rouge Script</option>
-    <option value="'Fascinate', cursive">Fascinate</option>
-    <option value="'Qahiri', sans-serif">Qahiri</option>
-    <option value="'Alegreya', serif">Alegreya</option>
-    <option value="'Alegreya Sans', sans-serif">Alegreya Sans</option>
-    <option value="'Source Sans Pro', sans-serif">Source Sans Pro</option>
-    <option value="'Source Serif Pro', serif">Source Serif Pro</option>
-    <option value="'Fraunces', serif">Fraunces</option>
-    <option value="'Inknut Antiqua', serif">Inknut Antiqua</option>
-    <option value="'BioRhyme', serif">BioRhyme</option>
-    <option value="'Karla', sans-serif">Karla</option>
-    <option value="'Lora', serif">Lora</option>
-    <option value="'Work Sans', sans-serif">Work Sans</option>
-    <option value="'Rubik', sans-serif">Rubik</option>
-    <option value="'Space Mono', monospace">Space Mono</option>
-    <option value="'IBM Plex Sans', sans-serif">IBM Plex Sans</option>
-    <option value="'IBM Plex Serif', serif">IBM Plex Serif</option>
-    <option value="'IBM Plex Mono', monospace">IBM Plex Mono</option>
-    <option value="'Crimson Text', serif">Crimson Text</option>
-    <option value="'Arvo', serif">Arvo</option>
-    <option value="'Nunito', sans-serif">Nunito</option>
-    <option value="'Cardo', serif">Cardo</option>
-    <option value="'EB Garamond', serif">EB Garamond</option>
-    <option value="'Oswald', sans-serif">Oswald</option>
-    <option value="'Bitter', serif">Bitter</option>
-    <option value="'Libre Baskerville', serif">Libre Baskerville</option>
-    <option value="'Tangerine', cursive">Tangerine</option>
-    <option value="'Bad Script', cursive">Bad Script</option>
-    <option value="'Sacramento', cursive">Sacramento</option>
-    <option value="'Archivo Narrow', sans-serif">Archivo Narrow</option>
-    <option value="'Domine', serif">Domine</option>
-    <option value="'Josefin Sans', sans-serif">Josefin Sans</option>
-    <option value="'Vollkorn', serif">Vollkorn</option>
-    <option value="'PT Sans', sans-serif">PT Sans</option>
-    <option value="'PT Serif', serif">PT Serif</option>
-    <option value="'Cabin', sans-serif">Cabin</option>
-    <option value="'Overpass', sans-serif">Overpass</option>
-    <option value="'Quicksand', sans-serif">Quicksand</option>
-    <option value="'Heebo', sans-serif">Heebo</option>
-    <option value="'Fjalla One', sans-serif">Fjalla One</option>
-    <option value="'Catamaran', sans-serif">Catamaran</option>
-    <option value="'Mukta', sans-serif">Mukta</option>
-    <option value="'Barlow', sans-serif">Barlow</option>
-    <option value="'Signika', sans-serif">Signika</option>
-    <option value="'Cormorant', serif">Cormorant</option>
-    <option value="'Space Grotesk', sans-serif">Space Grotesk</option>
-    <option value="'Syne', sans-serif">Syne</option>
-    <option value="'Bebas Neue', sans-serif">Bebas Neue</option>
-    <option value="'Anton', sans-serif">Anton</option>
-    <option value="'Chivo', sans-serif">Chivo</option>
-    <option value="'Manrope', sans-serif">Manrope</option>
-    <option value="'Red Hat Display', sans-serif">Red Hat Display</option>
-    <option value="'Exo 2', sans-serif">Exo 2</option>
-    <option value="'Comfortaa', sans-serif">Comfortaa</option>
-    <option value="'Mulish', sans-serif">Mulish</option>
-    <option value="'Asap', sans-serif">Asap</option>
-    <option value="'Kumbh Sans', sans-serif">Kumbh Sans</option>
-    <option value="'Lexend', sans-serif">Lexend</option>
-        </select>
-        <label for="themeSelect" data-lang-key="theme">Renk Teması:</label>
-        <select id="themeSelect">
-            <option value="dark" data-lang-key="dark">Koyu</option>
-            <option value="light" data-lang-key="light">Açık</option>
-        </select>
-        <label for="systemthemeSelect" data-lang-key="systemtheme">Sistem Teması:</label>
-        <select id="systemThemeSelect">
-            <option value="vanilla" data-lang-key="vanilla">Vanilla (Varsayılan)</option>
-            <option value="box" data-lang-key="box">Box</option>
-            <option value="neomorph" data-lang-key="neomorph">Neomorph</option>
-            <option value="glassmorph" data-lang-key="glassmorph">Glassmorph</option>
-        </select>
-        <label for="accentColor" data-lang-key="accentColor">Vurgu Rengi:</label>
-        <div id="colorPalette" class="flex flex-wrap gap-2 mt-2">
-            <div class="color-option" style="background-color: #6F958D;" onclick="selectColor('#6F958D')"></div>
-            <div class="color-option" style="background-color: #4caf99;" onclick="selectColor('#4caf99')"></div>
-            <div class="color-option" style="background-color: #4caf50;" onclick="selectColor('#4caf50')"></div>
-            <div class="color-option" style="background-color: #006405;" onclick="selectColor('#006405')"></div>            
-            <div class="color-option" style="background-color: #006dd4;" onclick="selectColor('#006dd4')"></div>
-            <div class="color-option" style="background-color: #0400d4;" onclick="selectColor('#0400d4')"></div>
-            <div class="color-option" style="background-color: #ffeb3b;" onclick="selectColor('#ffeb3b')"></div>
-            <div class="color-option" style="background-color: #ff5722;" onclick="selectColor('#ff5722')"></div>
-            <div class="color-option" style="background-color: #ff2222;" onclick="selectColor('#ff2222')"></div>
-            <div class="color-option" style="background-color: #582b00;" onclick="selectColor('#582b00')"></div>
-            <div class="color-option" style="background-color: #df10c3;" onclick="selectColor('#df10c3')"></div>
-            <div class="color-option" style="background-color: #8f186b;" onclick="selectColor('#8f186b')"></div>
-            <div class="color-option" style="background-color: #6a1bd1;" onclick="selectColor('#6a1bd1')"></div>
-            <div class="color-option" style="background-color: #450d66;" onclick="selectColor('#7218a7')"></div>
+    <button id="menuButton">
+        <img id="menuIcon" src="assets/menu.png" alt="Menü">
+    </button>
+    <div id="menuPanel">
+        <div class="tab-menu">
+            <button class="tab-button" data-tab="settings" data-lang-key="settings">Ayarlar</button>
+            <button class="tab-button" data-tab="history" data-lang-key="history">Geçmiş</button>
+            <button class="tab-button" data-tab="support" data-lang-key="support">Destek</button>
         </div>
-        <input type="color" id="accentColor" value="#6F958D">
+        <div id="settingsContent" class="tab-content active">
+            <button id="applySettingsBtn" class="accent" data-lang-key="apply">Uygula</button>
+            <button id="importSettingsBtn" class="accent" data-lang-key="importExport">Aktar/Al</button>
+            <div id="importExportModal" class="modal">
+                <h3 data-lang-key="importExportTitle">Ayarları Aktar/Al</h3>
+                <button id="exportSettingsBtn" class="accent" data-lang-key="export">Aktar</button>
+                <button id="importSettingsBtnModal" class="accent" data-lang-key="import">Al</button>
+                <input type="file" id="importFileInput" accept=".json" style="display: none;">
+            </div>
+            <h3 data-lang-key="personalization">Kişiselleştirme</h3>
+            <div class="flex flex-col gap-2 mt-2 mb-2 max-w-md">
+                <button id="wallpapersBtn" class="accent px-3 py-1 rounded mt-2 w-full" data-lang-key="myWallpapers">Duvar Kağıtlarım</button>
+                <input type="text" id="bgUrlInput" placeholder="https://... (jpg, png, mp4, webm, ogg, youtube.com)">
+                <input type="file" id="bgFileInput" accept="image/*,video/*">
+                <div id="recentBgList" class="hidden"></div>
+            </div>
+            <label for="fontSelect" data-lang-key="font">Yazı Tipi:</label>
+            <select id="fontSelect">
+                <option value="'Segoe UI', sans-serif">Segoe UI</option>
+                <option value="'Arial', sans-serif">Arial</option>
+                <option value="'Courier New', monospace">Courier New</option>
+                <option value="'Georgia', serif">Georgia</option>
+                <option value="'Roboto', sans-serif">Roboto</option>
+                <option value="'Open Sans', sans-serif">Open Sans</option>
+                <option value="'Lato', sans-serif">Lato</option>
+                <option value="'Montserrat', sans-serif">Montserrat</option>
+                <option value="'Inter', sans-serif">Inter</option>
+                <option value="'Times New Roman', serif">Times New Roman</option>
+                <option value="'Comic Sans MS', cursive">Comic Sans MS</option>
+                <option value="'Impact', sans-serif">Impact</option>
+                <option value="'Verdana', sans-serif">Verdana</option>
+                <option value="'Trebuchet MS', sans-serif">Trebuchet MS</option>
+                <option value="'Tahoma', sans-serif">Tahoma</option>
+                <option value="'Garamond', serif">Garamond</option>
+                <option value="'Baskerville', serif">Baskerville</option>
+                <option value="'Playfair Display', serif">Playfair Display</option>
+                <option value="'Fira Sans', sans-serif">Fira Sans</option>
+                <option value="'Meow Script', cursive">Meow Script</option>
+                <option value="'Source Code Pro', monospace">Source Code Pro</option>
+                <option value="'Roboto Mono', monospace">Roboto Mono</option>
+                <option value="'Fira Code', monospace">Fira Code</option>
+                <option value="'JetBrains Mono', monospace">JetBrains Mono</option>
+                <option value="'Poppins', sans-serif">Poppins</option>
+                <option value="'Raleway', sans-serif">Raleway</option>
+                <option value="'Ubuntu', sans-serif">Ubuntu</option>
+                <option value="'Merriweather', serif">Merriweather</option>
+                <option value="'Dancing Script', cursive">Dancing Script</option>
+                <option value="'Pacifico', cursive">Pacifico</option>
+                <option value="'Satisfy', cursive">Satisfy</option>
+                <option value="'Zilla Slab', serif">Zilla Slab</option>
+                <option value="'Spectral', serif">Spectral</option>
+                <option value="'Noto Sans', sans-serif">Noto Sans</option>
+                <option value="'Noto Serif', serif">Noto Serif</option>
+                <option value="'Lavishly Yours', cursive">Lavishly Yours</option>
+                <option value="'Rouge Script', cursive">Rouge Script</option>
+                <option value="'Fascinate', cursive">Fascinate</option>
+                <option value="'Qahiri', sans-serif">Qahiri</option>
+                <option value="'Alegreya', serif">Alegreya</option>
+                <option value="'Alegreya Sans', sans-serif">Alegreya Sans</option>
+                <option value="'Source Sans Pro', sans-serif">Source Sans Pro</option>
+                <option value="'Source Serif Pro', serif">Source Serif Pro</option>
+                <option value="'Fraunces', serif">Fraunces</option>
+                <option value="'Inknut Antiqua', serif">Inknut Antiqua</option>
+                <option value="'BioRhyme', serif">BioRhyme</option>
+                <option value="'Karla', sans-serif">Karla</option>
+                <option value="'Lora', serif">Lora</option>
+                <option value="'Work Sans', sans-serif">Work Sans</option>
+                <option value="'Rubik', sans-serif">Rubik</option>
+                <option value="'Space Mono', monospace">Space Mono</option>
+                <option value="'IBM Plex Sans', sans-serif">IBM Plex Sans</option>
+                <option value="'IBM Plex Serif', serif">IBM Plex Serif</option>
+                <option value="'IBM Plex Mono', monospace">IBM Plex Mono</option>
+                <option value="'Crimson Text', serif">Crimson Text</option>
+                <option value="'Arvo', serif">Arvo</option>
+                <option value="'Nunito', sans-serif">Nunito</option>
+                <option value="'Cardo', serif">Cardo</option>
+                <option value="'EB Garamond', serif">EB Garamond</option>
+                <option value="'Oswald', sans-serif">Oswald</option>
+                <option value="'Bitter', serif">Bitter</option>
+                <option value="'Libre Baskerville', serif">Libre Baskerville</option>
+                <option value="'Tangerine', cursive">Tangerine</option>
+                <option value="'Bad Script', cursive">Bad Script</option>
+                <option value="'Sacramento', cursive">Sacramento</option>
+                <option value="'Archivo Narrow', sans-serif">Archivo Narrow</option>
+                <option value="'Domine', serif">Domine</option>
+                <option value="'Josefin Sans', sans-serif">Josefin Sans</option>
+                <option value="'Vollkorn', serif">Vollkorn</option>
+                <option value="'PT Sans', sans-serif">PT Sans</option>
+                <option value="'PT Serif', serif">PT Serif</option>
+                <option value="'Cabin', sans-serif">Cabin</option>
+                <option value="'Overpass', sans-serif">Overpass</option>
+                <option value="'Quicksand', sans-serif">Quicksand</option>
+                <option value="'Heebo', sans-serif">Heebo</option>
+                <option value="'Fjalla One', sans-serif">Fjalla One</option>
+                <option value="'Catamaran', sans-serif">Catamaran</option>
+                <option value="'Mukta', sans-serif">Mukta</option>
+                <option value="'Barlow', sans-serif">Barlow</option>
+                <option value="'Signika', sans-serif">Signika</option>
+                <option value="'Cormorant', serif">Cormorant</option>
+                <option value="'Space Grotesk', sans-serif">Space Grotesk</option>
+                <option value="'Syne', sans-serif">Syne</option>
+                <option value="'Bebas Neue', sans-serif">Bebas Neue</option>
+                <option value="'Anton', sans-serif">Anton</option>
+                <option value="'Chivo', sans-serif">Chivo</option>
+                <option value="'Manrope', sans-serif">Manrope</option>
+                <option value="'Red Hat Display', sans-serif">Red Hat Display</option>
+                <option value="'Exo 2', sans-serif">Exo 2</option>
+                <option value="'Comfortaa', sans-serif">Comfortaa</option>
+                <option value="'Mulish', sans-serif">Mulish</option>
+                <option value="'Asap', sans-serif">Asap</option>
+                <option value="'Kumbh Sans', sans-serif">Kumbh Sans</option>
+                <option value="'Lexend', sans-serif">Lexend</option>
+            </select>
+            <label for="themeSelect" data-lang-key="theme">Renk Teması:</label>
+            <select id="themeSelect">
+                <option value="dark" data-lang-key="dark">Koyu</option>
+                <option value="light" data-lang-key="light">Açık</option>
+            </select>
+            <label for="systemthemeSelect" data-lang-key="systemtheme">Sistem Teması:</label>
+            <select id="systemThemeSelect">
+                <option value="vanilla" data-lang-key="vanilla">Vanilla (Varsayılan)</option>
+                <option value="box" data-lang-key="box">Box</option>
+                <option value="neomorph" data-lang-key="neomorph">Neomorph</option>
+                <option value="glassmorph" data-lang-key="glassmorph">Glassmorph</option>
+            </select>
+            <label for="accentColor" data-lang-key="accentColor">Vurgu Rengi:</label>
+            <div id="colorPalette" class="flex flex-wrap gap-2 mt-2">
+                <div class="color-option" style="background-color: #6F958D;" onclick="selectColor('#6F958D')"></div>
+                <div class="color-option" style="background-color: #4caf99;" onclick="selectColor('#4caf99')"></div>
+                <div class="color-option" style="background-color: #4caf50;" onclick="selectColor('#4caf50')"></div>
+                <div class="color-option" style="background-color: #006405;" onclick="selectColor('#006405')"></div>            
+                <div class="color-option" style="background-color: #006dd4;" onclick="selectColor('#006dd4')"></div>
+                <div class="color-option" style="background-color: #0400d4;" onclick="selectColor('#0400d4')"></div>
+                <div class="color-option" style="background-color: #ffeb3b;" onclick="selectColor('#ffeb3b')"></div>
+                <div class="color-option" style="background-color: #ff5722;" onclick="selectColor('#ff5722')"></div>
+                <div class="color-option" style="background-color: #ff2222;" onclick="selectColor('#ff2222')"></div>
+                <div class="color-option" style="background-color: #582b00;" onclick="selectColor('#582b00')"></div>
+                <div class="color-option" style="background-color: #df10c3;" onclick="selectColor('#df10c3')"></div>
+                <div class="color-option" style="background-color: #8f186b;" onclick="selectColor('#8f186b')"></div>
+                <div class="color-option" style="background-color: #6a1bd1;" onclick="selectColor('#6a1bd1')"></div>
+                <div class="color-option" style="background-color: #450d66;" onclick="selectColor('#7218a7')"></div>
+            </div>
+            <input type="color" id="accentColor" value="#6F958D">
 
-        <h3 data-lang-key="system">Sistem</h3>
-                <label for="languageSelect" data-lang-key="language">Dil:</label>
-        <select id="languageSelect">
-            <option value="tr" data-lang-key="turkish">Türkçe</option>
-            <option value="en" data-lang-key="english">English</option>
-            <option value="es" data-lang-key="spanish">Español</option>
-            <option value="ru" data-lang-key="russian">Русский</option>
-            <option value="jp" data-lang-key="japanese">日本語</option>
-            <option value="zh" data-lang-key="chinese">中文</option>
-            <option value="ko" data-lang-key="korean">한국어</option>
-            <option value="de" data-lang-key="german">Deutsch</option>
-            <option value="fr" data-lang-key="french">Français</option>
-            <option value="it" data-lang-key="italian">Italiano</option>
-            <option value="ar" data-lang-key="arabic">العربية</option>
-            <option value="az" data-lang-key="azerbaijani">Azərbaycan Türkçesi</option>
-            <option value="tk" data-lang-key="turkmen">Türkmençe</option>
-            <option value="gag" data-lang-key="gagauz">Gagavuzca</option>
-            <option value="kk" data-lang-key="kazakh">Қазақша</option>
-            <option value="ky" data-lang-key="kyrgyz">Кыргызча</option>
-            <option value="uz" data-lang-key="uzbek">O'zbekcha</option>
-            <option value="tt" data-lang-key="tatar">Татарча</option>
-            <option value="ba" data-lang-key="bashkir">Башкортса</option>
-            <option value="ug" data-lang-key="uyghur">ئۇيغۇرچە</option>
-            <option value="sah" data-lang-key="yakut">Саха тыла</option>
-            <option value="cv" data-lang-key="chuvash">Чӑваш чӗлхи</option>
-            <option value="mn" data-lang-key="mongolian">Монгол хэл</option>
-            <option value="he" data-lang-key="hebrew">עִברִית</option>
-            <option value="hi" data-lang-key="hindi">हिन्दी</option>
-            <option value="el" data-lang-key="greek">ελληνικά</option>
-        </select>
-                <label for="searchEngineSelect" data-lang-key="searchEngine">Arama Motoru:</label>
-        <select id="searchEngineSelect">
-            <option value="google">Google</option>
-            <option value="bing">Bing</option>
-            <option value="duckduckgo">DuckDuckGo</option>
-            <option value="brave">Brave</option>
-            <option value="yandex">Yandex</option>
-            <option value="yahoo">Yahoo</option>
-        </select>
-        <div id="searchEnginePreview" style="margin-top: 10px; text-align: center;">
-            <img src="" alt="Arama Motoru Önizlemesi" style="max-height: 40px; display: none;" id="engineLogo">
-        </div>
-        <label for="linkBehavior" data-lang-key="linkBehavior">Link Davranışı:</label>
-        <select id="linkBehavior">
-            <option value="newTab" data-lang-key="newTab">Yeni Sekmede Aç</option>
-            <option value="closeCurrent" data-lang-key="closeCurrent">Bu Sayfayı Kapat</option>
-        </select>
+            <h3 data-lang-key="system">Sistem</h3>
+            <label for="languageSelect" data-lang-key="language">Dil:</label>
+            <select id="languageSelect">
+                <option value="tr" data-lang-key="turkish">Türkçe</option>
+                <option value="en" data-lang-key="english">English</option>
+                <option value="es" data-lang-key="spanish">Español</option>
+                <option value="ru" data-lang-key="russian">Русский</option>
+                <option value="jp" data-lang-key="japanese">日本語</option>
+                <option value="zh" data-lang-key="chinese">中文</option>
+                <option value="ko" data-lang-key="korean">한국어</option>
+                <option value="de" data-lang-key="german">Deutsch</option>
+                <option value="fr" data-lang-key="french">Français</option>
+                <option value="it" data-lang-key="italian">Italiano</option>
+                <option value="ar" data-lang-key="arabic">العربية</option>
+                <option value="az" data-lang-key="azerbaijani">Azərbaycan Türkçesi</option>
+                <option value="tk" data-lang-key="turkmen">Türkmençe</option>
+                <option value="gag" data-lang-key="gagauz">Gagavuzca</option>
+                <option value="kk" data-lang-key="kazakh">Қазақша</option>
+                <option value="ky" data-lang-key="kyrgyz">Кыргызча</option>
+                <option value="uz" data-lang-key="uzbek">O'zbekcha</option>
+                <option value="tt" data-lang-key="tatar">Татарча</option>
+                <option value="ba" data-lang-key="bashkir">Башкортса</option>
+                <option value="ug" data-lang-key="uyghur">ئۇيغۇرچە</option>
+                <option value="sah" data-lang-key="yakut">Саха тыла</option>
+                <option value="cv" data-lang-key="chuvash">Чӑваш чӗлхи</option>
+                <option value="mn" data-lang-key="mongolian">Монгол хэл</option>
+                <option value="he" data-lang-key="hebrew">עִברִית</option>
+                <option value="hi" data-lang-key="hindi">हिन्दी</option>
+                <option value="el" data-lang-key="greek">ελληνικά</option>
+            </select>
+            <label for="searchEngineSelect" data-lang-key="searchEngine">Arama Motoru:</label>
+            <select id="searchEngineSelect">
+                <option value="google">Google</option>
+                <option value="bing">Bing</option>
+                <option value="duckduckgo">DuckDuckGo</option>
+                <option value="brave">Brave</option>
+                <option value="yandex">Yandex</option>
+                <option value="yahoo">Yahoo</option>
+            </select>
+            <div id="searchEnginePreview" style="margin-top: 10px; text-align: center;">
+                <img src="" alt="Arama Motoru Önizlemesi" style="max-height: 40px; display: none;" id="engineLogo">
+            </div>
+            <label for="linkBehavior" data-lang-key="linkBehavior">Link Davranışı:</label>
+            <select id="linkBehavior">
+                <option value="newTab" data-lang-key="newTab">Yeni Sekmede Aç</option>
+                <option value="closeCurrent" data-lang-key="closeCurrent">Bu Sayfayı Kapat</option>
+            </select>
+            <label for="multiSearchEnabled" data-lang-key="multiSearchEnabled">Çoklu Arama:</label>
+            <select id="multiSearchEnabled">
+                <option value="true" data-lang-key="yes">Evet</option>
+                <option value="false" data-lang-key="no">Hayır</option>
+            </select>
 
-        <h3 data-lang-key="viewparts">Görünüm</h3>
+            <h3 data-lang-key="viewparts">Görünüm</h3>
             <label for="logoDisplaySelect" data-lang-key="logoDisplay">Logo Görüntüleme:</label>
-        <select id="logoDisplaySelect">
-            <option value="logo" data-lang-key="logoOnly">Sadece Logo</option>
-            <option value="logo-name" data-lang-key="logoAndName">Logo ve İsim</option>
-            <option value="none" data-lang-key="none">Hiçbiri</option>
-        </select>
-        <select name="logoPosition" id="logoPositionSelect">
-            <option value="left" data-lang-key="logoPositionLeft">Sol</option>
-            <option value="center" data-lang-key="logoPositionCenter">Merkez</option>
-            <option value="right" data-lang-key="logoPositionRight">Sağ</option>
-        </select>
-        <select name="logoColorSelect" id="logoColorSelect">
-            <option value="colored" data-lang-key="logoColored">Renkli (Varsayılan)</option>
-            <option value="light" data-lang-key="logoColorLight">Beyaz</option>
-            <option value="dark" data-lang-key="logoColorDark">Koyu</option>
-        </select>
-        <select name="logoNameColor" id="logoNameColorSelect">
-            <option value="lightFont" data-lang-key="lightFont">Beyaz</option>
-            <option value="darkFont" data-lang-key="darkFont">Koyu</option>
-        </select>
-        <label for="showInfoBar" data-lang-key="showInfoBar">Bilgi Barını Göster:</label>
-        <select id="showInfoBar">
-            <option value="true" data-lang-key="yes">Evet</option>
-            <option value="false" data-lang-key="no">Hayır</option>
-        </select>
-                <label for="showWeather" data-lang-key="showWeather">Hava Durumunu Göster:</label>
-        <select id="showWeather">
-            <option value="true" data-lang-key="yes">Evet</option>
-            <option value="false" data-lang-key="no">Hayır</option>
-        </select>
-                <label for="showSuggestions" data-lang-key="showSuggestions">Arama Önerilerini Göster:</label>
-        <select id="showSuggestions">
-            <option value="true" data-lang-key="yes">Evet</option>
-            <option value="false" data-lang-key="no">Hayır</option>
-        </select>
-                <label for="showFavorites" data-lang-key="showFavorites">Favorileri Göster:</label>
-        <select id="showFavorites">
-            <option value="true" data-lang-key="yes">Evet</option>
-            <option value="false" data-lang-key="no">Hayır</option>
-        </select>
-                <label for="maxFavorites" data-lang-key="maxFavorites">Maksimum Favori Sayısı:</label>
-        <select id="maxFavorites">
-            <option value="5" data-lang-key="maxFavorites5">5</option>        
-            <option value="10" data-lang-key="maxFavorites10">10</option>
-            <option value="15" data-lang-key="maxFavorites15">15</option>
-            <option value="20" data-lang-key="maxFavorites20">20 (Büyük ekranlar için önerilir)</option>
-        </select>
-               <label for="showSearch" data-lang-key="showSearch">Arama Barını Göster:</label>
-        <select id="showSearch">
-            <option value="true" data-lang-key="yes">Evet</option>
-            <option value="false" data-lang-key="no">Hayır</option>
-        </select>
-               <label for="showSearchShortcuts" data-lang-key="showSearchShortcuts">Arama Kısayollarını Göster:</label>
-        <select id="showSearchShortcuts">
-            <option value="true" data-lang-key="yes">Evet</option>
-            <option value="false" data-lang-key="no">Hayır</option>
-        </select>
-               <label for="showAISearch" data-lang-key="showAISearch">AI Ara Butonunu Göster:</label>
-        <select id="showAISearch">
-            <option value="true" data-lang-key="yes">Evet</option>
-            <option value="false" data-lang-key="no">Hayır</option>
-        </select>
-               <label for="showScienceSearch" data-lang-key="showScienceSearch">Bilimsel Ara Butonunu Göster:</label>
-        <select id="showScienceSearch">
-            <option value="true" data-lang-key="yes">Evet</option>
-            <option value="false" data-lang-key="no">Hayır</option>
-        </select>
-               <label for="showAccountButton" data-lang-key="showAccountButton">Hesaplar Butonunu Göster:</label>
-        <select id="showAccountButton">
-            <option value="true" data-lang-key="yes">Evet</option>
-            <option value="false" data-lang-key="no">Hayır</option>
-        </select>
-              <label for="showAccountInfoText" data-lang-key="showAccountInfoText">Bilgi Barında Hesap İsmini Göster:</label>
-        <select id="showAccountInfoText">
-            <option value="true" data-lang-key="yes">Evet</option>
-            <option value="false" data-lang-key="no">Hayır</option>
-        </select>
+            <select id="logoDisplaySelect">
+                <option value="logo" data-lang-key="logoOnly">Sadece Logo</option>
+                <option value="logo-name" data-lang-key="logoAndName">Logo ve İsim</option>
+                <option value="none" data-lang-key="none">Hiçbiri</option>
+            </select>
+            <select name="logoPosition" id="logoPositionSelect">
+                <option value="left" data-lang-key="logoPositionLeft">Sol</option>
+                <option value="center" data-lang-key="logoPositionCenter">Merkez</option>
+                <option value="right" data-lang-key="logoPositionRight">Sağ</option>
+            </select>
+            <select name="logoColorSelect" id="logoColorSelect">
+                <option value="colored" data-lang-key="logoColored">Renkli (Varsayılan)</option>
+                <option value="light" data-lang-key="logoColorLight">Beyaz</option>
+                <option value="dark" data-lang-key="logoColorDark">Koyu</option>
+            </select>
+            <select name="logoNameColor" id="logoNameColorSelect">
+                <option value="lightFont" data-lang-key="lightFont">Beyaz</option>
+                <option value="darkFont" data-lang-key="darkFont">Koyu</option>
+            </select>
+            <label for="showInfoBar" data-lang-key="showInfoBar">Bilgi Barını Göster:</label>
+            <select id="showInfoBar">
+                <option value="true" data-lang-key="yes">Evet</option>
+                <option value="false" data-lang-key="no">Hayır</option>
+            </select>
+            <label for="showWeather" data-lang-key="showWeather">Hava Durumunu Göster:</label>
+            <select id="showWeather">
+                <option value="true" data-lang-key="yes">Evet</option>
+                <option value="false" data-lang-key="no">Hayır</option>
+            </select>
+            <label for="showSuggestions" data-lang-key="showSuggestions">Arama Önerilerini Göster:</label>
+            <select id="showSuggestions">
+                <option value="true" data-lang-key="yes">Evet</option>
+                <option value="false" data-lang-key="no">Hayır</option>
+            </select>
+            <label for="showFavorites" data-lang-key="showFavorites">Favorileri Göster:</label>
+            <select id="showFavorites">
+                <option value="true" data-lang-key="yes">Evet</option>
+                <option value="false" data-lang-key="no">Hayır</option>
+            </select>
+            <label for="maxFavorites" data-lang-key="maxFavorites">Maksimum Favori Sayısı:</label>
+            <select id="maxFavorites">
+                <option value="5" data-lang-key="maxFavorites5">5</option>        
+                <option value="10" data-lang-key="maxFavorites10">10</option>
+                <option value="15" data-lang-key="maxFavorites15">15</option>
+                <option value="20" data-lang-key="maxFavorites20">20 (Büyük ekranlar için önerilir)</option>
+                <option value="25" data-lang-key="maxFavorites25">25 (Büyük ekranlar için önerilir)</option>
+                <option value="30" data-lang-key="maxFavorites30">30 (Büyük ekran gerekli)</option>
+            </select>
+            <label for="showSearch" data-lang-key="showSearch">Arama Barını Göster:</label>
+            <select id="showSearch">
+                <option value="true" data-lang-key="yes">Evet</option>
+                <option value="false" data-lang-key="no">Hayır</option>
+            </select>
+            <label for="showSearchShortcuts" data-lang-key="showSearchShortcuts">Arama Kısayollarını Göster:</label>
+            <select id="showSearchShortcuts">
+                <option value="true" data-lang-key="yes">Evet</option>
+                <option value="false" data-lang-key="no">Hayır</option>
+            </select>
+            <label for="showAISearch" data-lang-key="showAISearch">AI Ara Butonunu Göster:</label>
+            <select id="showAISearch">
+                <option value="true" data-lang-key="yes">Evet</option>
+                <option value="false" data-lang-key="no">Hayır</option>
+            </select>
+            <label for="showScienceSearch" data-lang-key="showScienceSearch">Bilimsel Ara Butonunu Göster:</label>
+            <select id="showScienceSearch">
+                <option value="true" data-lang-key="yes">Evet</option>
+                <option value="false" data-lang-key="no">Hayır</option>
+            </select>
+            <label for="showAccountButton" data-lang-key="showAccountButton">Hesaplar Butonunu Göster:</label>
+            <select id="showAccountButton">
+                <option value="true" data-lang-key="yes">Evet</option>
+                <option value="false" data-lang-key="no">Hayır</option>
+            </select>
+            <label for="showAccountInfoText" data-lang-key="showAccountInfoText">Bilgi Barında Hesap İsmini Göster:</label>
+            <select id="showAccountInfoText">
+                <option value="true" data-lang-key="yes">Evet</option>
+                <option value="false" data-lang-key="no">Hayır</option>
+            </select>
 
-        <h3 data-lang-key="aiSettings">Yapay Zeka Ayarları</h3>
-        <label for="aiProviderSelect" data-lang-key="aiProvider">Yapay Zeka Sağlayıcısı:</label>
-        <select id="aiProviderSelect">
-            <option value="grok" data-lang-key="grok">Grok (xAI)</option>
-            <option value="chatgpt" data-lang-key="chatgpt">ChatGPT (OpenAI)</option>
-            <option value="copilot" data-lang-key="copilot">Copilot (Microsoft)</option>
-            <option value="gemini" data-lang-key="gemini">Gemini (Google)</option>      
-            <option value="deepseek" data-lang-key="deepseek">Deepseek</option>                    
-            <option value="perplexity" data-lang-key="perplexity">Perplexity</option>
-            <option value="claude" data-lang-key="claude">Claude (Anthropic)</option>
-            <option value="custom" data-lang-key="custom">Özel</option>
-        </select>
-        <label for="customAiUrl" data-lang-key="customAiUrl">Özel AI Sitesi URL'si (isteğe bağlı):</label>
-        <input type="text" id="customAiUrl" placeholder="https://ai.example.com">
+            <h3 data-lang-key="aiSettings">Yapay Zeka Ayarları</h3>
+            <label for="aiProviderSelect" data-lang-key="aiProvider">Yapay Zeka Sağlayıcısı:</label>
+            <select id="aiProviderSelect">
+                <option value="grok" data-lang-key="grok">Grok (xAI)</option>
+                <option value="chatgpt" data-lang-key="chatgpt">ChatGPT (OpenAI)</option>
+                <option value="copilot" data-lang-key="copilot">Copilot (Microsoft)</option>
+                <option value="gemini" data-lang-key="gemini">Gemini (Google)</option>      
+                <option value="deepseek" data-lang-key="deepseek">Deepseek</option>                    
+                <option value="perplexity" data-lang-key="perplexity">Perplexity</option>
+                <option value="claude" data-lang-key="claude">Claude (Anthropic)</option>
+                <option value="custom" data-lang-key="custom">Özel</option>
+            </select>
+            <label for="customAiUrl" data-lang-key="customAiUrl">Özel AI Sitesi URL'si (isteğe bağlı):</label>
+            <input type="text" id="customAiUrl" placeholder="https://ai.example.com">
 
-        <h3 data-lang-key="securityandprivacy">Güvenlik ve Gizlilik</h3>
-          <label for="safeSearchOptions" data-lang-key="safeSearchOptions">Güvenli Arama:</label>
-        <select id="safeSearchOptions">
-            <option value="safeSearchDisable" data-lang-key="no">Kapalı</option>
-            <option value="safeSearchEnable" data-lang-key="yes">Açık</option>
-        </select>
-        <label for="disableSearchHistoryLog" data-lang-key="disableSearchHistoryLog">Arama Geçmişini Kapat</label>
-        <select id="disableSearchHistoryLogOptions">
-            <option value="disableSearchHistoryLogDisable" data-lang-key="no">Kapalı</option>
-            <option value="disableSearchHistoryLogEnable" data-lang-key="yes">Açık</option>
-        </select>
-        <label for="privateMode" data-lang-key="privateMode">Gizli Mod</label>
-        <select id="privateModeOptions">
-            <option value="privateModeDisable" data-lang-key="no">Kapalı</option>
-            <option value="privateModeEnable" data-lang-key="yes">Açık</option>
-        </select>
-            <label for="fluxoSecureMax" data-lang-key="fluxoSecureMax">Fluxo Secure Max</label>
-        <select id="fluxoSecureMaxOptions">
-            <option value="fluxoSecureMaxDisable" data-lang-key="active">Aktif</option>
-            <option value="fluxoSecureMaxEnable" data-lang-key="deactive">Deaktif</option>
-        </select>
+            <h3 data-lang-key="securityandprivacy">Güvenlik ve Gizlilik</h3>
+            <label for="safeSearchOptions" data-lang-key="safeSearchOptions">Güvenli Arama:</label>
+            <select id="safeSearchOptions">
+                <option value="safeSearchDisable" data-lang-key="no">Kapalı</option>
+                <option value="safeSearchEnable" data-lang-key="yes">Açık</option>
+            </select>
+            <label for="disableSearchHistoryLog" data-lang-key="disableSearchHistoryLog">Arama Geçmişini Kapat</label>
+            <select id="disableSearchHistoryLogOptions">
+                <option value="disableSearchHistoryLogDisable" data-lang-key="no">Kapalı</option>
+                <option value="disableSearchHistoryLogEnable" data-lang-key="yes">Açık</option>
+            </select>
+            <label for="privateMode" data-lang-key="privateMode">Gizli Mod</label>
+            <select id="privateModeOptions">
+                <option value="privateModeDisable" data-lang-key="no">Kapalı</option>
+                <option value="privateModeEnable" data-lang-key="yes">Açık</option>
+            </select>
 
             <h3 data-lang-key="widgetsSet">Araç Ayarları</h3>
-                <div class="mb-4">
-            <label for="weatherAPI" data-lang-key="weatherAPI" class="text-sm mb-1">Hava Durumu API:</label>
-            <select id="weatherAPI" class="border rounded px-2 py-1 text-sm w-full max-w-xs">
-                <option value="openweathermap" data-lang-key="openweathermap">OpenWeatherMap</option>
-                <option value="weatherapi" data-lang-key="weatherapi">WeatherAPI</option>
-                <option value="openmeteo" data-lang-key="openmeteo">Open-Meteo (ücretsiz)</option>
-                <option value="visualcrossing" data-lang-key="visualcrossing">Visual Crossing</option>
-                <option value="wttrin" data-lang-key="wttrin">wttr.in (Varsayılan)</option>
+            <div class="mb-4">
+                <label for="weatherAPI" data-lang-key="weatherAPI" class="text-sm mb-1">Hava Durumu API:</label>
+                <select id="weatherAPI" class="border rounded px-2 py-1 text-sm w-full max-w-xs">
+                    <option value="openweathermap" data-lang-key="openweathermap">OpenWeatherMap</option>
+                    <option value="weatherapi" data-lang-key="weatherapi">WeatherAPI</option>
+                    <option value="openmeteo" data-lang-key="openmeteo">Open-Meteo (ücretsiz)</option>
+                    <option value="visualcrossing" data-lang-key="visualcrossing">Visual Crossing</option>
+                    <option value="wttrin" data-lang-key="wttrin">wttr.in (Varsayılan)</option>
+                </select>
+            </div>
+            <div class="api-key-input" id="openWeatherMapKeyInput">
+                <label for="openWeatherMapApiKey" data-lang-key="openWeatherMapApiKey">OpenWeatherMap API Anahtarı:</label>
+                <input type="text" id="openWeatherMapApiKey" placeholder="OpenWeatherMap anahtarınızı girin" class="border rounded px-2 py-1 text-sm w-full max-w-xs">
+            </div>
+            <div class="api-key-input" id="weatherApiKeyInput">
+                <label for="weatherApiKey" data-lang-key="weatherApiKey">WeatherAPI Anahtarı:</label>
+                <input type="text" id="weatherApiKey" placeholder="WeatherAPI anahtarınızı girin" class="border rounded px-2 py-1 text-sm w-full max-w-xs">
+            </div>
+            <div class="api-key-input" id="visualCrossingKeyInput">
+                <label for="visualCrossingApiKey" data-lang-key="visualCrossingApiKey">Visual Crossing API Anahtarı:</label>
+                <input type="text" id="visualCrossingApiKey" placeholder="Visual Crossing anahtarınızı girin" class="border rounded px-2 py-1 text-sm w-full max-w-xs">
+            </div>
+            <label for="weatherLocation" data-lang-key="weatherLocation">Hava Durumu Konumu:</label>
+            <input type="text" id="weatherLocation" placeholder="Şehir ismi">
+            <label for="weatherUpdateInterval" data-lang-key="weatherUpdateInterval">Hava Durumu Güncelleme Sıklığı:</label>
+            <select id="weatherUpdateInterval">
+                <option value="5" data-lang-key="every5Min">Her 5 Dakika</option>
+                <option value="10" data-lang-key="every10Min">Her 10 Dakika</option>
+                <option value="30" data-lang-key="every30Min">Her 30 Dakika</option>
+                <option value="0" data-lang-key="manual">Manuel</option>
             </select>
-        </div>
-        <div class="api-key-input" id="openWeatherMapKeyInput">
-            <label for="openWeatherMapApiKey" data-lang-key="openWeatherMapApiKey">OpenWeatherMap API Anahtarı:</label>
-            <input type="text" id="openWeatherMapApiKey" placeholder="OpenWeatherMap anahtarınızı girin" class="border rounded px-2 py-1 text-sm w-full max-w-xs">
-        </div>
-        <div class="api-key-input" id="weatherApiKeyInput">
-            <label for="weatherApiKey" data-lang-key="weatherApiKey">WeatherAPI Anahtarı:</label>
-            <input type="text" id="weatherApiKey" placeholder="WeatherAPI anahtarınızı girin" class="border rounded px-2 py-1 text-sm w-full max-w-xs">
-        </div>
-        <div class="api-key-input" id="visualCrossingKeyInput">
-            <label for="visualCrossingApiKey" data-lang-key="visualCrossingApiKey">Visual Crossing API Anahtarı:</label>
-            <input type="text" id="visualCrossingApiKey" placeholder="Visual Crossing anahtarınızı girin" class="border rounded px-2 py-1 text-sm w-full max-w-xs">
-        </div>
-        <label for="weatherLocation" data-lang-key="weatherLocation">Hava Durumu Konumu:</label>
-        <input type="text" id="weatherLocation" placeholder="Şehir ismi">
-        <label for="weatherUpdateInterval" data-lang-key="weatherUpdateInterval">Hava Durumu Güncelleme Sıklığı:</label>
-        <select id="weatherUpdateInterval">
-            <option value="5" data-lang-key="every5Min">Her 5 Dakika</option>
-            <option value="10" data-lang-key="every10Min">Her 10 Dakika</option>
-            <option value="30" data-lang-key="every30Min">Her 30 Dakika</option>
-            <option value="0" data-lang-key="manual">Manuel</option>
-        </select>
 
-        <h3 data-lang-key="shortcuts">Klavye Kısayolları</h3>
-        <label for="searchShortcutInput" data-lang-key="searchShortcut">Arama Çubuğu:</label>
-        <input type="text" id="searchShortcutInput" placeholder="Ör: Ctrl + /" value="Ctrl + /">
-        <label for="favoriteShortcutInput" data-lang-key="favoriteShortcut">Favori Ekle:</label>
-        <input type="text" id="favoriteShortcutInput" placeholder="Ör: Ctrl + Shift + F" value="Ctrl + Shift + F">
-        <label for="settingsShortcutInput" data-lang-key="settingsShortcut">Ayarlar Paneli:</label>
-        <input type="text" id="settingsShortcutInput" placeholder="Ör: Ctrl + Shift + X" value="Ctrl + Shift + X">
-        <label for="historyShortcutInput" data-lang-key="historyShortcut">Geçmiş Paneli:</label>
-        <input type="text" id="historyShortcutInput" placeholder="Ör: Ctrl + Shift + H" value="Ctrl + Shift + H">
-        <label for="imagesShortcutInput" data-lang-key="imagesShortcut">Görseller Araması:</label>
-        <input type="text" id="imagesShortcutInput" placeholder="Ör: Ctrl + i" value="Ctrl + i">
-        <label for="shoppingShortcutInput" data-lang-key="shoppingShortcut">Alışveriş Araması:</label>
-        <input type="text" id="shoppingShortcutInput" placeholder="Ör: Ctrl + S" value="Ctrl + S">
-        <label for="newsShortcutInput" data-lang-key="newsShortcut">Haberler Araması:</label>
-        <input type="text" id="newsShortcutInput" placeholder="Ör: Ctrl + N" value="Ctrl + N">
-        <label for="accountShortcutInput" data-lang-key="accountShortcut">Hesap Paneli:</label>
-        <input type="text" id="accountShortcutInput" placeholder="Ör: Ctrl + Shift + A" value="Ctrl + Shift + A">
-        <label for="aiShortcutInput" data-lang-key="aiShortcut">Yapay Zeka Araması:</label>
-        <input type="text" id="aiShortcutInput" placeholder="Ör: Ctrl + Shift + I" value="Ctrl + Shift + I">
+            <h3 data-lang-key="shortcuts">Klavye Kısayolları</h3>
+            <label for="searchShortcutInput" data-lang-key="searchShortcut">Arama Çubuğu:</label>
+            <input type="text" id="searchShortcutInput" placeholder="Ör: Ctrl + /" value="Ctrl + /">
+            <label for="favoriteShortcutInput" data-lang-key="favoriteShortcut">Favori Ekle:</label>
+            <input type="text" id="favoriteShortcutInput" placeholder="Ör: Ctrl + Shift + F" value="Ctrl + Shift + F">
+            <label for="settingsShortcutInput" data-lang-key="settingsShortcut">Ayarlar Paneli:</label>
+            <input type="text" id="settingsShortcutInput" placeholder="Ör: Ctrl + Shift + X" value="Ctrl + Shift + X">
+            <label for="historyShortcutInput" data-lang-key="historyShortcut">Geçmiş Paneli:</label>
+            <input type="text" id="historyShortcutInput" placeholder="Ör: Ctrl + Shift + H" value="Ctrl + Shift + H">
+            <label for="imagesShortcutInput" data-lang-key="imagesShortcut">Görseller Araması:</label>
+            <input type="text" id="imagesShortcutInput" placeholder="Ör: Ctrl + i" value="Ctrl + i">
+            <label for="shoppingShortcutInput" data-lang-key="shoppingShortcut">Alışveriş Araması:</label>
+            <input type="text" id="shoppingShortcutInput" placeholder="Ör: Ctrl + S" value="Ctrl + S">
+            <label for="newsShortcutInput" data-lang-key="newsShortcut">Haberler Araması:</label>
+            <input type="text" id="newsShortcutInput" placeholder="Ör: Ctrl + N" value="Ctrl + N">
+            <label for="accountShortcutInput" data-lang-key="accountShortcut">Hesap Paneli:</label>
+            <input type="text" id="accountShortcutInput" placeholder="Ör: Ctrl + Shift + A" value="Ctrl + Shift + A">
+            <label for="aiShortcutInput" data-lang-key="aiShortcut">Yapay Zeka Araması:</label>
+            <input type="text" id="aiShortcutInput" placeholder="Ör: Ctrl + Shift + I" value="Ctrl + Shift + I">
 
-        <button id="resetBrowserBtn" class="accent" data-lang-key="resetBrowser">Bu tarayıcıyı sıfırla</button>
+            <button id="resetBrowserBtn" class="accent" data-lang-key="resetBrowser">Bu tarayıcıyı sıfırla</button>
+        </div>
+
+        <div id="historyContent" class="tab-content">
+            <button id="clearHistoryBtn" class="accent" data-lang-key="clearHistory">Geçmişi Temizle</button>
+            <h3 data-lang-key="searchHistory">Arama Geçmişi</h3>
+            <div id="historyList"></div>
+        </div>
+        <div id="supportContent" class="tab-content">
+            <h3 data-lang-key="support">Destek</h3>
+            <form id="feedbackForm">
+                <label for="feedbackMessage">Şikayet/Geri Bildirim</label>
+                <input type="text" id="feedbackTitle" name="title" placeholder="Geri bildirim başlığı" required>
+                <textarea id="feedbackMessage" name="message" placeholder="Geri bildiriminizi buraya yazın" rows="5" required></textarea>
+
+                <button type="submitFeedbackBtn" data-lang-key="submitFeedback" class="accent">Geri Bildirim Gönder</button>
+                <div id="feedbackStatus" class="error-message"></div>
+            </form>
+        </div>
     </div>
-
-    <div id="historyContent" class="tab-content">
-        <button id="clearHistoryBtn" class="accent" data-lang-key="clearHistory">Geçmişi Temizle</button>
-        <h3 data-lang-key="searchHistory">Arama Geçmişi</h3>
-        <div id="historyList"></div>
-    </div>
-<div id="supportContent" class="tab-content">
-    <h3 data-lang-key="support">Destek</h3>
-    <form id="feedbackForm">
-        <label for="feedbackMessage">Şikayet/Geri Bildirim</label>
-        <input type="text" id="feedbackTitle" name="title" placeholder="Geri bildirim başlığı" required>
-        <textarea id="feedbackMessage" name="message" placeholder="Geri bildiriminizi buraya yazın" rows="5" required></textarea>
-
-        <button type="submitFeedbackBtn" data-lang-key="submitFeedback" class="accent">Geri Bildirim Gönder</button>
-        <div id="feedbackStatus" class="error-message"></div>
-    </form>
-</div>
-</div>
-<button id="accountButton" title="Hesap">
-        <img id="accountIcon" src="ico/account.png" alt="Hesap">
+    <button id="accountButton" title="Hesap">
+        <img id="accountIcon" src="assets/account.png" alt="Hesap">
     </button>
-<div id="addFavoriteModal">
+    <div id="addFavoriteModal">
         <span class="close" onclick="document.getElementById('addFavoriteModal').style.display='none'">×</span>
         <label for="modalName" data-lang-key="favoriteName">İsim:</label>
         <input type="text" id="modalName" placeholder="Favori ismi">
         <label for="modalUrl" data-lang-key="favoriteUrl">URL:</label>
         <input type="text" id="modalUrl" placeholder="https://...">
         <button id="addFavoriteModalBtn" class="accent" data-lang-key="add">Ekle</button>
+    </div>
+    <div id="multiSearchMenu" class="multi-search-menu">
+        <div class="multi-search-item" data-engine="google"><img src="https://www.google.com/favicon.ico" alt="Google" class="search-icon"><span>Google</span></div>
+        <div class="multi-search-item" data-engine="bing"><img src="https://www.bing.com/favicon.ico" alt="Bing" class="search-icon"><span>Bing</span></div>
+        <div class="multi-search-item" data-engine="duckduckgo"><img src="https://duckduckgo.com/favicon.ico" alt="DuckDuckGo" class="search-icon"><span>DuckDuckGo</span></div>
+        <div class="multi-search-item" data-engine="yandex"><img src="https://yandex.com/favicon.ico" alt="Yandex" class="search-icon"><span>Yandex</span></div>
+        <div class="multi-search-item" data-engine="brave"><img src="https://brave.com/static-assets/images/brave-favicon.png" alt="Brave" class="search-icon"><span>Brave</span></div>
+        <div class="multi-search-item" data-engine="yahoo"><img src="https://www.yahoo.com/favicon.ico" alt="Yahoo" class="search-icon"><span>Yahoo</span></div>
+        <div id="selectAllMultiSearch" class="multi-search-select-all">Tümünü Seç</div>
     </div>
     <div id="voiceSearchModal" class="modal">
         <div id="voiceTranscript" contenteditable="true" class="transcript" data-placeholder="Söyledikleriniz burada görünecek..."></div>
@@ -444,23 +455,23 @@
     <div class="container">
         <div class="logo" id="logo">
             <a href="#" onclick="window.location.reload()">
-                <img src="ico/logo.png" alt="Fluxo Logo" id="logoImg">
+                <img src="assets/logo.png" alt="Fluxo Logo" id="logoImg">
                 <span class="logo-name" id="logoName">Fluxo</span>
             </a>
         </div>
         <div class="search-bar" id="searchBar">
-            <span class="icon-left"><img id="multiSearchIcon" src="ico/multisearch.png" alt="Çoklu Arama"></span>
+            <span class="icon-left"><img id="multiSearchIcon" src="assets/multisearch.png" alt="Çoklu Arama"></span>
             <input type="text" id="searchInput" placeholder="Arama yap..." autofocus>
-            <span class="icon-right" id="voiceSearchBtn"><img id="voiceIcon" src="ico/mic.png" alt="Sesli Arama"></span>
+            <span class="icon-right" id="voiceSearchBtn"><img id="voiceIcon" src="assets/mic.png" alt="Sesli Arama"></span>
             <ul id="suggestions" role="listbox" aria-label="Arama önerileri"></ul>
         </div>
-<div id="buttons" class="buttons">
-    <button id="searchWebBtn" class="accent" data-lang-key="search">Ara</button>
-    <button id="searchImagesBtn" class="accent" data-lang-key="images">Görseller</button>
-    <button id="searchShoppingBtn" class="accent" data-lang-key="shopping">Alışveriş</button>
-    <button id="searchNewsBtn" class="accent" data-lang-key="news">Haberler</button>
-    <button id="searchAIBtn" class="accent" data-lang-key="aiSearch">AI Arama</button>
-</div>
+        <div id="buttons" class="buttons">
+            <button id="searchWebBtn" class="accent" data-lang-key="search">Ara</button>
+            <button id="searchImagesBtn" class="accent" data-lang-key="images">Görseller</button>
+            <button id="searchShoppingBtn" class="accent" data-lang-key="shopping">Alışveriş</button>
+            <button id="searchNewsBtn" class="accent" data-lang-key="news">Haberler</button>
+            <button id="searchAIBtn" class="accent" data-lang-key="aiSearch">AI Arama</button>
+        </div>
         <div class="favorites" id="favorites">
             <div id="addFavoriteBtn" class="favorite-item accent" data-lang-key="addFavorite"> + </div>
         </div>
@@ -485,995 +496,74 @@
             </div>
         </div>
     </div>
-<!-- Sağ tık menüsü -->
-<div id="favoriteContextMenu" >
-    <div class="fav-menu-item" data-action="open" data-lang-key="openFav" style="padding:8px 16px; cursor:pointer;">Aç</div>
-    <div class="fav-menu-item" data-action="renameFav" data-lang-key="renameFav" style="padding:8px 16px; cursor:pointer;">Yeniden Adlandır</div>    
-    <div class="fav-menu-item" data-action="moveLeft" data-lang-key="moveLeftFav" style="padding:8px 16px; cursor:pointer;">Sola Kaydır</div>
-    <div class="fav-menu-item" data-action="moveRight" data-lang-key="moveRightFav" style="padding:8px 16px; cursor:pointer;">Sağa Kaydır</div>
-    <div class="fav-menu-item" data-action="remove" data-lang-key="removeFav" style="padding:8px 16px; cursor:pointer; color:#ff4444;">Sil</div>
-</div>
-<script type="module">
-    import { translations } from './system/language.js';
-    import { resetBrowser } from './system/settings.js';
-    import { selectColor, rgbToHex, updateSearchEnginePreview, bindShortcuts, cacheBackgroundImage, extractYouTubeId, loadCachedBackground, applySettings, fetchWeather, startWeatherUpdate, openImportExportModal, closeImportExportModal, exportSettings, importSettings } from './system/settings.js';
+    <!-- Sağ tık menüsü -->
+    <div id="favoriteContextMenu" >
+        <div class="fav-menu-item" data-action="open" data-lang-key="openFav" style="padding:8px 16px; cursor:pointer;">Aç</div>
+        <div class="fav-menu-item" data-action="renameFav" data-lang-key="renameFav" style="padding:8px 16px; cursor:pointer;">Yeniden Adlandır</div>    
+        <div class="fav-menu-item" data-action="moveLeft" data-lang-key="moveLeftFav" style="padding:8px 16px; cursor:pointer;">Sola Kaydır</div>
+        <div class="fav-menu-item" data-action="moveRight" data-lang-key="moveRightFav" style="padding:8px 16px; cursor:pointer;">Sağa Kaydır</div>
+        <div class="fav-menu-item" data-action="remove" data-lang-key="removeFav" style="padding:8px 16px; cursor:pointer; color:#ff4444;">Sil</div>
+    </div>
+    <script type="module">
+        import { translations } from './system/language.js';
+        import { resetBrowser, selectColor, rgbToHex, updateSearchEnginePreview, openImportExportModal, closeImportExportModal, exportSettings, importSettings, applySettings } from './system/settings.js';
+        import { applyBackground, updateRecentBgList, removeBackground } from './system/background.js';
+        import { search, fetchSuggestions, debounce, toggleMultiSearchMenu } from './system/search.js';
+        import { loadFavorites, addFavoriteFromModal, showFavoriteContextMenu, handleDragStart, handleDragOver, handleDrop, removeFavorite } from './system/favorites.js';
+        import { loadSearchHistory, removeSearchHistory } from './system/history.js';
+        import { updateAccountUI, showAccountModal, closeAccountPanel, updateAccountModalTheme } from './system/account.js';
+        import { initVoiceSearch } from './system/voice.js';
+        import { bindShortcuts } from './system/shortcuts.js';
+        import { fetchWeather, startWeatherUpdate } from './system/weather.js';
+        import { isInappropriateUsername } from './system/security.js';
 
-function updateLanguage(lang) {
-    if (typeof translations === "undefined" || !translations[lang]) {
-        console.error("translations tanımlı değil, varsayılan Türkçe kullanılıyor.");
-        document.getElementById("weatherWidget").innerHTML = `<span class="weather-error">${translations['tr'].weatherError || "Hava durumu alınamadı"}</span>`;
-        return;
-    }
-
-    document.documentElement.lang = lang;
-    const elements = document.querySelectorAll('[data-lang-key]');
-    elements.forEach(el => {
-        const key = el.getAttribute('data-lang-key');
-        if (translations[lang] && translations[lang][key]) {
-            if (el.tagName === 'INPUT' && el.type === 'text') {
-                el.placeholder = translations[lang][key];
-            } else if (el.tagName === 'OPTION') {
-                el.textContent = translations[lang][key];
-            } else {
-                el.textContent = translations[lang][key];
-            }
-        }
-    });
-
-    document.getElementById('searchInput').placeholder = translations[lang].searchPlaceholder;
-    document.getElementById('modalName').placeholder = translations[lang].favoritePlaceholder;
-    document.getElementById('modalUrl').placeholder = translations[lang].urlPlaceholder;
-    document.getElementById('weatherLocation').placeholder = translations[lang].weatherLocationPlaceholder;
-    document.getElementById('languageDisplay').textContent = translations[lang].languageDisplay;
-    document.getElementById('addFavoriteBtn').textContent = translations[lang].addFavorite;
-    document.getElementById('accountError').textContent = translations[lang].accountError || 'Hatalı kullanıcı adı veya şifre.';
-    document.getElementById('accountModalTitle').textContent = translations[lang].account;
-    document.getElementById('accountUsername').placeholder = translations[lang].usernamePlaceholder;
-    document.getElementById('accountPassword').placeholder = translations[lang].passwordPlaceholder;
-    document.getElementById("resetBrowserBtn").onclick = () => {
-        if (typeof resetBrowser === "function") {
-            resetBrowser(loadCachedBackground, updateLanguage, loadFavorites, updateSearchEnginePreview, fetchWeather, bindShortcuts, startWeatherUpdate);
-        } else {
-            console.error("resetBrowser fonksiyonu tanımlı değil!");
-        }
-    };
-}
-    function debounce(func, wait) {
-        let timeout;
-        return function executedFunction(...args) {
-            const later = () => {
-                clearTimeout(timeout);
-                func(...args);
-            };
-            clearTimeout(timeout);
-            timeout = setTimeout(later, wait);
-        };
-    }
-
-// Arka plan uygula: dosya, url veya geçmişten
-function applyBackground(bgUrl) {
-        const video = document.getElementById('backgroundVideo');
-        const yt = document.getElementById('backgroundYouTube');
-        if (!bgUrl) {
-            video.style.display = 'none';
-            yt.style.display = 'none';
-            video.src = '';
-            yt.src = '';
-            document.body.style.backgroundImage = '';
-            return;
-        }
-        if (bgUrl.startsWith('data:video') || bgUrl.match(/\.(mp4|webm|ogg)$/i)) {
-            video.src = bgUrl;
-            video.style.display = 'block';
-            yt.style.display = 'none';
-            yt.src = '';
-            document.body.style.backgroundImage = '';
-        } else if (bgUrl.includes('youtube.com') || bgUrl.includes('youtu.be')) {
-            const match = bgUrl.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/)([A-Za-z0-9_\-]+)/);
-            const vid = match ? match[1] : '';
-            yt.src = vid ? `https://www.youtube.com/embed/${vid}?autoplay=1&mute=1&loop=1&playlist=${vid}&controls=0&modestbranding=1&showinfo=0` : ''; // Değişiklik: Ek parametreler
-            yt.style.display = 'block';
-            video.style.display = 'none';
-            video.src = '';
-            document.body.style.backgroundImage = '';
-        } else if (bgUrl.startsWith('data:image') || bgUrl.match(/\.(jpg|jpeg|png|webp|gif)$/i)) {
-            video.style.display = 'none';
-            yt.style.display = 'none';
-            video.src = '';
-            yt.src = '';
-            document.body.style.backgroundImage = `url('${bgUrl}')`;
-            document.body.style.backgroundSize = 'cover';
-            document.body.style.backgroundPosition = 'center';
-        } else {
-            video.style.display = 'none';
-            yt.style.display = 'none';
-            video.src = '';
-            yt.src = '';
-            document.body.style.backgroundImage = `url('${bgUrl}')`;
-            document.body.style.backgroundSize = 'cover';
-            document.body.style.backgroundPosition = 'center';
-        }
-    }
-
-// Dosya seçilince uygula ve geçmişe ekle
-document.getElementById("bgFileInput").addEventListener("change", function(e) {
-    const file = e.target.files[0];
-    if (!file) return;
-    const reader = new FileReader();
-    reader.onload = function(evt) {
-        const bgDataUrl = evt.target.result;
-        localStorage.setItem("bgUrl", bgDataUrl);
-        let wallpapers = JSON.parse(localStorage.getItem("wallpapers") || "[]");
-        wallpapers.unshift({ type: "file", name: file.name, url: bgDataUrl, time: Date.now() });
-        localStorage.setItem("wallpapers", JSON.stringify(wallpapers.slice(0, 20)));
-        applyBackground(bgDataUrl);
-        document.getElementById("bgUrlInput").value = ""; // URL inputunu sıfırla
-        updateRecentBgList(); // Geçmişi güncelle
-    };
-    reader.readAsDataURL(file);
-});
-
-// URL girilince uygula ve geçmişe ekle
-document.getElementById("bgUrlInput").addEventListener("change", function() {
-        const url = this.value.trim();
-        if (!url) return;
-        localStorage.setItem("bgUrl", url);
-        let wallpapers = JSON.parse(localStorage.getItem("wallpapers") || "[]");
-        wallpapers.unshift({ type: "url", name: url, url: url, time: Date.now() });
-        localStorage.setItem("wallpapers", JSON.stringify(wallpapers.slice(0, 20)));
-        applyBackground(url);
-        updateRecentBgList(); 
-    });
-
-// Duvar Kağıtlarım panelini güncelle
-function updateRecentBgList() {
-    const recentBgList = document.getElementById("recentBgList");
-    if (!recentBgList) return;
-    recentBgList.innerHTML = "";
-    let wallpapers = JSON.parse(localStorage.getItem("wallpapers") || "[]");
-    const lang = localStorage.getItem("language") || "tr";
-
-    if (wallpapers.length === 0) {
-        recentBgList.innerHTML = `<div>${translations[lang]?.noWallpapers || "Henüz hiç duvar kağıdı yok."}</div>`;
-        return;
-    }
-
-    wallpapers.forEach((w, index) => {
-        if (!w.url || !w.name) return;
-        const div = document.createElement("div");
-        div.className = "recent-bg-item";
-        div.style = "display: flex; align-items: center; gap: 8px; cursor: pointer; margin-bottom: 4px;";
-
-        let thumbnailUrl = "ico/default-thumbnail.png";
-        if (w.type === "file" && w.url.startsWith("data:image")) {
-            thumbnailUrl = w.url;
-        } else if (w.type === "file" && w.url.startsWith("data:video")) {
-            thumbnailUrl = w.url;
-        } else if (w.type === "url" && w.url.includes("youtube.com")) {
-            const videoId = w.url.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/)([A-Za-z0-9_\-]+)/)?.[1];
-            thumbnailUrl = videoId ? `https://img.youtube.com/vi/${videoId}/0.jpg` : "ico/default-thumbnail.png";
-        } else if (w.type === "url" && w.url.match(/\.(jpg|jpeg|png|webp|gif)$/i)) {
-            thumbnailUrl = w.url;
-        }
-
-        div.innerHTML = `
-            <img src="${thumbnailUrl}" style="width: 40px; height: 40px; border-radius: 4px;" onerror="this.src='ico/default-thumbnail.png'" alt="${w.name}">
-            <span style="word-break: break-all; max-width: 200px;">${w.name}</span>
-            <span class="remove-bg-btn" style="cursor: pointer; color: #ff4444; font-weight: bold; margin-left: auto;">×</span>
-        `;
-
-        // Yeni: Tıklama ile uygulama
-        div.addEventListener("click", () => {
-            localStorage.setItem("bgUrl", w.url);
-            applyBackground(w.url);
+        // Menu events
+        document.getElementById("menuButton").addEventListener("click", (e) => {
+            e.stopPropagation();
+            const p = document.getElementById("menuPanel");
+            p.style.display = p.style.display === "block" ? "none" : "block";
+            const accountModal = document.getElementById("accountModal");
+            accountModal.style.display = "none";
+            accountModal.classList.remove("active");
+            document.querySelectorAll(".tab-content").forEach(content => content.classList.remove("active"));
+            document.getElementById("settingsContent").classList.add("active");
+            document.querySelectorAll(".tab-button").forEach(btn => btn.classList.remove("active"));
+            document.querySelector(".tab-button[data-tab='settings']").classList.add("active");
+            loadSearchHistory(); 
         });
 
-        const removeBtn = div.querySelector(".remove-bg-btn");
-        removeBtn.addEventListener("click", (e) => {
-            e.stopPropagation(); // Tıklama eventini engelle
-            removeBackground(index);
+        document.querySelectorAll(".tab-button").forEach(button => {
+            button.addEventListener("click", () => {
+                const tab = button.getAttribute("data-tab");
+                document.querySelectorAll(".tab-content").forEach(content => content.classList.remove("active"));
+                document.querySelectorAll(".tab-button").forEach(btn => btn.classList.remove("active"));
+                document.getElementById(`${tab}Content`).classList.add("active");
+                button.classList.add("active");
+                if (tab === "history") {
+                    loadSearchHistory();
+                }
+            });
         });
 
-        recentBgList.appendChild(div);
-    });
+        document.getElementById("applySettingsBtn").addEventListener("click", () => {
+            applySettings(applyBackground, updateLanguage, loadFavorites, updateSearchEnginePreview, fetchWeather, bindShortcuts, startWeatherUpdate);
+            document.getElementById("menuPanel").style.display = "none";
+            const accountModal = document.getElementById("accountModal");
+            accountModal.style.display = "none";
+            accountModal.classList.remove("active");
+        });
 
-    recentBgList.classList.remove("hidden");
-}
-
-// Sayfa ilk açıldığında arka planı uygula
-window.addEventListener("DOMContentLoaded", () => {
-        const bgUrl = localStorage.getItem("bgUrl");
-        if (bgUrl) applyBackground(bgUrl);
-        let wallpapers = JSON.parse(localStorage.getItem("wallpapers") || "[]");
-        localStorage.setItem("wallpapers", JSON.stringify(wallpapers.slice(0, 20))); // Değişiklik: Sınırlama
-        updateRecentBgList();
-    });
-
-// Geçmişteki bir duvar kağıdını sil
-function removeBackground(index) {
-    let wallpapers = JSON.parse(localStorage.getItem("wallpapers") || "[]");
-    if (index >= 0 && index < wallpapers.length) {
-        const removedUrl = wallpapers[index].url;
-        wallpapers.splice(index, 1);
-        localStorage.setItem("wallpapers", JSON.stringify(wallpapers));
-
-        // Eğer silinen duvar kağıdı şu anki arka plan ise, arka planı sıfırla
-        const currentBgUrl = localStorage.getItem("bgUrl");
-        if (currentBgUrl === removedUrl) {
-            localStorage.removeItem("bgUrl");
-            applyBackground(""); // Arka planı temizle
-        }
-
-        updateRecentBgList(); // Listeyi güncelle
-    } else {
-        console.warn("Geçersiz duvar kağıdı indeksi:", index);
-    }
-}
-
-    async function search(type = 'web') {
-        const q = document.getElementById("searchInput").value.trim();
-        const suggestionsBox = document.getElementById("suggestions");
-        suggestionsBox.style.display = "none";
-        if (!q) return;
-        const engine = localStorage.getItem("searchEngine") || "google";
-        const linkBehavior = localStorage.getItem("linkBehavior") || "newTab";
-        const aiProvider = localStorage.getItem("aiProvider") || "chatgpt";
-        const customAiUrl = localStorage.getItem("customAiUrl") || "";
-        const lang = localStorage.getItem("language") || "tr";
-        let url;
-
-        const safeSearch = localStorage.getItem("safeSearch") === "true";
-        const disableSearchHistoryLog = localStorage.getItem("disableSearchHistoryLog") === "true";
-
-        if (type === "ai") {
-            if (aiProvider === "custom" && !customAiUrl) {
-                alert(translations[lang].invalidAiUrl || "Geçersiz veya eksik AI sitesi URL'si!");
-                return;
-            }
-            if (aiProvider === "grok") {
-                url = `https://grok.x.ai/?query=${encodeURIComponent(q)}`;
-            } else if (aiProvider === "chatgpt") {
-                url = `https://chat.openai.com/?q=${encodeURIComponent(q)}`;
-            } else if (aiProvider === "claude") {
-                url = `https://claude.anthropic.com/?q=${encodeURIComponent(q)}`;
-            } else if (aiProvider === "copilot") {
-                url = `https://copilot.microsoft.com/search?q=${encodeURIComponent(q)}`;
-            } else if (aiProvider === "perplexity") {
-                url = `https://www.perplexity.ai/search?q=${encodeURIComponent(q)}`;
-            } else if (aiProvider === "deepseek") {
-                url = `https://www.deepseek.ai/?q=${encodeURIComponent(q)}`;
-            } else if (aiProvider === "gemini") {
-                url = `https://gemini.google.com/?q=${encodeURIComponent(q)}`;
-            } else if (aiProvider === "custom") {
-                try {
-                    new URL(customAiUrl);
-                    url = `${customAiUrl}?q=${encodeURIComponent(q)}`;
-                } catch {
-                    alert(translations[lang].invalidAiUrl || "Geçersiz AI sitesi URL'si!");
-                    return;
-                }
-            }
-        } else {
-            if (engine === "yandex") {
-                if (type === 'images') {
-                    url = `https://yandex.com/images/search?text=${encodeURIComponent(q)}`;
-                } else if (type === 'news') {
-                    url = `https://news.yandex.com/search?text=${encodeURIComponent(q)}`;
-                } else {
-                    url = `https://yandex.com/search/?text=${encodeURIComponent(q)}`;
-                }
-            } else if (engine === "bing") {
-                if (type === 'images') {
-                    url = `https://www.bing.com/images/search?q=${encodeURIComponent(q)}`;
-                } else if (type === 'shopping') {
-                    url = `https://www.bing.com/shop?q=${encodeURIComponent(q)}`;
-                } else if (type === 'news') {
-                    url = `https://www.bing.com/news/search?q=${encodeURIComponent(q)}`;
-                } else {
-                    url = `https://www.bing.com/search?q=${encodeURIComponent(q)}`;
-                }
-            } else if (engine === "duckduckgo") {
-                if (type === 'images') {
-                    url = `https://duckduckgo.com/?q=${encodeURIComponent(q)}&iax=images&ia=images`;
-                } else if (type === 'shopping') {
-                    url = `https://duckduckgo.com/?q=${encodeURIComponent(q)}&ia=products`;
-                } else if (type === 'news') {
-                    url = `https://duckduckgo.com/?q=${encodeURIComponent(q)}&iar=news&ia=news`;
-                } else {
-                    url = `https://duckduckgo.com/?q=${encodeURIComponent(q)}`;
-                }
-            } else if (engine === "google") {
-                if (type === 'images') {
-                    url = `https://www.google.com/search?tbm=isch&q=${encodeURIComponent(q)}`;
-                } else if (type === 'shopping') {
-                    url = `https://www.google.com/search?tbm=shop&q=${encodeURIComponent(q)}`;
-                } else if (type === 'news') {
-                    url = `https://www.google.com/search?tbm=nws&q=${encodeURIComponent(q)}`;
-                } else {
-                    url = `https://www.google.com/search?q=${encodeURIComponent(q)}`;
-                }
-            } else if (engine === "brave") {
-                 if (type === 'images') {
-                     url = `https://search.brave.com/images?q=${encodeURIComponent(q)}`;
-                } else if (type === 'shopping') {
-                     url = `https://search.brave.com/search?q=${encodeURIComponent(q)}&source=web&show=shop`;
-                } else if (type === 'news') {
-                     url = `https://search.brave.com/news?q=${encodeURIComponent(q)}`;
-                } else {
-                     url = `https://search.brave.com/search?q=${encodeURIComponent(q)}`;
-                }
-            } else if (engine === "yahoo") {
-                if (type === 'images') {
-                    url = `https://images.search.yahoo.com/search/images?p=${encodeURIComponent(q)}`;
-                } else if (type === 'shopping') {
-                    url = `https://shopping.yahoo.com/search?p=${encodeURIComponent(q)}`;
-                } else if (type === 'news') {
-                    url = `https://news.search.yahoo.com/search?p=${encodeURIComponent(q)}`;
-                } else {
-                    url = `https://search.yahoo.com/search?p=${encodeURIComponent(q)}`;
-                }
-            }
-        }
-        if (!url) {
-            alert(translations[lang].invalidSearchEngine || "Geçersiz arama motoru!");
-            return;
-        }
-
-    // SafeSearch parametresi ekle (Google/Bing/DuckDuckGo örneği)
-    if (safeSearch) {
-        if (engine === "google") {
-            url += (url.includes("?") ? "&" : "?") + "safe=active";
-        } else if (engine === "bing") {
-            url += (url.includes("?") ? "&" : "?") + "adlt=strict";
-        } else if (engine === "duckduckgo") {
-            url += (url.includes("?") ? "&" : "?") + "kp=1";
-        }
-        else if (engine === "yahoo") {
-            url += (url.includes("?") ? "&" : "?") + "vm=r";
-        }
-        else if (engine === "brave") {
-            url += (url.includes("?") ? "&" : "?") + "safe=active";
-        }
-        else if (engine === "yandex") {
-            url += (url.includes("?") ? "&" : "?") + "is_safesearch=1";
-        }
-    }
-
-    // Arama geçmişi kaydını kontrol et
-if (!disableSearchHistoryLog) {
-            let searchHistory = JSON.parse(localStorage.getItem("searchHistory") || "[]");
-            let searchHistoryEngines = JSON.parse(localStorage.getItem("searchHistoryEngines") || "[]");
-            if (!searchHistory.includes(q)) {
-                searchHistory.unshift(q);
-                searchHistoryEngines.unshift(type === "ai" ? aiProvider : engine);
-                localStorage.setItem("searchHistory", JSON.stringify(searchHistory));
-                localStorage.setItem("searchHistoryEngines", JSON.stringify(searchHistoryEngines));
-            }
+        document.getElementById("clearHistoryBtn").onclick = () => {
+            localStorage.setItem("searchHistory", "[]");
             loadSearchHistory();
-    }
-        loadSearchHistory();
-        document.getElementById("searchInput").value = "";
-        if (linkBehavior === "closeCurrent") {
-            window.location.href = url;
-        } else {
-            window.open(url, "_blank");
-        }
-    }
-
-    function saveFavorites(favs) {
-        try {
-            localStorage.setItem("userFavorites", JSON.stringify(favs));
-        } catch (e) {
-            console.warn("Could not save favorites:", e);
-        }
-    }
-
-    function loadFavorites() {
-        const cont = document.getElementById("favorites");
-        cont.innerHTML = "";
-        let favs = [];
-        let maxFav = 5;
-        let linkBehavior = "newTab";
-        let lang = "tr";
-        try {
-            const storedFavs = localStorage.getItem("userFavorites");
-            favs = storedFavs ? JSON.parse(storedFavs) : [];
-            if (!Array.isArray(favs)) {
-                console.warn("userFavorites geçersiz formatta, sıfırlanıyor.");
-                favs = [];
-                localStorage.setItem("userFavorites", "[]");
-            }
-            maxFav = parseInt(localStorage.getItem("maxFavorites") || "5");
-            linkBehavior = localStorage.getItem("linkBehavior") || "newTab";
-            lang = localStorage.getItem("language") || "tr";
-        } catch (e) {
-            console.warn("Favoriler yüklenemedi, sıfırlanıyor:", e);
-            localStorage.setItem("userFavorites", "[]");
-        }
-
-    favs.forEach((f, i) => {
-        if (!f.url || !f.name) {
-            console.warn(`Geçersiz favori atlanıyor: ${JSON.stringify(f)}`);
-            return;
-        }
-        let faviconUrl = "ico/default-favicon.png";
-        try {
-            faviconUrl = `https://www.google.com/s2/favicons?domain=${new URL(f.url).hostname}`;
-        } catch (e) {
-            console.warn(`Geçersiz URL: ${f.url}`, e);
-        }
-
-        const btn = document.createElement("div");
-        btn.className = "favorite-item";
-        btn.setAttribute("draggable", "true");
-        btn.setAttribute("data-index", i);
-        btn.innerHTML = `
-            <div style="display:flex; flex-direction: column; align-items: center; gap:4px; text-align: center;">
-                <img src="${faviconUrl}" style="width:32px;height:32px;border-radius:6px;" onerror="this.src='ico/default-favicon.png'">
-                <a href="${f.url}" ${linkBehavior === "closeCurrent" ? "" : 'target="_blank"'}>${f.name}</a>
-            </div>
-            <!-- × butonu kaldırıldı -->
-        `;
-        btn.addEventListener("dragstart", handleDragStart);
-        btn.addEventListener("dragover", handleDragOver);
-        btn.addEventListener("drop", handleDrop);
-        btn.addEventListener("contextmenu", (e) => {
-            e.preventDefault();
-            showFavoriteContextMenu(e, i, f);
-        });
-        cont.appendChild(btn);
-    });
-
-    const addBtn = document.createElement("div");
-        addBtn.id = "addFavoriteBtn";
-        addBtn.className = "favorite-item accent";
-        addBtn.textContent = translations[lang]?.addFavorite || '+ Favori Ekle';
-        addBtn.onclick = () => {
-            document.getElementById("addFavoriteModal").style.display = "block";
-            document.getElementById("modalName").focus();
-        };
-        cont.appendChild(addBtn);
-        document.getElementById("addFavoriteBtn").style.display = favs.length >= maxFav ? "none" : "flex";
-    }
-
-    function removeFavorite(i) {
-        const favs = JSON.parse(localStorage.getItem("userFavorites") || "[]");
-        favs.splice(i, 1);
-        saveFavorites(favs);
-        loadFavorites();
-    }
-
-    let draggedIndex = null;
-
-    function handleDragStart(e) {
-        draggedIndex = e.target.getAttribute("data-index");
-        e.dataTransfer.setData("text/plain", draggedIndex);
-    }
-
-    function handleDragOver(e) {
-        e.preventDefault();
-    }
-
-    function handleDrop(e) {
-        e.preventDefault();
-        const droppedItem = e.target.closest(".favorite-item");
-        if (!droppedItem) return;
-        const droppedIndex = droppedItem.getAttribute("data-index");
-        if (draggedIndex !== null && droppedIndex !== null && draggedIndex !== droppedIndex) {
-            const favs = JSON.parse(localStorage.getItem("userFavorites") || "[]");
-            const draggedFav = favs[draggedIndex];
-            favs.splice(draggedIndex, 1);
-            favs.splice(droppedIndex, 0, draggedFav);
-            saveFavorites(favs);
-            loadFavorites();
-        }
-        draggedIndex = null;
-    }
-
-    async function addFavoriteFromModal() {
-        const name = document.getElementById("modalName").value.trim();
-        let url = document.getElementById("modalUrl").value.trim();
-        const lang = localStorage.getItem("language") || "tr";
-        if (!url) {
-            alert(translations[lang].invalidUrlAlert);
-            return;
-        }
-        if (!url.startsWith("http://") && !url.startsWith("https://")) {
-            url = "https://" + url;
-        }
-        try {
-            new URL(url);
-            const favs = JSON.parse(localStorage.getItem("userFavorites") || "[]");
-            const maxFav = parseInt(localStorage.getItem("maxFavorites") || "5");
-            if (favs.length >= maxFav) {
-                alert(translations[lang].maxFavoritesAlert);
-                return;
-            }
-            const finalName = name || await fetchWebsiteTitle(url);
-            favs.push({ name: finalName, url });
-            saveFavorites(favs);
-            loadFavorites();
-            document.getElementById("addFavoriteModal").style.display = "none";
-            document.getElementById("modalName").value = "";
-            document.getElementById("modalUrl").value = "";
-        } catch {
-            alert(translations[lang].invalidUrlAlert);
-        }
-    }
-
-    async function fetchWebsiteTitle(url) {
-        try {
-            const response = await fetch(url);
-            const text = await response.text();
-            const parser = new DOMParser();
-            const doc = parser.parseFromString(text, "text/html");
-            return doc.title || url;
-        } catch {
-            return url;
-        }
-    }
-
-   function loadSearchHistory() {
-        const lang = localStorage.getItem("language") || "tr";
-        const historyList = document.getElementById("historyList");
-        if (historyList) {
-            historyList.innerHTML = "";
-            const history = JSON.parse(localStorage.getItem("searchHistory") || "[]");
-            const historyEngines = JSON.parse(localStorage.getItem("searchHistoryEngines") || "[]");
-            if (history.length === 0) {
-                const noHistoryMsg = document.createElement("li");
-                noHistoryMsg.textContent = translations[lang]?.noHistory || "Geçmiş yok";
-                historyList.appendChild(noHistoryMsg);
-            } else {
-                history.forEach((item, i) => {
-                    const engine = historyEngines[i] || "Bilinmeyen";
-                    const li = document.createElement("li");
-                    li.className = "history-item";
-                    li.innerHTML = `
-                        <span class="history-text">${item}</span>
-                        <span class="history-engine">(${engine})</span>
-                        <span class="history-remove-btn">×</span>
-                    `;
-                    // Arama terimine tıklama olayı
-                    li.querySelector(".history-text").onclick = () => {
-                        document.getElementById("searchInput").value = item;
-                        document.getElementById("suggestions").style.display = "none";
-                        search();
-                    };
-                    // Silme butonuna tıklama olayı
-                    const removeBtn = li.querySelector(".history-remove-btn");
-                    removeBtn.onclick = (e) => { e.stopPropagation(); 
-                        e.stopPropagation(); // Genel li tıklama olayını engelle
-                        removeSearchHistory(i);
-                    };
-                    historyList.appendChild(li);
-                });
-            }
-        }
-    }
-
-    function removeSearchHistory(index) {
-        const history = JSON.parse(localStorage.getItem("searchHistory") || "[]");
-        const historyEngines = JSON.parse(localStorage.getItem("searchHistoryEngines") || "[]");
-        if (index >= 0 && index < history.length) {
-            history.splice(index, 1);
-            historyEngines.splice(index, 1);
-            localStorage.setItem("searchHistory", JSON.stringify(history));
-            localStorage.setItem("searchHistoryEngines", JSON.stringify(historyEngines));
-            loadSearchHistory();
-        } else {
-            console.warn("Geçersiz tarih indeksi:", index);
-        }
-    }
-
-    document.getElementById("voiceSearchBtn").onclick = () => {
-        const lang = localStorage.getItem("language") || "tr";
-        if (!("webkitSpeechRecognition" in window)) {
-            alert(translations[lang].voiceSearchNotSupported);
-            return;
-        }
-
-        const modal = document.getElementById("voiceSearchModal");
-        const transcriptDiv = document.getElementById("voiceTranscript");
-        modal.style.display = "block";
-        transcriptDiv.textContent = translations[lang].voiceSearch || "Söyledikleriniz burada görünecek...";
-
-        const recognition = new webkitSpeechRecognition();
-        const langMap = {
-            "tr": "tr-TR",
-            "en": "en-US",
-            "es": "es-ES",
-            "ru": "ru-RU",
-            "jp": "ja-JP",
-            "zh": "zh-CN",
-            "ko": "ko-KR",
-            "de": "de-DE",
-            "fr": "fr-FR",
-            "ar": "ar-SA",
-            "az": "az-AZ",
-            "tk": "tk-TM",
-            "kk": "kk-KZ",
-            "ky": "ky-KG",
-            "uz": "uz-UZ",
-            "tt": "tt-RU",
-            "ba": "ba-RU",
-            "ug": "ug-CN",
-            "sah": "sah-RU",
-            "gag": "gag-RU",
-            "cv": "cv-RU",
-            "he": "he-IL",
-            "hi": "hi-IN",
-            "it": "it-IT",
-            "el": "el-GR",
-            "mn": "mn-MN",
-
-        };
-        recognition.lang = langMap[lang] || "en-US";
-        recognition.interimResults = true;
-        recognition.continuous = false;
-        recognition.maxAlternatives = 1;
-
-        recognition.start();
-
-        recognition.onresult = (event) => {
-            let interimTranscript = '';
-            let finalTranscript = '';
-            for (let i = event.resultIndex; i < event.results.length; i++) {
-                const transcript = event.results[i][0].transcript;
-                if (event.results[i].isFinal) {
-                    finalTranscript = transcript.trim();
-                    transcriptDiv.textContent = finalTranscript;
-                    document.getElementById("searchInput").value = finalTranscript;
-                } else {
-                    interimTranscript += transcript;
-                    transcriptDiv.textContent = interimTranscript.trim() || translations[lang].voiceSearch;
-                }
-            }
         };
 
-        recognition.onerror = (event) => {
-            console.error("Ses tanıma hatası:", event.error);
-            transcriptDiv.textContent = `${translations[lang].voiceSearchNotSupported} (Hata: ${event.error})`;
-            recognition.stop();
-        };
+        document.getElementById("searchEngineSelect").addEventListener("change", updateSearchEnginePreview);
 
-        recognition.onend = () => {
-            console.log("Ses tanıma sona erdi.");
-            document.getElementById("voiceIcon").classList.remove("active");
-        };
+        document.getElementById("addFavoriteModalBtn").addEventListener("click", addFavoriteFromModal);
 
-        document.getElementById("confirmVoiceBtn").onclick = () => {
-            if (document.getElementById("searchInput").value.trim()) {
-                search();
-                modal.style.display = "none";
-            }
-        };
+        document.getElementById("multiSearchIcon").parentElement.addEventListener("click", toggleMultiSearchMenu);
 
-        const voiceIcon = document.getElementById("voiceIcon");
-
-        recognition.onstart = () => {       
-            console.log("Ses tanıma başladı");
-            voiceIcon.classList.add("active");
-        };
-
-        recognition.onend = () => {
-            console.log("Ses tanıma bitti");
-            voiceIcon.classList.remove("active");
-        };
-
-        document.getElementById("cancelVoiceBtn").onclick = () => {
-            recognition.stop();
-            modal.style.display = "none";
-            transcriptDiv.textContent = translations[lang].voiceSearch || "Söyledikleriniz burada görünecek...";
-        };
-
-
-        // 10 saniye sonra otomatik durdur
-        setTimeout(() => {
-            if (recognition && recognition.state === "recording") {
-                recognition.stop();
-                transcriptDiv.textContent = translations[lang].voiceSearchNotSupported + " (Zaman aşımı)";
-                modal.style.display = "none";
-            }
-        }, 10000);
-    };
-
-document.getElementById("menuButton").addEventListener("click", (e) => {
-    e.stopPropagation();
-    const p = document.getElementById("menuPanel");
-    p.style.display = p.style.display === "block" ? "none" : "block";
-    const accountModal = document.getElementById("accountModal");
-    accountModal.style.display = "none";
-    accountModal.classList.remove("active");
-    document.querySelectorAll(".tab-content").forEach(content => content.classList.remove("active"));
-    document.getElementById("settingsContent").classList.add("active");
-    document.querySelectorAll(".tab-button").forEach(btn => btn.classList.remove("active"));
-    document.querySelector(".tab-button[data-tab='settings']").classList.add("active");
-    loadSearchHistory(); 
-});
-
-document.querySelectorAll(".tab-button").forEach(button => {
-    button.addEventListener("click", () => {
-        const tab = button.getAttribute("data-tab");
-        document.querySelectorAll(".tab-content").forEach(content => content.classList.remove("active"));
-        document.querySelectorAll(".tab-button").forEach(btn => btn.classList.remove("active"));
-        document.getElementById(`${tab}Content`).classList.add("active");
-        button.classList.add("active");
-        if (tab === "history") {
-            loadSearchHistory();
-        }
-    });
-});
-
-document.getElementById("applySettingsBtn").addEventListener("click", () => {
-    applySettings(loadCachedBackground, updateLanguage, loadFavorites, updateSearchEnginePreview, fetchWeather, bindShortcuts, startWeatherUpdate);
-    document.getElementById("menuPanel").style.display = "none";
-    const accountModal = document.getElementById("accountModal");
-    accountModal.style.display = "none";
-    accountModal.classList.remove("active");
-});
-
-document.getElementById("clearHistoryBtn").onclick = () => {
-    localStorage.setItem("searchHistory", "[]");
-    loadSearchHistory();
-};
-
-    document.getElementById("searchEngineSelect").addEventListener("change", updateSearchEnginePreview);
-
-    document.getElementById("addFavoriteModalBtn").addEventListener("click", addFavoriteFromModal);
-
-    // Account system logic
-    function updateAccountUI() {
-        const username = localStorage.getItem("accountUsername");
-        const info = document.getElementById("accountInfo");
-        const btn = document.getElementById("accountButton");
-        if (username) {
-            info.textContent = `| 👤 ${username}`;
-            btn.title = translations[localStorage.getItem("language") || "tr"].accountLoggedIn || "Hesap (Çıkış için tıkla)";
-        } else {
-            info.textContent = "|";
-
-            btn.title = translations[localStorage.getItem("language") || "tr"].accountLogin || "Hesap (Giriş için tıkla)";
-        }
-    }
-
-    function showAccountModal() {
-        const modal = document.getElementById("accountModal");
-        const username = localStorage.getItem("accountUsername");
-        const errorMsg = document.getElementById("accountError");
-        errorMsg.style.display = "none";
-        if (username) {
-            document.getElementById("accountForm").style.display = "none";
-            document.getElementById("accountLoggedIn").style.display = "flex";
-            document.getElementById("accountWelcome").textContent = `${translations[localStorage.getItem("language") || "tr"].welcome || "Hoşgeldin"}, ${username}!`;
-        } else {
-            document.getElementById("accountForm").style.display = "flex";
-            document.getElementById("accountLoggedIn").style.display = "none";
-            document.getElementById("accountUsername").value = "";
-            document.getElementById("accountPassword").value = "";
-        }
-        modal.style.display = "block";
-        modal.classList.add("active");
-    }
-
-    function closeAccountPanel() {
-        const modal = document.getElementById("accountModal");
-        modal.style.display = "none";
-        modal.classList.remove("active");
-    }
-
-    function updateAccountModalTheme() {
-        const theme = localStorage.getItem("theme") || "dark";
-        const inner = document.getElementById("accountModalInner");
-        if (!inner) return;
-        inner.classList.remove("dark", "light");
-        inner.classList.add(theme === "light" ? "light" : "dark");
-    }
-
-    window.closeAccountPanel = closeAccountPanel;
-
-    document.getElementById("accountButton").onclick = showAccountModal;
-
-    document.getElementById("accountLoginBtn").onclick = () => {
-        const username = document.getElementById("accountUsername").value.trim();
-        const password = document.getElementById("accountPassword").value.trim();
-        const errorMsg = document.getElementById("accountError");
-        const lang = localStorage.getItem("language") || "tr";
-        errorMsg.style.display = "none";
-
-        if (username.length < 5) {
-            errorMsg.textContent = translations[lang].usernameTooShort || "Kullanıcı adı en az 5 karakter olmalı.";
-            errorMsg.style.display = "block";
-            return;
-        }
-        if (password.length < 8) {
-            errorMsg.textContent = translations[lang].passwordTooShort || "Şifre en az 8 karakter olmalı.";
-            errorMsg.style.display = "block";
-            return;
-        }
-
-        const storedUsers = JSON.parse(localStorage.getItem("users") || "{}");
-        if (storedUsers[username] && storedUsers[username].password === password) {
-            localStorage.setItem("accountUsername", username);
-            updateAccountUI();
-            showAccountModal();
-        } else {
-            errorMsg.textContent = translations[lang].accountError || "Hatalı kullanıcı adı veya şifre.";
-            errorMsg.style.display = "block";
-        }
-    };
-
-    document.getElementById("accountRegisterBtn").onclick = () => {
-        const username = document.getElementById("accountUsername").value.trim();
-        const password = document.getElementById("accountPassword").value.trim();
-        const errorMsg = document.getElementById("accountError");
-        const lang = localStorage.getItem("language") || "tr";
-        errorMsg.style.display = "none";
-
-        if (username.length < 5) {
-            errorMsg.textContent = translations[lang].usernameTooShort || "Kullanıcı adı en az 5 karakter olmalı.";
-            errorMsg.style.display = "block";
-            return;
-        }
-        if (password.length < 8) {
-            errorMsg.textContent = translations[lang].passwordTooShort || "Şifre en az 8 karakter olmalı.";
-            errorMsg.style.display = "block";
-            return;
-        }
-
-        const storedUsers = JSON.parse(localStorage.getItem("users") || "{}");
-        if (storedUsers[username]) {
-            errorMsg.textContent = translations[lang].usernameTaken || "Bu kullanıcı adı zaten alınmış.";
-            errorMsg.style.display = "block";
-            return;
-        }
-
-        storedUsers[username] = { password };
-        localStorage.setItem("users", JSON.stringify(storedUsers));
-        localStorage.setItem("accountUsername", username);
-        updateAccountUI();
-        showAccountModal();
-    };
-
-    document.getElementById("accountLogoutBtn").onclick = () => {
-        localStorage.removeItem("accountUsername");
-        updateAccountUI();
-        closeAccountPanel();
-    };
-
-    function bindAccountShortcut() {
-        const accountShortcut = localStorage.getItem("accountShortcut") || "Ctrl + Shift + A";
-        document.addEventListener("keydown", (e) => {
-            const keyCombo = `${e.ctrlKey ? 'Ctrl + ' : ''}${e.shiftKey ? 'Shift + ' : ''}${e.key}`;
-            if (keyCombo === accountShortcut) {
-                e.preventDefault();
-                showAccountModal();
-            }
-        });
-    }
-
-    window.onload = () => {
-        if (typeof translations === "undefined") {
-            setTimeout(window.onload, 50);
-            return;
-        }
-        const bg = document.getElementById("bgUrlInput").value.trim() || localStorage.getItem("bgUrl") || '';
-        const f = localStorage.getItem("font") || "'Open Sans', sans-serif";
-        const t = localStorage.getItem("theme") || "dark";
-        const st = localStorage.getItem("systemTheme") || "vanilla";
-        const c = localStorage.getItem("accentColor") || "#4CAF99";
-        const l = localStorage.getItem("language") || "tr";
-        const se = localStorage.getItem("searchEngine") || "google";
-        const sf = localStorage.getItem("showFavorites") || "true";
-        const ss = localStorage.getItem("showSuggestions") || "true";
-        const sw = localStorage.getItem("showWeather") || "true";
-        const si = localStorage.getItem("showInfoBar") || "true";
-        const ld = localStorage.getItem("logoDisplay") || "logo-name";
-        const maxFav = localStorage.getItem("maxFavorites") || "5";
-        const searchShortcut = localStorage.getItem("searchShortcut") || "Ctrl + /";
-        const favoriteShortcut = localStorage.getItem("favoriteShortcut") || "Ctrl + Shift + F";
-        const settingsShortcut = localStorage.getItem("settingsShortcut") || "Ctrl + Shift + X";
-        const historyShortcut = localStorage.getItem("historyShortcut") || "Ctrl + Shift + H";
-        const imagesShortcut = localStorage.getItem("imagesShortcut") || "Ctrl + i";
-        const shoppingShortcut = localStorage.getItem("shoppingShortcut") || "Ctrl + S";
-        const newsShortcut = localStorage.getItem("newsShortcut") || "Ctrl + N";
-        const accountShortcut = localStorage.getItem("accountShortcut") || "Ctrl + Shift + A";
-        const aiShortcut = localStorage.getItem("aiShortcut") || "Ctrl + Shift + I";
-        const weatherLocation = localStorage.getItem("weatherLocation") || "";
-        const weatherUpdateInterval = localStorage.getItem("weatherUpdateInterval") || "manual";
-        const linkBehavior = localStorage.getItem("linkBehavior") || "newTab";
-        const aiProvider = localStorage.getItem("aiProvider") || "chatgpt";
-        const customAiUrl = localStorage.getItem("customAiUrl") || "";
-        const showSearch = localStorage.getItem("showSearch") || "true";
-        const showSearchShortcuts = localStorage.getItem("showSearchShortcuts") || "true";
-        const showAccountButton = localStorage.getItem("showAccountButton") || "true";
-        const showAccountInfoText = localStorage.getItem("showAccountInfoText") || "true";
-        localStorage.setItem("weatherAPI", "wttrin"); // Varsayılan olarak wttr.in
-        localStorage.setItem("openWeatherMapApiKey", ""); // Varsayılan olarak boş
-        localStorage.setItem("weatherApiKey", ""); // Varsayılan olarak boş
-        localStorage.setItem("visualCrossingApiKey", ""); // Varsayılan olarak boş
-        localStorage.setItem("linkBehavior", "newTab"); // Varsayılan olarak yeni sekmede aç
-        localStorage.setItem("aiProvider", "chatgpt"); // Varsayılan olarak ChatGPT
-        localStorage.setItem("customAiUrl", ""); // Varsayılan olarak boş
-        localStorage.setItem('showAISearch', 'true');
-        const searchInput = document.getElementById("searchInput");
-        const suggestionsBox = document.getElementById("suggestions");  // Düzeltme: suggestionsBox tanımlandı
-        let selectedIndex = -1;
-        const bgUrl = localStorage.getItem("bgUrl") || "";
-
-        // Logo görüntüleme ayarları
-    const logoImg = document.getElementById("logoImg");
-    const logoName = document.getElementById("logoName");
-    const logoDisplay = localStorage.getItem("logoDisplay") || "logo-name";
-    const logoPosition = localStorage.getItem("logoPosition") || "center";
-    const logoNameColor = localStorage.getItem("logoNameColor") || "lightFont";
-
-    if (logoDisplay === "logo") {
-        logoImg.style.display = "block";
-        logoName.style.display = "none";
-    } else if (logoDisplay === "logo-name") {
-        logoImg.style.display = "block";
-        logoName.style.display = "inline";
-    } else {
-        logoImg.style.display = "none";
-        logoName.style.display = "none";
-    }
-
-    // Logo konumu
-    const logoContainer = document.getElementById("logo");
-    if (logoContainer && logoContainer.parentElement) {
-        logoContainer.parentElement.style.justifyContent =
-            logoPosition === "left" ? "flex-start" :
-            logoPosition === "right" ? "flex-end" : "center";
-    }
-
-    // Logo ismi rengi
-    logoName.classList.remove("lightFont", "darkFont");
-    logoName.classList.add(logoNameColor);
-
-        document.getElementById("bgUrlInput").value = bg;
-        document.getElementById("fontSelect").value = f;
-        document.getElementById("themeSelect").value = t;
-        document.getElementById("accentColor").value = c;
-        document.getElementById("languageSelect").value = l;
-        document.getElementById("searchEngineSelect").value = se;
-        document.getElementById("showFavorites").value = sf;
-        document.getElementById("showSuggestions").value = ss;
-        document.getElementById("showWeather").value = sw;
-        document.getElementById("showInfoBar").value = si;
-        document.getElementById("logoDisplaySelect").value = ld;
-        document.getElementById("maxFavorites").value = maxFav;
-        document.getElementById("searchShortcutInput").value = searchShortcut;
-        document.getElementById("favoriteShortcutInput").value = favoriteShortcut;
-        document.getElementById("settingsShortcutInput").value = settingsShortcut;
-        document.getElementById("historyShortcutInput").value = historyShortcut;
-        document.getElementById("imagesShortcutInput").value = imagesShortcut;
-        document.getElementById("shoppingShortcutInput").value = shoppingShortcut;
-        document.getElementById("newsShortcutInput").value = newsShortcut;
-        document.getElementById("accountShortcutInput").value = accountShortcut;
-        document.getElementById("aiShortcutInput").value = aiShortcut;
-        document.getElementById("weatherLocation").value = weatherLocation;
-        document.getElementById("weatherUpdateInterval").value = weatherUpdateInterval;
-        document.getElementById("linkBehavior").value = linkBehavior;
-        document.getElementById("aiProviderSelect").value = aiProvider;
-        document.getElementById("customAiUrl").value = customAiUrl;
-        document.getElementById("showAISearch").value = showAISearch;
-        document.getElementById("searchAIBtn").style.display = showAISearch ? "inline-block" : "none";
-        document.getElementById("weatherAPI").value = localStorage.getItem("weatherAPI") || "openweathermap";
-        document.getElementById("searchBar").style.display = showSearch === "true" ? "flex" : "none";
-        document.getElementById("favorites").style.display = showFavorites === "true" ? "flex" : "none";
-        document.getElementById("suggestions").style.display = showSuggestions === "true" && document.getElementById("searchInput").value.trim() ? "block" : "none";
-        document.getElementById("weatherWidget").style.display = showWeather === "true" ? "block" : "none";
-        document.getElementById("infoBar").style.display = showInfoBar === "true" ? "flex" : "none";
-        document.getElementById("accountButton").style.display = showAccountButton === "true" ? "block" : "none";
-        document.getElementById("accountInfo").style.display = showAccountInfoText === "true" && localStorage.getItem("accountUsername") ? "inline" : "none";
-        document.getElementById("showSearch").value = showSearch;
-        document.getElementById("showSearchShortcuts").value = showSearchShortcuts;
-        document.getElementById("showAccountButton").value = showAccountButton;
-        document.getElementById("showAccountInfoText").value = showAccountInfoText;
-        document.getElementById("logoDisplaySelect").value = logoDisplay;
-        document.getElementById("logoPositionSelect").value = logoPosition;
-        document.getElementById("logoNameColorSelect").value = logoNameColor;
         document.getElementById("importSettingsBtn").onclick = openImportExportModal;
         document.getElementById("exportSettingsBtn").onclick = exportSettings;
         document.getElementById("importSettingsBtnModal").onclick = () => document.getElementById("importFileInput").click();
@@ -1481,99 +571,178 @@ document.getElementById("clearHistoryBtn").onclick = () => {
             const file = e.target.files[0];
             if (file) importSettings(file);
         };
-        document.getElementById("systemThemeSelect").value = st;
 
-        
+        document.getElementById("resetBrowserBtn").onclick = () => {
+            resetBrowser(applyBackground, updateLanguage, loadFavorites, updateSearchEnginePreview, fetchWeather, bindShortcuts, startWeatherUpdate);
+        };
+
+        // Account events
+        document.getElementById("accountButton").onclick = showAccountModal;
+        document.getElementById("accountLoginBtn").onclick = () => {
+            const username = document.getElementById("accountUsername").value.trim();
+            const password = document.getElementById("accountPassword").value.trim();
+            const errorMsg = document.getElementById("accountError");
+            const lang = localStorage.getItem("language") || "tr";
+            errorMsg.style.display = "none";
+
+            if (isInappropriateUsername(username)) {
+                errorMsg.textContent = translations[lang].invalidUsername || "Uygunsuz kullanıcı adı: Karakterler (a-z,0-9,_), 3-20 uzunluk, küfür yok.";
+                errorMsg.style.display = "block";
+                return;
+            }
+
+            if (username.length < 5) {
+                errorMsg.textContent = translations[lang].usernameTooShort || "Kullanıcı adı en az 5 karakter olmalı.";
+                errorMsg.style.display = "block";
+                return;
+            }
+            if (password.length < 8) {
+                errorMsg.textContent = translations[lang].passwordTooShort || "Şifre en az 8 karakter olmalı.";
+                errorMsg.style.display = "block";
+                return;
+            }
+
+            const storedUsers = JSON.parse(localStorage.getItem("users") || "{}");
+            if (storedUsers[username] && storedUsers[username].password === password) {
+                localStorage.setItem("accountUsername", username);
+                updateAccountUI();
+                showAccountModal();
+            } else {
+                errorMsg.textContent = translations[lang].accountError || "Hatalı kullanıcı adı veya şifre.";
+                errorMsg.style.display = "block";
+            }
+        };
+
+        document.getElementById("accountRegisterBtn").onclick = () => {
+            const username = document.getElementById("accountUsername").value.trim();
+            const password = document.getElementById("accountPassword").value.trim();
+            const errorMsg = document.getElementById("accountError");
+            const lang = localStorage.getItem("language") || "tr";
+            errorMsg.style.display = "none";
+
+            if (isInappropriateUsername(username)) {
+                errorMsg.textContent = translations[lang].invalidUsername || "Uygunsuz kullanıcı adı: Karakterler (a-z,0-9,_), 3-20 uzunluk, küfür yok.";
+                errorMsg.style.display = "block";
+                return;
+            }
+
+            if (username.length < 5) {
+                errorMsg.textContent = translations[lang].usernameTooShort || "Kullanıcı adı en az 5 karakter olmalı.";
+                errorMsg.style.display = "block";
+                return;
+            }
+            if (password.length < 8) {
+                errorMsg.textContent = translations[lang].passwordTooShort || "Şifre en az 8 karakter olmalı.";
+                errorMsg.style.display = "block";
+                return;
+            }
+
+            const storedUsers = JSON.parse(localStorage.getItem("users") || "{}");
+            if (storedUsers[username]) {
+                errorMsg.textContent = translations[lang].usernameTaken || "Bu kullanıcı adı zaten alınmış.";
+                errorMsg.style.display = "block";
+                return;
+            }
+
+            storedUsers[username] = { password };
+            localStorage.setItem("users", JSON.stringify(storedUsers));
+            localStorage.setItem("accountUsername", username);
+            updateAccountUI();
+            showAccountModal();
+        };
+
+        document.getElementById("accountLogoutBtn").onclick = () => {
+            localStorage.removeItem("accountUsername");
+            updateAccountUI();
+            closeAccountPanel();
+        };
+
+        // Search buttons
         document.getElementById("searchWebBtn").addEventListener("click", () => search("web"));
         document.getElementById("searchImagesBtn").addEventListener("click", () => search("images"));
         document.getElementById("searchShoppingBtn").addEventListener("click", () => search("shopping"));
         document.getElementById("searchNewsBtn").addEventListener("click", () => search("news"));
         document.getElementById("searchAIBtn").addEventListener("click", () => search("ai"));
-        document.getElementById("searchBar").style.display = showSearch === "true" ? "flex" : "none";
-        document.querySelector(".buttons").style.display = showSearchShortcuts === "true" ? "flex" : "none";
-        document.getElementById("searchAIBtn").style.display = showAISearch === "true" ? "inline-block" : "none";
-        document.getElementById("accountButton").style.display = showAccountButton === "true" ? "block" : "none";
-        document.getElementById("accountInfo").style.display = showAccountInfoText === "true" && localStorage.getItem("accountUsername") ? "inline" : "none";
 
-        document.getElementById("weatherAPI").addEventListener("change", (e) => {
-            localStorage.setItem("weatherAPI", e.target.value);
-            fetchWeather();
-        });
+        // Context menu
+        document.getElementById("favoriteContextMenu").addEventListener("click", function(e) {
+            const action = e.target.getAttribute("data-action");
+            const index = parseInt(this.getAttribute("data-index"));
+            let favs = JSON.parse(localStorage.getItem("userFavorites") || "[]");
+            if (isNaN(index) || index < 0 || index >= favs.length) return;
 
-
-            document.getElementById("weatherAPI").addEventListener("change", (e) => {
-                const api = e.target.value;
-            document.getElementById("openWeatherMapKeyInput").classList.toggle("active", api === "openweathermap");
-            document.getElementById("weatherApiKeyInput").classList.toggle("active", api === "weatherapi");
-            document.getElementById("visualCrossingKeyInput").classList.toggle("active", api === "visualcrossing");
-            if (localStorage.getItem("showWeather") === "true" && localStorage.getItem("weatherLocation")?.trim()) {
-                fetchWeather();
-            }
-            document.getElementById("openWeatherMapKeyInput").classList.toggle("active", api === "openweathermap");
-            document.getElementById("weatherApiKeyInput").classList.toggle("active", api === "weatherapi");
-            document.getElementById("visualCrossingKeyInput").classList.toggle("active", api === "visualcrossing");
-        });
-
-        fetchWeather();
-        startWeatherUpdate();
-        applySettings(loadCachedBackground, updateLanguage, loadFavorites, updateSearchEnginePreview, fetchWeather, bindShortcuts, startWeatherUpdate);
-        updateAccountModalTheme();
-        bindAccountShortcut();
-        updateAccountUI();
-        loadFavorites();
-        bindShortcuts();
-        loadCachedBackground();
-        updateRecentBgList();
-        applyBackground(bgUrl);  // Yeni: Direkt localStorage'dan uygula
-        updateRecentBgList();
-
-        function fetchSuggestions(query) {
-            if (localStorage.getItem("showSuggestions") === "false") return;
-            const encodedQuery = encodeURIComponent(query.trim());
-            const callbackName = "jsonpCallback_" + Math.random().toString(36).substr(2);
-            window[callbackName] = function(data) {
-                try {
-                    console.log("Google Suggest JSONP yanıtı:", data);
-                    const suggestionsBox = document.getElementById("suggestions");
-                    suggestionsBox.innerHTML = "";
-                    const suggestions = data[1].slice(0, 8);
-                    suggestionsBox.style.display = suggestions.length ? "block" : "none";
-                    suggestions.forEach(suggestion => {
-                        const li = document.createElement("li");
-                        li.textContent = suggestion;
-                        li.onclick = () => {
-                            document.getElementById("searchInput").value = suggestion;
-                            search();
-                            suggestionsBox.style.display = "none";
-                        };
-                        suggestionsBox.appendChild(li);
-                    });
-                    selectedIndex = -1;
-                } catch (e) {
-                    console.error("Öneri alınamadı:", e);
-                    const suggestionsBox = document.getElementById("suggestions");
-                    suggestionsBox.innerHTML = `<li style="padding: 12px; color: #ff4444;">${translations[localStorage.getItem("language") || "tr"].noSuggestions}</li>`;
-                    suggestionsBox.style.display = "block";
-                } finally {
-                    delete window[callbackName];
+            if (action === "remove") {
+                removeFavorite(index);
+            } else if (action === "moveRight") {
+                if (index < favs.length - 1) {
+                    const temp = favs[index];
+                    favs[index] = favs[index + 1];
+                    favs[index + 1] = temp;
+                    localStorage.setItem("userFavorites", JSON.stringify(favs));
+                    loadFavorites();
                 }
-            };
-            const script = document.createElement("script");
-            script.src = `https://suggestqueries.google.com/complete/search?client=firefox&q=${encodedQuery}&jsonp=${callbackName}`;
-            script.onload = () => {
-                script.remove();
-            };
-            script.onerror = () => {
-                console.error("Öneri alınamadı: Script yüklenemedi");
-                const suggestionsBox = document.getElementById("suggestions");
-                suggestionsBox.innerHTML = `<li style="padding: 12px; color: #ff4444;">${translations[localStorage.getItem("language") || "tr"].noSuggestions}</li>`;
-                suggestionsBox.style.display = "block";
-                delete window[callbackName];
-                script.remove();
-            };
-            document.body.appendChild(script);
-        }
+                document.getElementById("favoriteContextMenu").style.display = "none";
+                document.querySelectorAll(".favorite-item").forEach(item => item.classList.remove("context-active"));
+            } else if (action === "moveLeft") {
+                if (index > 0) {
+                    const temp = favs[index];
+                    favs[index] = favs[index - 1];
+                    favs[index - 1] = temp;
+                    localStorage.setItem("userFavorites", JSON.stringify(favs));
+                    loadFavorites();
+                }
+                document.getElementById("favoriteContextMenu").style.display = "none";
+                document.querySelectorAll(".favorite-item").forEach(item => item.classList.remove("context-active"));
+            } else if (action === "open") {
+                window.open(favs[index].url, "_blank");
+                document.getElementById("favoriteContextMenu").style.display = "none";
+                document.querySelectorAll(".favorite-item").forEach(item => item.classList.remove("context-active"));
+            } else if (action === "renameFav") {
+                const fav = favs[index];
+                const newName = prompt("Yeni favori adı:", fav.name);
+                if (newName && newName.trim()) {
+                    favs[index].name = newName.trim();
+                    localStorage.setItem("userFavorites", JSON.stringify(favs));
+                    loadFavorites();
+                }
+                document.getElementById("favoriteContextMenu").style.display = "none";
+                document.querySelectorAll(".favorite-item").forEach(item => item.classList.remove("context-active"));
+            }
+        });
 
+        document.addEventListener("click", (e) => {
+            if (!e.target.closest("#menuPanel") && !e.target.closest("#menuButton")) {
+                document.getElementById("menuPanel").style.display = "none";
+            }
+            if (!e.target.closest("#searchBar") && !e.target.closest("#suggestions")) {
+                document.getElementById("suggestions").style.display = "none";
+            }
+            if (!e.target.closest("#addFavoriteModal") && !e.target.closest("#addFavoriteBtn")) {
+                document.getElementById("addFavoriteModal").style.display = "none";
+            }
+            if (!e.target.closest("#accountModal") && !e.target.closest("#accountButton")) {
+                const accountModal = document.getElementById("accountModal");
+                accountModal.style.display = "none";
+                accountModal.classList.remove("active");
+            }
+            if (!e.target.closest("#voiceSearchModal") && !e.target.closest("#voiceSearchBtn")) {
+                document.getElementById("voiceSearchModal").style.display = "none";
+            }
+            const menu = document.getElementById("favoriteContextMenu");
+            if (!e.target.closest("#favoriteContextMenu")) {
+                menu.style.display = "none";
+                document.querySelectorAll(".favorite-item").forEach(item => item.classList.remove("context-active"));
+            }
+        });
+
+        window.closeAccountPanel = closeAccountPanel;
+        window.updateLanguage = window.updateLanguage;
+        window.selectColor = selectColor;
+
+        // Suggestions
+        let selectedIndex = -1;
+        const searchInput = document.getElementById("searchInput");
+        const suggestionsBox = document.getElementById("suggestions");
         const debouncedFetchSuggestions = debounce(fetchSuggestions, 200);
 
         searchInput.addEventListener("input", () => {
@@ -1618,100 +787,155 @@ document.getElementById("clearHistoryBtn").onclick = () => {
                 suggestionsBox.style.display = "none";
             }
         });
-    };
 
-document.addEventListener("click", (e) => {
-        if (!e.target.closest("#menuPanel") && !e.target.closest("#menuButton")) {
-            document.getElementById("menuPanel").style.display = "none";
-        }
-        if (!e.target.closest("#searchBar") && !e.target.closest("#suggestions")) {
-            document.getElementById("suggestions").style.display = "none";  // Düzeltme: suggestionsBox yerine direkt ID kullanıldı (tekrar önleme)
-        }
-        if (!e.target.closest("#addFavoriteModal") && !e.target.closest("#addFavoriteBtn")) {
-            document.getElementById("addFavoriteModal").style.display = "none";
-        }
-        if (!e.target.closest("#accountModal") && !e.target.closest("#accountButton")) {
-            const accountModal = document.getElementById("accountModal");
-            accountModal.style.display = "none";
-            accountModal.classList.remove("active");
-        }
-        if (!e.target.closest("#voiceSearchModal") && !e.target.closest("#voiceSearchBtn")) {
-            document.getElementById("voiceSearchModal").style.display = "none";
-        }
-    });
+        window.onload = () => {
+            if (typeof translations === "undefined") {
+                setTimeout(window.onload, 50);
+                return;
+            }
+            const bgUrl = localStorage.getItem("bgUrl") || "";
+            const f = localStorage.getItem("font") || "'Open Sans', sans-serif";
+            const t = localStorage.getItem("theme") || "dark";
+            const showAISearch = localStorage.getItem('showAISearch') || 'true';
+            const st = localStorage.getItem("systemTheme") || "vanilla";
+            const c = localStorage.getItem("accentColor") || "#4CAF99";
+            const l = localStorage.getItem("language") || "tr";
+            const se = localStorage.getItem("searchEngine") || "google";
+            const sf = localStorage.getItem("showFavorites") || "true";
+            const ss = localStorage.getItem("showSuggestions") || "true";
+            const sw = localStorage.getItem("showWeather") || "true";
+            const si = localStorage.getItem("showInfoBar") || "true";
+            const ld = localStorage.getItem("logoDisplay") || "logo-name";
+            const maxFav = localStorage.getItem("maxFavorites") || "5";
+            const searchShortcut = localStorage.getItem("searchShortcut") || "Ctrl + /";
+            const favoriteShortcut = localStorage.getItem("favoriteShortcut") || "Ctrl + Shift + F";
+            const settingsShortcut = localStorage.getItem("settingsShortcut") || "Ctrl + Shift + X";
+            const historyShortcut = localStorage.getItem("historyShortcut") || "Ctrl + Shift + H";
+            const imagesShortcut = localStorage.getItem("imagesShortcut") || "Ctrl + i";
+            const shoppingShortcut = localStorage.getItem("shoppingShortcut") || "Ctrl + S";
+            const newsShortcut = localStorage.getItem("newsShortcut") || "Ctrl + N";
+            const accountShortcut = localStorage.getItem("accountShortcut") || "Ctrl + Shift + A";
+            const aiShortcut = localStorage.getItem("aiShortcut") || "Ctrl + Shift + I";
+            const weatherLocation = localStorage.getItem("weatherLocation") || "";
+            const weatherUpdateInterval = localStorage.getItem("weatherUpdateInterval") || "manual";
+            const linkBehavior = localStorage.getItem("linkBehavior") || "newTab";
+            const aiProvider = localStorage.getItem("aiProvider") || "chatgpt";
+            const customAiUrl = localStorage.getItem("customAiUrl") || "";
+            const showSearch = localStorage.getItem("showSearch") || "true";
+            const showSearchShortcuts = localStorage.getItem("showSearchShortcuts") || "true";
+            const showAccountButton = localStorage.getItem("showAccountButton") || "true";
+            const showAccountInfoText = localStorage.getItem("showAccountInfoText") || "true";
+            const logoPosition = localStorage.getItem("logoPosition") || "center";
+            const logoNameColor = localStorage.getItem("logoNameColor") || "lightFont";
+            const multiSearchEnabled = localStorage.getItem("multiSearchEnabled") || "false";
 
-// Sağ tık favori menüsü fonksiyonu EKLENDİ
-function showFavoriteContextMenu(e, index, fav) {
-    const menu = document.getElementById("favoriteContextMenu");
-    menu.style.display = "block";
-    menu.style.left = `${e.pageX}px`;
-    menu.style.top = `${e.pageY}px`;
-    menu.setAttribute("data-index", index);
+            localStorage.setItem("weatherAPI", "wttr.in"); 
+            localStorage.setItem("openWeatherMapApiKey", ""); 
+            localStorage.setItem("weatherApiKey", ""); 
+            localStorage.setItem("visualCrossingApiKey", ""); 
+            localStorage.setItem("linkBehavior", "newTab"); 
+            localStorage.setItem("aiProvider", "chatgpt"); 
+            localStorage.setItem("customAiUrl", ""); 
+            localStorage.setItem('showAISearch', 'true');
 
-    // Favori öğesini vurgula (isteğe bağlı)
-    document.querySelectorAll(".favorite-item").forEach(item => item.classList.remove("context-active"));
-    const favItems = document.querySelectorAll(".favorite-item");
-    if (favItems[index]) favItems[index].classList.add("context-active");
-}
+            // Set values
+            document.getElementById("bgUrlInput").value = bgUrl;
+            document.getElementById("fontSelect").value = f;
+            document.getElementById("themeSelect").value = t;
+            document.getElementById("accentColor").value = c;
+            document.getElementById("languageSelect").value = l;
+            document.getElementById("searchEngineSelect").value = se;
+            document.getElementById("showFavorites").value = sf;
+            document.getElementById("showSuggestions").value = ss;
+            document.getElementById("showWeather").value = sw;
+            document.getElementById("showInfoBar").value = si;
+            document.getElementById("logoDisplaySelect").value = ld;
+            document.getElementById("maxFavorites").value = maxFav;
+            document.getElementById("searchShortcutInput").value = searchShortcut;
+            document.getElementById("favoriteShortcutInput").value = favoriteShortcut;
+            document.getElementById("settingsShortcutInput").value = settingsShortcut;
+            document.getElementById("historyShortcutInput").value = historyShortcut;
+            document.getElementById("imagesShortcutInput").value = imagesShortcut;
+            document.getElementById("shoppingShortcutInput").value = shoppingShortcut;
+            document.getElementById("newsShortcutInput").value = newsShortcut;
+            document.getElementById("accountShortcutInput").value = accountShortcut;
+            document.getElementById("aiShortcutInput").value = aiShortcut;
+            document.getElementById("weatherLocation").value = weatherLocation;
+            document.getElementById("weatherUpdateInterval").value = weatherUpdateInterval;
+            document.getElementById("linkBehavior").value = linkBehavior;
+            document.getElementById("aiProviderSelect").value = aiProvider;
+            document.getElementById("customAiUrl").value = customAiUrl;
+            document.getElementById("showAISearch").value = showAISearch;
+            document.getElementById("searchAIBtn").style.display = showAISearch ? "inline-block" : "none";
+            document.getElementById("weatherAPI").value = localStorage.getItem("weatherAPI") || "openweathermap";
+            document.getElementById("showSearch").value = showSearch;
+            document.getElementById("showSearchShortcuts").value = showSearchShortcuts;
+            document.getElementById("showAccountButton").value = showAccountButton;
+            document.getElementById("showAccountInfoText").value = showAccountInfoText;
+            document.getElementById("logoPositionSelect").value = logoPosition;
+            document.getElementById("logoNameColorSelect").value = logoNameColor;
+            document.getElementById("systemThemeSelect").value = st;
+            document.getElementById("multiSearchEnabled").value = multiSearchEnabled;
 
-// Sağ tık menüsünü dışarı tıklayınca kapat
-document.addEventListener("click", (e) => {
-    const menu = document.getElementById("favoriteContextMenu");
-    if (!e.target.closest("#favoriteContextMenu")) {
-        menu.style.display = "none";
-        document.querySelectorAll(".favorite-item").forEach(item => item.classList.remove("context-active"));
-    }
-});
+            document.getElementById("linkBehavior").addEventListener("change", () => {
+            localStorage.setItem("linkBehavior", document.getElementById("linkBehavior").value);
+            console.log("LinkBehavior set to:", document.getElementById("linkBehavior").value);
+        });
 
-// Sağ tık menüsü tıklama olayları
-document.getElementById("favoriteContextMenu").addEventListener("click", function(e) {
-    const action = e.target.getAttribute("data-action");
-    const index = parseInt(this.getAttribute("data-index"));
-    let favs = JSON.parse(localStorage.getItem("userFavorites") || "[]");
-    if (isNaN(index) || index < 0 || index >= favs.length) return;
+            // Logo settings
+            const logoImg = document.getElementById("logoImg");
+            const logoName = document.getElementById("logoName");
+            if (ld === "logo") {
+                logoImg.style.display = "block";
+                logoName.style.display = "none";
+            } else if (ld === "logo-name") {
+                logoImg.style.display = "block";
+                logoName.style.display = "inline";
+            } else {
+                logoImg.style.display = "none";
+                logoName.style.display = "none";
+            }
+            const logoContainer = document.getElementById("logo");
+            if (logoContainer && logoContainer.parentElement) {
+                logoContainer.parentElement.style.justifyContent =
+                    logoPosition === "left" ? "flex-start" :
+                    logoPosition === "right" ? "flex-end" : "center";
+            }
+            logoName.classList.remove("lightFont", "darkFont");
+            logoName.classList.add(logoNameColor);
 
-    if (action === "remove") {
-        favs.splice(index, 1);
-        localStorage.setItem("userFavorites", JSON.stringify(favs));
-        document.getElementById("favoriteContextMenu").style.display = "none";
-        document.querySelectorAll(".favorite-item").forEach(item => item.classList.remove("context-active"));
-        if (typeof loadFavorites === "function") loadFavorites();
-    } else if (action === "moveRight") {
-        if (index < favs.length - 1) {
-            const temp = favs[index];
-            favs[index] = favs[index + 1];
-            favs[index + 1] = temp;
-            localStorage.setItem("userFavorites", JSON.stringify(favs));
-            if (typeof loadFavorites === "function") loadFavorites();
-        }
-        document.getElementById("favoriteContextMenu").style.display = "none";
-        document.querySelectorAll(".favorite-item").forEach(item => item.classList.remove("context-active"));
-    } else if (action === "moveLeft") {
-        if (index > 0) {
-            const temp = favs[index];
-            favs[index] = favs[index - 1];
-            favs[index - 1] = temp;
-            localStorage.setItem("userFavorites", JSON.stringify(favs));
-            if (typeof loadFavorites === "function") loadFavorites();
-        }
-        document.getElementById("favoriteContextMenu").style.display = "none";
-        document.querySelectorAll(".favorite-item").forEach(item => item.classList.remove("context-active"));
-    } else if (action === "open") {
-        window.open(favs[index].url, "_blank");
-        document.getElementById("favoriteContextMenu").style.display = "none";
-        document.querySelectorAll(".favorite-item").forEach(item => item.classList.remove("context-active"));
-    } else if (action === "renameFav") {
-        // Yeniden adlandır fonksiyonu
-        const fav = favs[index];
-        const newName = prompt("Yeni favori adı:", fav.name);
-        if (newName && newName.trim()) {
-            favs[index].name = newName.trim();
-            localStorage.setItem("userFavorites", JSON.stringify(favs));
-            if (typeof loadFavorites === "function") loadFavorites();
-        }
-        document.getElementById("favoriteContextMenu").style.display = "none";
-        document.querySelectorAll(".favorite-item").forEach(item => item.classList.remove("context-active"));
-    }
-});
-</script>
+            // Display toggles
+            document.getElementById("searchBar").style.display = showSearch === "true" ? "flex" : "none";
+            document.getElementById("favorites").style.display = sf === "true" ? "flex" : "none";
+            document.getElementById("suggestions").style.display = ss === "true" && searchInput.value.trim() ? "block" : "none";
+            document.getElementById("weatherWidget").style.display = sw === "true" ? "block" : "none";
+            document.getElementById("infoBar").style.display = si === "true" ? "flex" : "none";
+            document.getElementById("accountButton").style.display = showAccountButton === "true" ? "block" : "none";
+            document.getElementById("accountInfo").style.display = showAccountInfoText === "true" && localStorage.getItem("accountUsername") ? "inline" : "none";
+            document.querySelector(".buttons").style.display = showSearchShortcuts === "true" ? "flex" : "none";
 
+            // Init
+            updateLanguage;
+            applyBackground(bgUrl);
+            loadFavorites();
+            fetchWeather();
+            startWeatherUpdate();
+            applySettings(applyBackground, updateLanguage, loadFavorites, updateSearchEnginePreview, fetchWeather, bindShortcuts, startWeatherUpdate);
+            updateAccountModalTheme();
+            bindShortcuts();
+            updateAccountUI();
+            updateRecentBgList();
+            initVoiceSearch();
+        };
+
+        // Background DOMContentLoaded
+        window.addEventListener("DOMContentLoaded", () => {
+            const bgUrl = localStorage.getItem("bgUrl");
+            if (bgUrl) applyBackground(bgUrl);
+            let wallpapers = JSON.parse(localStorage.getItem("wallpapers") || "[]");
+            localStorage.setItem("wallpapers", JSON.stringify(wallpapers.slice(0, 20)));
+            updateRecentBgList();
+        });
+    </script>
+</body>
+</html>
