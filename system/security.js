@@ -1,9 +1,20 @@
 // ./system/security.js
 export function protectPages() {
-    const allowedPages = ['', 'index.html', '404.html'];
-    const currentPage = window.location.pathname.split('/').pop().toLowerCase();
+    const allowedPages = ['', 'index.html', 'index', '404.html', '404',];
+    let currentPage = window.location.pathname.split('/').pop().toLowerCase() || 'index.html';
+
+    if (currentPage.endsWith('.html')) {
+        currentPage = currentPage.replace('.html', '');
+    }
+
     const params = new URLSearchParams(window.location.search);
 
+    // Hata ayıklama
+    console.log('Current Page:', currentPage);
+    console.log('Raw Pathname:', window.location.pathname);
+    console.log('Referer:', document.referrer);
+    console.log('User Agent:', navigator.userAgent);
+    
     // XSS koruması
     if (params.has('q') || params.has('search')) {
         const query = params.get('q') || params.get('search');
@@ -28,7 +39,9 @@ export function protectPages() {
         return;
     }
 
+// Sayfa kontrolü
     if (!allowedPages.includes(currentPage)) {
+        console.log('Sayfa bulunamadı:', currentPage);
         window.location.href = '404.html?reason=notfound';
     }
 }
@@ -98,4 +111,5 @@ document.addEventListener('DOMContentLoaded', () => {
     protectPages();
 
 });
+
 
