@@ -16,6 +16,8 @@ Tüm değişiklikler için [CHANGELOG.md](CHANGELOG.md) dosyasına bakabilirsini
 ## ⚠️ Önemli Uyarı
 Dev sürümü ile ana sürüm birbirine bağlı verileri silmeyiniz!
 
+Part 13 güncellemesi önemli özelliklerin çalışmamasına neden olabilir ayrıca hatalar yüzünden yavaş bir deneyim ile karşılaşabilirsiniz
+
 ---
 
 ## 🔧 Geliştirme Ortamı
