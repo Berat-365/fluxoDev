@@ -1,17 +1,51 @@
 # 📑 Changelog
 
 Bu dosya projede yapılan tüm önemli değişiklikleri takip eder.  
-Sürüm numaraları: Fluxo 4 (Part 1'den Part 10'a)
+Sürüm numaraları: Fluxo 4 (Part 1'den Part 13'e)
 
 ---
 
 ## [Unreleased]
-- Ayarlardaki işlevsiz sistemlere işlev kazandırılacak
 - Yeni **Araçlar** eklenecek (Saat, Borsa araçları...)
 - Telefonlar için yeni arayüz
 - Hesaplar için **Google** desteği
 - Hesaplar için yenilikler
 - 5 Günlük hava durumu tahmini
+
+---
+
+## [Fluxo 4 Part 13] - 2025-10-03
+### Eklendi (Added)
+- Script tamamen modüler hale getirildi (index.html %70 küçültüldü)
+- kaydetme sistemi local storge yerine IndexedDB'ye geçirildi
+- Havadurumu widgeti için daha sade tasarım
+- Yeni FluxoSecureMax: Artık sistem daha güvenlikli
+- 404 Sayfası eklendi
+- Language.js daha kapsamlı hale getirildi
+- Duvar kağıdı geçmişi 3 ile sınırlandırıldı
+- Multisearch özelliği eklendi
+
+### Düzenlendi (Fixed)
+- Hava durumunun çalışmama hatası giderildi
+- Sayfa çökme hatası giderildi
+- logo görüntüleme ayarları düzeltildi
+
+### Bilinen Hatalar (Erors)
+- Kaydetme sorunları
+- Vanilla UI konum hataları
+- Görünüm hataları ve DOM bulunamadı hataları
+- Geçersiz API hataları
+- Türkçe harflerin hesap oluşturmada kullanılamaması
+- MultiSearch fonksiyonu açıkken AISearch çalışmama hatası
+
+### Test Edilen Sistemler (deferred systems)
+- Bölünmüş görünümde aç > Yeniden gündeme alınabilir html üzerinde çalışıyorum hataları giderdikten sonra eklenebilir
+- 5 Günlük hava tahmini ve detaylı görünüm > Hava durumu widgeti için sadeleştirmeden sonra eklenmesi planlanıyor
+- Google ile Hesaplar girişi > Hatalar giderildikten sonra eklenecek
+
+### Ertelenen Sistemler (Tested systems)
+- Duvar kağıdını kaldırma > Mevcut hatalar yüzünden yakın bir yamaya ertelendi
+- Google Lens eklentisi > Mevcut hatalar yüzünden yakın bir yamaya ertelendi
 
 ---
 
