@@ -1,6 +1,6 @@
 // ./system/security.js
 export function protectPages() {
-    const allowedPages = ['index.html', '404.html', 'about.html'];
+    const allowedPages = ['index.html', '404.html'];
     const currentPage = window.location.pathname.split('/').pop().toLowerCase();
     const params = new URLSearchParams(window.location.search);
 
@@ -21,7 +21,7 @@ export function protectPages() {
     }
 
     // Referer kontrolü
-    const allowedReferers = ['https://berat-365.github.io/fluxoDev/', 'https://berat-365.github.io/fluxoDev/', 'http://127.0.0.1:5500/'];
+    const allowedReferers = ['https://berat-365.github.io/fluxoDev/', 'https://berat-365.github.io/fluxoDev/', 'https://berat-365.github.io/'];
     const referer = document.referrer;
     if (referer && !allowedReferers.some(ref => referer.startsWith(ref))) {
         window.location.href = '404.html?reason=unauthorized';
@@ -96,4 +96,5 @@ export function isInappropriateUsername(username) {
 // Sayfa yüklendikten sonra çalıştır
 document.addEventListener('DOMContentLoaded', () => {
     protectPages();
+
 });
