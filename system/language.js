@@ -156,12 +156,16 @@ const translations = {
     newbrowser: "Yeni Tarayıcı ile Aç",
     showScienceSearch: "Bilimsel Ara Butonunu Göster",
     maxFavorites20: "20 (Büyük ekranlar için önerilir)",
+    maxFavorites25: "25 (Büyük ekranlar için önerilir)",
+    maxFavorites30: "30 (Büyük ekran gerekli)",
     active: "Aktif",
     deactive: "Deaktif",
     systemTheme: "Sistem Teması:",
     neomorph: "Neomorfizm",
     glassmorph: "Glassmorfizm",
     box: "Kutu",
+    invalidUsername: "Uygunsuz kullanıcı adı: Karakterler (a-z,0-9,_), 3-20 uzunluk, küfür yok.",
+    noHistory: "Geçmiş Yok"
 
   },
   az: {
@@ -4213,3 +4217,70 @@ gag: {
 };
 
 export { translations };
+
+export function updateLanguage(lang) {
+  if (!translations[lang]) {
+    console.error(`Dil ${lang} desteklenmiyor, varsayılan 'tr' kullanılıyor.`);
+    lang = 'tr';
+  }
+
+  document.documentElement.lang = lang;
+  const elements = document.querySelectorAll('[data-lang-key]');
+  elements.forEach(el => {
+    const key = el.getAttribute('data-lang-key');
+    if (translations[lang][key]) {
+      if (el.tagName === 'INPUT' && el.type === 'text') el.placeholder = translations[lang][key];
+      else if (el.tagName === 'OPTION') el.textContent = translations[lang][key];
+      else el.textContent = translations[lang][key];
+    }
+  });
+
+  // Specific updates
+  const searchInput = document.getElementById('searchInput');
+  if (searchInput) searchInput.placeholder = translations[lang].searchPlaceholder || "Arama yap...";
+
+  const langDisplay = document.getElementById('languageDisplay');
+  if (langDisplay) langDisplay.textContent = translations[lang].languageDisplay || lang.toUpperCase();
+
+  // Add other specific placeholders as needed
+  const addFavBtn = document.getElementById('addFavoriteBtn');
+  if (addFavBtn) addFavBtn.textContent = translations[lang].addFavorite || '+';
+
+  // Weather widget fallback
+  const widget = document.getElementById("weatherWidget");
+  if (widget) widget.innerHTML = translations[lang].loading || " ... ";
+}
+export function toggleMultiSearchMenu(e) {
+    e.preventDefault();
+    const menu = document.getElementById("multiSearchMenu");
+    const rect = e.target.getBoundingClientRect();
+    menu.style.display = menu.style.display === "block" ? "none" : "block";
+    menu.style.left = `${rect.left}px`;
+    menu.style.top = `${rect.bottom + 5}px`;
+
+    const selectedEngines = JSON.parse(localStorage.getItem("multiSearchEngines") || "[]");
+    menu.querySelectorAll("div:not(#selectAllMultiSearch)").forEach(div => {
+        const engineId = div.getAttribute("data-engine");
+        div.classList.toggle("selected", selectedEngines.includes(engineId));
+        div.onclick = () => {
+            div.classList.toggle("selected");
+            const updatedEngines = Array.from(menu.querySelectorAll(".selected")).map(el => el.getAttribute("data-engine"));
+            localStorage.setItem("multiSearchEngines", JSON.stringify(updatedEngines));
+        };
+    });
+
+    document.getElementById("selectAllMultiSearch").onclick = () => {
+        const allEngines = ["google", "bing", "duckduckgo", "yandex", "brave", "yahoo"];
+        menu.querySelectorAll("div:not(#selectAllMultiSearch)").forEach(div => div.classList.add("selected"));
+        localStorage.setItem("multiSearchEngines", JSON.stringify(allEngines));
+        menu.style.display = "none";
+    };
+
+    const closeMenu = (event) => {
+        if (!menu.contains(event.target) && !event.target.closest(".icon-left")) {
+            menu.style.display = "none";
+            document.removeEventListener("click", closeMenu);
+        }
+    };
+    setTimeout(() => document.addEventListener("click", closeMenu), 0);
+}
