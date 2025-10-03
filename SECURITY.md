@@ -7,9 +7,9 @@ The following versions are supported with security updates:
 | Version | Supported | Security |
 | ------- | ------------------ | ------------------ |
 | Fluxo 1.3 | ❌ (No support) |
-| Fluxo 3.1.2 | ➖ (Partial support) | https://onecompiler.com/users/43qgwsawh/codes |
-| Fluxo 3.8 | ✅ (Active support) | 🛡️ Fluxo Secure 1 |
-| Fluxo 4 | ✅ (System in development) | 🛡️ Fluxo Secure Max |
+| Fluxo 3.1.2 | ❌ (No support) | https://onecompiler.com/users/43qgwsawh/codes |
+| Fluxo 3.8 | ➖ (Security Updates Only) | 🛡️ Fluxo Secure 1 |
+| Fluxo 4 | ✅ Active support (beta) | 🛡️ Fluxo Secure Max |
 
 ---
 
