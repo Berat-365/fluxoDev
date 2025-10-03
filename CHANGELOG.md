@@ -37,6 +37,7 @@ Sürüm numaraları: Fluxo 4 (Part 1'den Part 13'e)
 - Geçersiz API hataları
 - Türkçe harflerin hesap oluşturmada kullanılamaması
 - MultiSearch fonksiyonu açıkken AISearch çalışmama hatası
+- Vanilla harici temalarda görünüm hataları
 
 ### Test Edilen Sistemler (deferred systems)
 - Bölünmüş görünümde aç > Yeniden gündeme alınabilir html üzerinde çalışıyorum hataları giderdikten sonra eklenebilir
