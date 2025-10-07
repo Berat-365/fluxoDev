@@ -52,11 +52,6 @@ async function performMultiSearch(type = 'web') {
     selectedEngines.forEach((engine, index) => {
         let url;
 
-        if (type === "ai") {
-            console.warn("AI için multisearch desteklenmiyor!");
-            return;
-        }
-
         // --- Arama URL'sini hazırla ---
         if (engine === "yandex") {
             if (type === 'images') url = `https://yandex.com/images/search?text=${encodeURIComponent(q)}`;
@@ -116,7 +111,6 @@ async function performMultiSearch(type = 'web') {
     document.getElementById("searchInput").value = "";
 }
 
-
 // Mevcut search fonksiyonu
 export async function search(type = 'web') {
     const q = document.getElementById("searchInput").value.trim();
@@ -124,10 +118,10 @@ export async function search(type = 'web') {
     suggestionsBox.style.display = "none";
     if (!q) return;
     
-    // Multisearch kontrolü
+    // Multisearch kontrolü (AI hariç - multi açıkken bile AI single çalışır)
     const multiSearchEnabled = localStorage.getItem("multiSearchEnabled") === "true";
     console.log("MultiSearch Enabled:", multiSearchEnabled);
-    if (multiSearchEnabled) {
+    if (multiSearchEnabled && type !== "ai") {
         performMultiSearch(type);
         return;
     }
@@ -148,23 +142,25 @@ export async function search(type = 'web') {
             return;
         }
         if (aiProvider === "grok") {
-            url = `https://grok.x.ai/?query=${encodeURIComponent(q)}`;
+            url = `https://grok.x.ai/`;
         } else if (aiProvider === "chatgpt") {
-            url = `https://chat.openai.com/?q=${encodeURIComponent(q)}`;
+            url = `https://chat.openai.com/?model=gpt-4o&q=${encodeURIComponent(q)}`;
         } else if (aiProvider === "claude") {
-            url = `https://claude.anthropic.com/?q=${encodeURIComponent(q)}`;
+            url = `https://claude.ai/chats?query=${encodeURIComponent(q)}`;
         } else if (aiProvider === "copilot") {
-            url = `https://copilot.microsoft.com/search?q=${encodeURIComponent(q)}`;
+            url = `https://copilot.microsoft.com/?q=${encodeURIComponent(q)}`;
         } else if (aiProvider === "perplexity") {
             url = `https://www.perplexity.ai/search?q=${encodeURIComponent(q)}`;
         } else if (aiProvider === "deepseek") {
-            url = `https://www.deepseek.ai/?q=${encodeURIComponent(q)}`;
+            url = `https://chat.deepseek.com/?q=${encodeURIComponent(q)}`;
         } else if (aiProvider === "gemini") {
-            url = `https://gemini.google.com/?q=${encodeURIComponent(q)}`;
+            url = `https://gemini.google.com/app?q=${encodeURIComponent(q)}`;
         } else if (aiProvider === "custom") {
             try {
                 new URL(customAiUrl);
-                url = `${customAiUrl}?q=${encodeURIComponent(q)}`;
+                // Custom için query param'ı varsayalım, yoksa ana sayfaya git
+                const separator = customAiUrl.includes('?') ? '&' : '?';
+                url = `${customAiUrl}${separator}q=${encodeURIComponent(q)}`;
             } catch {
                 alert(translations[lang].invalidAiUrl || "Geçersiz AI sitesi URL'si!");
                 return;
@@ -308,7 +304,7 @@ export function fetchSuggestions(query) {
         }
     };
     const script = document.createElement("script");
-    script.src = `https://suggestqueries.google.com/complete/search?client=firefox&q=${encodeURIComponent(query)}&jsonp=${callbackName}`;
+    script.src = `https://suggestqueries.google.com/complete/search?client=chrome&q=${encodeURIComponent(query)}&jsonp=${callbackName}`;
     script.onload = () => {
         script.remove();
     };
