@@ -373,7 +373,7 @@ body.light .url-sidebar::-webkit-scrollbar-thumb:hover {
 
 .search-bar input {
     width: 100%;
-    padding: 14px 50px 14px 44px;
+    padding: 14px 75px 14px 45px;
     border-radius: 25px;
     border: 1px solid var(--border-highlight);
     background-color: var(--element-color);
@@ -393,29 +393,32 @@ body.light .url-sidebar::-webkit-scrollbar-thumb:hover {
     transform: scale(1.02);
 }
 
-.icon-left,
-.icon-right {
+.icon-left, .icon-right {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
     cursor: pointer;
     user-select: none;
 }
-
 .icon-left {
     left: 12px;
+    z-index: 1002;  
 }
-
 .icon-right {
     right: 12px;
 }
-
-.icon-left img,
-.icon-right img {
+#voiceSearchBtn {
+    margin-right: 2rem; /* Lens ile boşluk */
+}
+#lensSearchBtn {
+    margin-left: 0.25rem;
+    opacity: 0.8;
+    transition: opacity 0.2s, transform 0.2s;
+}
+.icon-left img, .icon-right img {
     width: 24px;
     height: 24px;
 }
-
 .buttons {
     margin-bottom: 0;
     z-index: 1001;
@@ -1817,7 +1820,230 @@ body.light #feedbackStatus.success {
     overflow: hidden;
     text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
 }
-#lensIcon {
-  margin-left: 6px; /* mikrofonla arasında boşluk */
+body.light #favoriteContextMenu {
+    background-color: var(--element-color);
+    color: #000;
+}
+#lensButton {
+  margin-left: 6px;
   cursor: pointer;
+}
+
+.multi-search-menu {
+  position: absolute;
+  background: rgba(255, 255, 255, 0.1); /* yarı saydam */
+  backdrop-filter: blur(12px); /* glassmorphism blur */
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 20px;
+  padding: 8px 0;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+  z-index: 10000;
+  min-width: 200px;
+  display: none;
+  font-family: var(--site-font);
+  transition: opacity 0.3s ease, transform 0.18s ease-out;
+  transform: translateY(-10px) scale(0.95);
+}
+
+.multi-search-menu[style*="block"] {
+  display: block;
+  animation: scaleIn-multi 0.18s ease-out forwards;
+}
+
+/* Light mode */
+body.light .multi-search-menu {
+  background: rgba(255, 255, 255, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  color: #000;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+}
+
+/* Menü öğeleri */
+.multi-search-item {
+  padding: 10px 15px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  color: #fff;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+  border-radius: 15px;
+}
+
+body.light .multi-search-item {
+  color: #000;
+}
+
+.multi-search-item:hover {
+  background-color: rgba(255, 255, 255, 0.15);
+  transform: scale(1.02);
+}
+
+body.light .multi-search-item:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.multi-search-item.selected {
+  background-color: rgba(255, 255, 255, 0.25);
+  color: var(--accent-color);
+  font-weight: 600;
+}
+
+body.light .multi-search-item.selected {
+  background-color: rgba(0, 0, 0, 0.08);
+}
+
+/* Tümünü seç butonu */
+.multi-search-select-all {
+  padding: 10px 15px;
+  cursor: pointer;
+  border-top: 1px solid transparent;
+  font-weight: 600;
+  color: #fff;
+  transition: background-color 0.2s ease, color 0.2s ease;
+  border-radius: 15px;
+}
+
+body.light .multi-search-select-all {
+  color: #000;
+}
+
+.multi-search-select-all:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+  color: var(--accent-color);
+}
+
+body.light .multi-search-select-all:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+  color: var(--accent-color);
+}
+
+/* Keyframe animasyon */
+@keyframes scaleIn-multi {
+  0% { opacity: 0; transform: translateY(-10px) scale(0.95); }
+  100% { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* Küçük ikonlar */
+.search-icon {
+  width: 16px;
+  height: 16px;
+}
+.weather-popup {
+    position: fixed !important;
+    top: 85px !important;
+    left: 10px !important;
+    background-color: var(--element-color);
+    color: var(--text-color);
+    border: 1px solid var(--border-highlight);
+    border-radius: 20px;
+    padding: 8px 0;
+    box-shadow: var(--shadow);
+    z-index: 10000;
+    min-width: 250px;
+    max-width: 300px;
+    display: none;
+    font-family: var(--site-font);
+    transition: opacity 0.3s ease, transform 0.18s ease-out;
+    transform: translateY(-10px) scale(0.95);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.weather-popup[style*="block"] {
+    display: block;
+    animation: scaleIn-multi 0.18s ease-out forwards;
+}
+
+.close-popup {
+    position: absolute;
+    top: 8px;
+    right: 12px;
+    font-size: 18px;
+    cursor: pointer;
+    color: var(--text-color);
+    z-index: 1;
+    padding: 5px;
+    transition: color 0.2s ease;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.close-popup:hover {
+    color: var(--accent-color);
+}
+
+#popupLocation {
+    padding: 10px 15px 15px 15px;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-color);
+    order: 2; /* Flex container'da alta getir */
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+#forecastList {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    max-height: 300px;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: #5c5e60 var(--element-color);
+    padding: 0 8px;
+}
+
+#forecastList::-webkit-scrollbar {
+    width: 6px;
+}
+
+#forecastList::-webkit-scrollbar-track {
+    background: var(--element-color);
+    border-radius: 10px;
+}
+
+#forecastList::-webkit-scrollbar-thumb {
+    background: #5c5e60;
+    border-radius: 10px;
+}
+
+#forecastList::-webkit-scrollbar-thumb:hover {
+    background: #7a7c80;
+}
+
+.forecast-day {
+    padding: 10px 15px;
+    cursor: default;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;    
+    color: var(--text-color);
+    transition: background-color 0.2s ease, transform 0.2s ease;
+    margin: 2px 0;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.forecast-day:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+    transform: scale(1.02);
+}
+
+.forecast-icon {
+    font-size: 16px;
+}
+
+.forecast-details {
+    flex: 1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Keyframe animasyon (eğer yoksa ekle) */
+@keyframes scaleIn-multi {
+  0% { opacity: 0; transform: translateY(-10px) scale(0.95); }
+  100% { opacity: 1; transform: translateY(0) scale(1); }
 }
