@@ -8,6 +8,7 @@ const defaultSettings = {
   searchEngine: "google",
   showFavorites: "true",
   showSuggestions: "true",
+  showBgRemove: "true",
   showWeather: "true",
   showInfoBar: "true",
   showSearch: "true",
@@ -19,7 +20,12 @@ const defaultSettings = {
   logoDisplay: "logo-name",
   logoPosition: "center",
   logoColor: "colored",
-  logoNameColor: "lightFont",
+  showVoiceSearch: "true",
+  showMultiSearch: "true",
+  showLensSearch: "true",
+  safeSearch: "true",
+  disableSearchHistoryLog: "false",
+  privateMode: "false",
   maxFavorites: "5",
   searchShortcut: "Ctrl + /",
   favoriteShortcut: "Ctrl + Shift + F",
@@ -465,7 +471,6 @@ export function saveSettingsFromInputs() {
       logoDisplay: getSettingFromInputs('logoDisplay', 'logoDisplaySelect'),
       logoPosition: getSettingFromInputs('logoPosition', 'logoPositionSelect'),
       logoColor: getSettingFromInputs('logoColor', 'logoColorSelect'),
-      logoNameColor: getSettingFromInputs('logoNameColor', 'logoNameColorSelect'),
       maxFavorites: getSettingFromInputs('maxFavorites', 'maxFavorites'),
       searchShortcut: _normalizeShortcut(getSettingFromInputs('searchShortcut', 'searchShortcutInput')),
       favoriteShortcut: _normalizeShortcut(getSettingFromInputs('favoriteShortcut', 'favoriteShortcutInput')),
@@ -488,7 +493,14 @@ export function saveSettingsFromInputs() {
       visualCrossingApiKey: getSettingFromInputs('visualCrossingApiKey', 'visualCrossingApiKey'),
       safeSearchOptions: getSettingFromInputs('safeSearchOptions', 'safeSearchOptions'),
       disableSearchHistoryLog: getSettingFromInputs('disableSearchHistoryLog', 'disableSearchHistoryLogOptions'),
-      privateMode: getSettingFromInputs('privateMode', 'privateModeOptions')
+      privateMode: getSettingFromInputs('privateMode', 'privateModeOptions'),
+      safeSearch: getSettingFromInputs('safeSearchOptions', 'safeSearchOptions') === 'safeSearchEnable' ? 'true' : 'false',
+      disableSearchHistoryLog: getSettingFromInputs('disableSearchHistoryLog', 'disableSearchHistoryLogOptions') === 'disableSearchHistoryLogEnable' ? 'true' : 'false',
+      privateMode: getSettingFromInputs('privateMode', 'privateModeOptions') === 'privateModeEnable' ? 'true' : 'false',
+      showLensSearch: getSettingFromInputs('showLensSearch', 'showLensSearch'),
+      showVoiceSearch: getSettingFromInputs('showVoiceSearch', 'showVoiceSearch'),
+      showMultiSearch: getSettingFromInputs('showMultiSearch', 'showMultiSearch'),
+      showBgRemove: getSettingFromInputs('showBgRemove', 'showBgRemove')
     };
 
     // Hava durumu API doğrulama (wttr.in için anahtar gerekmez)
@@ -503,12 +515,14 @@ export function saveSettingsFromInputs() {
     applySettings({
       updateSearchEnginePreview,
       loadCachedBackground,
-      updateLanguage: window.updateLanguage,
-      loadFavorites: window.loadFavorites,
-      fetchWeather: window.fetchWeather,
+      updateLanguage: typeof window.updateLanguage === 'function' ? window.updateLanguage : undefined,
+      loadFavorites: typeof window.loadFavorites === 'function' ? window.loadFavorites : undefined,
+      fetchWeather: typeof window.fetchWeather === 'function' ? window.fetchWeather : undefined,
       bindShortcuts,
-      startWeatherUpdate: window.startWeatherUpdate
+      startWeatherUpdate: typeof window.startWeatherUpdate === 'function' ? window.startWeatherUpdate : undefined
     });
+    // Force reload for font (hard reload)
+    setTimeout(() => location.reload(true), 100);  // Cache bypass ile reload
     return true;
   } catch (e) {
     console.error('saveSettingsFromInputs hata:', e);
@@ -536,61 +550,92 @@ export function applySettings(options = {}) {
       settings.weatherAPI = 'wttr.in';
     }
 
-    // Tema ve sistem teması
-    const currentTheme = settings.theme || defaultSettings.theme;
-    const currentSystemTheme = settings.systemTheme || defaultSettings.systemTheme;
-    document.documentElement.setAttribute('data-theme', currentTheme);
-    document.documentElement.setAttribute('data-system-theme', currentSystemTheme);
-    document.querySelectorAll('[data-theme-dependent]').forEach(el => {
-      el.classList.remove('light', 'dark', 'vanilla', 'box', 'neomorph', 'glassmorph');
-      el.classList.add(currentTheme, currentSystemTheme);
-    });
+    const themeStylesheet = document.getElementById('themeStylesheet');
+    if (themeStylesheet) {
+        const systemTheme = settings.systemTheme || 'vanilla'; // vanilla veya neomorph
+        themeStylesheet.href = `./styles/${systemTheme}.css`;
+    }
 
-    // Font
-    document.documentElement.style.fontFamily = settings.font || defaultSettings.font;
+        document.body.classList.remove('light', 'dark');
+    if (settings.theme) document.body.classList.add(settings.theme)
+
+    // Font - Güçlendirilmiş uygulama
+    const fontFamily = settings.font || defaultSettings.font;
+    document.documentElement.style.setProperty('font-family', fontFamily, 'important');  // !important ekle
+    document.body.style.setProperty('font-family', fontFamily, 'important');  // Body'ye de uygula (override için)
+
+    // Dinamik Google Font yükle (eğer değiştiyse)
+    const currentFont = safeGetItem('font') || defaultSettings.font;
+    if (fontFamily !== currentFont) {
+      // Font adını çıkar (örn: "'Open Sans', sans-serif" -> "Open Sans")
+      const familyName = fontFamily.split(',')[0].replace(/['"]/g, '').trim().replace(/ /g, '+');  // + ile boşluk değiştir
+      if (familyName && familyName !== 'Segoe+UI' && familyName !== 'Arial' && familyName !== 'Courier+New' && familyName !== 'Georgia' && familyName !== 'Times+New+Roman' && familyName !== 'Comic+Sans+MS' && familyName !== 'Impact' && familyName !== 'Verdana' && familyName !== 'Trebuchet+MS' && familyName !== 'Tahoma' && familyName !== 'Garamond' && familyName !== 'Baskerville') {  // Yerel fontları atla
+        const link = document.createElement('link');
+        link.href = `https://fonts.googleapis.com/css2?family=${familyName}:wght@400;700&display=swap`;
+        link.rel = 'stylesheet';
+        link.id = 'dynamic-font-link';  // ID ver, duplicate önle
+        const existing = document.getElementById('dynamic-font-link');
+        if (existing) existing.remove();  // Eski'yi sil
+        document.head.appendChild(link);
+        console.log('Yeni font yüklendi:', familyName);  // Debug log
+      }
+    }
+    safeSetItem('font', fontFamily);  // Kaydet
 
     // Vurgu rengi
     selectColor(settings.accentColor || defaultSettings.accentColor);
 
-    // Logo ayarları
-    const logoEl = $('logo');
-    if (logoEl) {
-      logoEl.style.display = settings.logoDisplay === 'none' ? 'none' : 'flex';
-      logoEl.style.justifyContent = settings.logoPosition || defaultSettings.logoPosition;
-      logoEl.style.color = settings.logoNameColor === 'darkFont' ? '#000' : '#fff';
-      const logoImg = logoEl.querySelector('img');
-      if (logoImg) {
-        if (settings.logoColor === 'light') logoImg.style.filter = 'brightness(100%)';
-        else if (settings.logoColor === 'dark') logoImg.style.filter = 'brightness(50%)';
-        else logoImg.style.filter = 'none';
-      } else {
-        console.warn('Logo resmi bulunamadı.');
-      }
+
+// Logo ayarları
+const logoEl = document.getElementById('logo');
+if (logoEl) {
+    // Logo görünümü
+    logoEl.style.display = settings.logoDisplay === 'none' ? 'none' : 'flex';
+    logoEl.style.justifyContent = settings.logoPosition || 'flex-start';
+
+    // Logo resmi
+    const logoImg = logoEl.querySelector('img');
+    if (logoImg) {
+        switch (settings.logoColor) {
+            case 'light':
+                logoImg.src = 'assets/logo-light.png';
+                break;
+            case 'dark':
+                logoImg.src = 'assets/logo-dark.png';
+                break;
+            default:
+                logoImg.src = 'assets/logo.png';
+        }
+        logoImg.style.filter = 'none';
     } else {
-      console.warn('Logo elementi bulunamadı.');
+        console.warn('Logo resmi bulunamadı.');
     }
+} else {
+    console.warn('Logo elementi bulunamadı.');
+}
+
 
     // Görünüm ayarları
-    const toggleMap = {
-      showFavorites: 'favoritesContainer',
-      showSuggestions: 'suggestionsContainer',
-      showWeather: 'weatherContainer',
-      showInfoBar: 'infoBar',
-      showSearch: 'searchContainer',
-      showSearchShortcuts: 'shortcutsContainer',
-      showAISearch: 'aiSearchContainer',
-      showScienceSearch: 'scienceSearchContainer',
-      showAccountButton: 'accountButton',
-      showAccountInfoText: 'accountInfoText'
-    };
-    Object.entries(toggleMap).forEach(([settingKey, elId]) => {
-      const el = $(elId);
-      if (el) {
-        el.style.display = settings[settingKey] === 'true' ? 'block' : 'none';
-      } else {
-        console.warn(`DOM elementi bulunamadı: ${elId}`);
-      }
-    });
+const toggleMap = {
+  showFavorites: 'favorites',
+  showSuggestions: 'suggestions',
+  showWeather: 'weatherWidget',
+  showInfoBar: 'infoBar',
+  showSearch: 'searchBar',
+  showSearchShortcuts: 'buttons',
+  showAISearch: 'searchAIBtn',
+  showAccountButton: 'accountButton',
+  showLensSearch: 'lensSearchBtn',
+  showAccountInfoText: 'accountInfo',
+  showVoiceSearch: 'voiceSearchBtn',
+  showMultiSearch: 'multiSearchIcon',
+};
+Object.entries(toggleMap).forEach(([settingKey, elId]) => {
+  const el = $(elId);
+  if (el) {
+    el.style.display = settings[settingKey] === 'true' ? '' : 'none';
+  }
+});
 
     // Diğer ayarlar
     window.linkBehavior = settings.linkBehavior || defaultSettings.linkBehavior;
@@ -610,20 +655,39 @@ export function applySettings(options = {}) {
     }
 
     // Dil
-    if (typeof options.updateLanguage === 'function') options.updateLanguage(settings.language || defaultSettings.language);
+    if (typeof options.updateLanguage === 'function') {
+      options.updateLanguage(settings.language || defaultSettings.language);
+    } else if (typeof window.updateLanguage === 'function') {
+      window.updateLanguage(settings.language || defaultSettings.language);
+    }
 
     // Favoriler
-    if (typeof options.loadFavorites === 'function') options.loadFavorites(settings.maxFavorites || defaultSettings.maxFavorites);
+    if (typeof options.loadFavorites === 'function') {
+      options.loadFavorites(settings.maxFavorites || defaultSettings.maxFavorites);
+    } else if (typeof window.loadFavorites === 'function') {
+      window.loadFavorites(settings.maxFavorites || defaultSettings.maxFavorites);
+    }
 
     // Hava durumu
-    if (typeof options.fetchWeather === 'function') options.fetchWeather();
+    if (typeof options.fetchWeather === 'function') {
+      options.fetchWeather();
+    } else if (typeof window.fetchWeather === 'function') {
+      window.fetchWeather();
+    }
 
     // Kısayollar
-    if (typeof options.bindShortcuts === 'function') options.bindShortcuts();
-    else bindShortcuts();
+    if (typeof options.bindShortcuts === 'function') {
+      options.bindShortcuts();
+    } else {
+      bindShortcuts();
+    }
 
     // Hava durumu güncelleme
-    if (typeof options.startWeatherUpdate === 'function') options.startWeatherUpdate();
+    if (typeof options.startWeatherUpdate === 'function') {
+      options.startWeatherUpdate();
+    } else if (typeof window.startWeatherUpdate === 'function') {
+      window.startWeatherUpdate();
+    }
 
     return settings;
   } catch (e) {
@@ -697,11 +761,11 @@ export function resetBrowser() {
     applySettings({
       updateSearchEnginePreview,
       loadCachedBackground,
-      updateLanguage: window.updateLanguage,
-      loadFavorites: window.loadFavorites,
-      fetchWeather: window.fetchWeather,
+      updateLanguage: typeof window.updateLanguage === 'function' ? window.updateLanguage : undefined,
+      loadFavorites: typeof window.loadFavorites === 'function' ? window.loadFavorites : undefined,
+      fetchWeather: typeof window.fetchWeather === 'function' ? window.fetchWeather : undefined,
       bindShortcuts,
-      startWeatherUpdate: window.startWeatherUpdate
+      startWeatherUpdate: typeof window.startWeatherUpdate === 'function' ? window.startWeatherUpdate : undefined
     });
 
     // Sayfayı yenile
@@ -753,11 +817,11 @@ document.addEventListener('DOMContentLoaded', () => {
           applySettings({
             updateSearchEnginePreview,
             loadCachedBackground,
-            updateLanguage: window.updateLanguage,
-            loadFavorites: window.loadFavorites,
-            fetchWeather: window.fetchWeather,
+            updateLanguage: typeof window.updateLanguage === 'function' ? window.updateLanguage : undefined,
+            loadFavorites: typeof window.loadFavorites === 'function' ? window.loadFavorites : undefined,
+            fetchWeather: typeof window.fetchWeather === 'function' ? window.fetchWeather : undefined,
             bindShortcuts,
-            startWeatherUpdate: window.startWeatherUpdate
+            startWeatherUpdate: typeof window.startWeatherUpdate === 'function' ? window.startWeatherUpdate : undefined
           });
           alert('Ayarlar başarıyla içe aktarıldı.');
           closeImportExportModal();
@@ -780,6 +844,15 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
+$('removeBgBtn')?.addEventListener('click', () => {
+  if (confirm('Duvar kağıdı kaldırılacak. Devam?')) {
+    safeSetItem('bgUrl', '');
+    document.getElementById('bgUrlInput').value = ''; // Input'u temizle
+    loadCachedBackground('');
+    alert('Duvar kağıdı kaldırıldı.');
+  }
+});
+
   // Tarayıcıyı sıfırla
   $('resetBrowserBtn')?.addEventListener('click', () => {
     if (confirm('Tüm ayarlar ve önbellek silinecek. Devam etmek istiyor musunuz?')) {
@@ -791,10 +864,39 @@ document.addEventListener('DOMContentLoaded', () => {
   applySettings({
     updateSearchEnginePreview,
     loadCachedBackground,
-    updateLanguage: window.updateLanguage,
-    loadFavorites: window.loadFavorites,
-    fetchWeather: window.fetchWeather,
+    updateLanguage: typeof window.updateLanguage === 'function' ? window.updateLanguage : undefined,
+    loadFavorites: typeof window.loadFavorites === 'function' ? window.loadFavorites : undefined,
+    fetchWeather: typeof window.fetchWeather === 'function' ? window.fetchWeather : undefined,
     bindShortcuts,
-    startWeatherUpdate: window.startWeatherUpdate
+    startWeatherUpdate: typeof window.startWeatherUpdate === 'function' ? window.startWeatherUpdate : undefined
   });
 });
+
+// Sayfa yüklendiğinde tema uygula
+function loadTheme() {
+    const theme = localStorage.getItem("theme") || "dark";
+    document.body.classList.remove("light", "dark");
+    document.body.classList.add(theme);
+
+    // İkonları güncelle
+    const logoImg = document.getElementById("logoImg");
+    const multiSearchIcon = document.getElementById("multiSearchIcon");
+    const voiceIcon = document.getElementById("voiceIcon");
+    const menuIcon = document.getElementById("menuIcon");
+    const accountIcon = document.getElementById("accountIcon");
+    const lensIcon = document.getElementById("lensIcon");
+
+    logoImg.src = theme === "dark" ? "assets/logo-dark.png" : "assets/logo.png";
+    multiSearchIcon.src = theme === "dark" ? "assets/multisearch.png" : "assets/multisearch-dark.png";
+    voiceIcon.src = theme === "light" ? "assets/mic-dark.png" : "assets/mic.png";
+    menuIcon.src = theme === "light" ? "assets/menu-dark.png" : "assets/menu.png";
+    accountIcon.src = theme === "light" ? "assets/account-dark.png" : "assets/account.png";
+    lensIcon.src = theme === "light" ? "assets/lens-dark.png" : "assets/lens.png";
+
+    // select menüyü güncelle
+    const themeSelect = document.getElementById("themeSelect");
+    if (themeSelect) themeSelect.value = theme;
+}
+
+// Sayfa yüklendiğinde çalıştır
+window.addEventListener("DOMContentLoaded", loadTheme);
