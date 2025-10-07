@@ -10,7 +10,50 @@ Sürüm numaraları: Fluxo 4 (Part 1'den Part 13'e)
 - Telefonlar için yeni arayüz
 - Hesaplar için **Google** desteği
 - Hesaplar için yenilikler
-- 5 Günlük hava durumu tahmini
+
+---
+
+## [Fluxo 4 Part 14] - 2025-10-07
+### Eklendi (Added)
+- Duvar kağıdını kaldırma eklendi
+- Google Lens eklentisi eklendi
+- Havadurumu için dil sistemi eklendi (Sistem daha tamamlanmadı)
+- Logo altı isim rengi ayarı kaldırıldı
+
+## ⚠️ Önemli Uyarı
+Bu yamada Sistem temaları hatalıdır anlık olarak glassmorph ve neomorph temaları normal temalara göre daha optimize çalışabilir
+
+### Düzenlendi (Fixed)
+- Ayarları kaydetme sistemi düzeltildi (Bazı hatalar mevcut)
+- Vanilla UI konum hataları giderildi
+- Görünüm hataları ve DOM bulunamadı hataları giderildi
+- Geçersiz API hataları giderildi (Weather sisteminde bazı hatalar devam ediyor olabilir
+- MultiSearch fonksiyonu açıkken AISearch çalışmama hatası giderildi
+- Vanilla harici temalarda görünüm hataları giderildi (Temalar baştan oluşturulacak)
+- Sistem temaları uygulanmama hatası giderildi
+- Aşırı bellek kullanımı hafifletildi
+- Aydınlık temanın çalışmaması hatası giderildi
+- Aydınlık temada karanlık obje hatası giderildi
+- havadurumu widgetinde hatalı ikon görünümleri düzeltildi (hatalı görünüm gözükürse bize ulaşın)
+- Duvar kağıtlarını tamamen kaldırınca gelen hata giderildi
+- Bilgi barındaki görüntü hatası giderildi
+
+### Bilinen Hatalar (Erors)
+- Türkçe harflerin hesap oluşturmada kullanılamaması
+- Yazı tipleri uygulanmıyor
+- Bazı yazılar çevirilemiyor
+- Ayarlar uygulanıyor fakat ayarlar sekmesinde görüntülenmiyor
+- Firefox tabanlı tarayıcılarda tamamen kullanılmaz durum
+- Hava Durumu Güncelleme Sıklığı ayarı çalışmama hatası
+- Hava Durumu API sisteminin kullanıcıyı değil kendi varsayılanlarını ilan etmesi hatası
+- Duvar kağıdı geçmişi 3 ile sınırlmasına uyulmama hatası
+  
+### Test Edilen Sistemler (deferred systems)
+- Google ile Hesaplar girişi > Hesaplar için büyük bir güncelleme düşünüyoruz ancak önce hatalar giderilmeli
+- Destek sekmesine sosyal linkler eklenecek > Bir sonraki yamada eklenecek
+
+### İptal Edilen Sistemler (Canceled systems)
+- Bölünmüş görünümde aç > iframe ve arama motorlarının katı kuralları nedeniyle iptal edildi
 
 ---
 
