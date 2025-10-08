@@ -365,10 +365,11 @@ body.light .url-sidebar::-webkit-scrollbar-thumb:hover {
 
 .search-bar {
     width: 100%;
-    max-width: 580px;
-    margin-bottom: 20px;
+    max-width: 580px;  /* Sabit tut, küçülmesin */
+    margin: 0 auto 20px auto;
     position: relative;
     z-index: 1002;
+    flex-shrink: 0;  /* Arama barı küçülmesin */
 }
 
 .search-bar input {
@@ -378,7 +379,7 @@ body.light .url-sidebar::-webkit-scrollbar-thumb:hover {
     border: 1px solid var(--border-highlight);
     background-color: var(--element-color);
     color: var(--text-color);
-    font-size: 16px;
+    font-size: 16px;  
     box-shadow: var(--shadow);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
@@ -423,28 +424,37 @@ body.light .url-sidebar::-webkit-scrollbar-thumb:hover {
     margin-bottom: 0;
     z-index: 1001;
     display: flex;
-    gap: 10px;
+    flex-direction: row;
+    flex-wrap: nowrap;
     justify-content: center;
-    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+    width: auto;  /* Buttons genişlesin */
     position: relative;
+    flex-shrink: 0;  /* Buttons küçülmesin, genişlesin */
 }
-
 .buttons button {
     background-color: var(--element-color);
     color: var(--text-color);
     border: 1px solid var(--border-highlight);
-    padding: 10px 20px;
+    height: 40px;  /* Sabit y ekseni (yükseklik) */
+    padding: 0 10px;  /* Sadece x ekseni padding (yatay), dikey 0 – yükseklik sabit kalır */
     border-radius: 50px;
     font-size: 14px;
-    cursor: pointer;
     box-shadow: var(--shadow);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
     transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s;
     will-change: transform, box-shadow;
     text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+    flex-shrink: 0;
+    white-space: nowrap;
+    display: inline-flex;  /* İçerik otomatik genişletir x'i */
+    align-items: center;  /* Dikey ortala */
+    justify-content: center;  /* Yatay ortala eğer gerekirse */
+    min-width: auto;  /* Min kaldır, otomatik olsun */
+    min-height: 43px;
 }
-
 .buttons button:hover {
     transform: scale(1.05);
     border-color: var(--accent-color);
@@ -456,7 +466,58 @@ body.light .url-sidebar::-webkit-scrollbar-thumb:hover {
     transform: scale(0.95);
     box-shadow: var(--shadow);
 }
+.button-icon {
+    width: clamp(12px, 2vw, 16px);  /* İkon boyutu responsive */
+    height: clamp(12px, 2vw, 16px);
+    flex-shrink: 0;
+    margin-right: 0;
+}
+.buttons .accent {
+    display: inline-flex;
+    align-items: center;
+    gap: clamp(3px, 0.8vw, 5px);  /* İkon-text arası responsive */
+    white-space: nowrap;
+    flex-shrink: 0;
+    min-width: auto;
+}
+.button-text {
+    font-size: 14px;  /* Text boyutu küçült, yer tasarrufu */
+}
+/* Text-only mod için */
+.buttons.text-only button {
+  padding: 0 16px;
+  min-width: auto;
+}
 
+.buttons.text-only .button-icon {
+  display: none;  /* İkonu gizle */
+}
+
+.buttons.text-only .button-text {
+  display: inline;  /* Text'i göster */
+}
+.buttons.icons-only {
+    gap: 8px;  /* İkonlar arası dar gap */
+}
+
+.buttons.icons-only button {
+  padding: 0;  /* Padding 0, kare için */
+  border-radius: 50px;
+  min-width: 43px;
+  width: 73px;  /* Kare buton, height ile uyumlu */
+  height: 43px;  /* Sabit yükseklik */
+  justify-content: center;  /* İkonu ortala */
+}
+
+.buttons.icons-only .button-icon {
+  width: 20px;  /* Küçük ikon, 43px çok büyüktü */
+  height: 20px;
+  margin: 0;  /* Gap yok */
+}
+
+.buttons.icons-only .button-text {
+  display: none;  /* Text gizle */
+}
 .favorites {
     margin-top: 20px;
     display: flex;
@@ -717,17 +778,16 @@ body.light #menuPanel::-webkit-scrollbar-thumb {
 body.light #menuPanel::-webkit-scrollbar-thumb:hover {
     background: #b0b0b0;
 }
-
 .tab-menu {
     position: sticky;
     top: 0;
     left: 0;
     right: 0;
-    width: 100%;
+    width: 100%; /* Tam genişlik, taşma yok */
     margin-left: 0;
     margin-right: 0;
     display: flex;
-    justify-content: center;
+    justify-content: center; 
     align-items: center;
     z-index: 99999;
     gap: 20px;
@@ -735,20 +795,21 @@ body.light #menuPanel::-webkit-scrollbar-thumb:hover {
     box-sizing: border-box;
     border-bottom: 1px solid var(--border-highlight);
 }
-
 .tab-button {
     background: transparent;
     border: none;
-    padding: 8px 16px;
+    padding: 8px 12px;  /* İkon için daralt */
     font-size: 16px;
     font-weight: 600;
-    color: var(--text-color);
+    color: var(--text-color);  /* Text'i gizle, ama hover title var */
     cursor: pointer;
     transition: color 0.2s, border-color 0.2s;
     position: relative;
+    display: flex;
+    align-items: center;
     text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+    justify-content: center;  /* İkonu ortala */
 }
-
 .tab-button.active {
     color: var(--accent-color);
     border-bottom: 2px solid var(--accent-color);
@@ -757,7 +818,37 @@ body.light #menuPanel::-webkit-scrollbar-thumb:hover {
 .tab-button:hover {
     color: var(--accent-color);
 }
+.tab-icon {
+    width: 20px;
+    height: 20px; 
+    transition: filter 0.2s;
+}
 
+.tab-button:hover .tab-icon {
+    filter: brightness(1.2);  /* Hover'da parlak */
+}
+
+body.light .tab-icon {
+    filter: brightness(1.2);  /* Açık mod için ayarla */
+}
+
+body.light .tab-button:hover .tab-icon {
+    filter: brightness(0.8);
+}
+.tab-button.active {
+    color: var(--text-color);
+    border: 1px solid var(--accent-color);
+    position: relative;
+}
+.tab-button.active::after {
+    content: '';
+    position: absolute;
+    bottom: -17px; /* Çizgiyi butondan uzaklaştırmak için (border-bottom ile çakışmaması için) */
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: var(--accent-color ); /* Aktif butonun altında vurgu çizgisi */
+}
 .tab-content {
     display: none;
 }
