@@ -34,7 +34,7 @@
     <iframe id="backgroundYouTube" frameborder="0" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; object-fit: cover; transform: scale(1.1); will-change: transform;" allow="autoplay; encrypted-media"></iframe>
     <div class="weather-widget" id="weatherWidget" onclick="openWeatherWidget()"> ... </div>
     <div class="info-bar" id="infoBar">
-        FluxoDev 4 Part 14 | Vanilla  <span id="languageDisplay"></span>
+        FluxoDev 4 Part 15 | Vanilla |  <span id="languageDisplay"></span>
         <span id="accountInfo" style="margin-left:0px;"></span>
     </div>
     <div class="url-sidebar" id="urlSidebar"></div>
@@ -42,11 +42,17 @@
         <img id="menuIcon" src="assets/menu.png" alt="Menü">
     </button>
     <div id="menuPanel">
-        <div class="tab-menu">
-            <button class="tab-button" data-tab="settings" data-lang-key="settings">Ayarlar</button>
-            <button class="tab-button" data-tab="history" data-lang-key="history">Geçmiş</button>
-            <button class="tab-button" data-tab="support" data-lang-key="support">Destek</button>
-        </div>
+    <div class="tab-menu">
+        <button class="tab-button" data-tab="settings" title="Ayarlar">
+            <img src="assets/settings.png" alt="Ayarlar" class="tab-icon">
+        </button>
+        <button class="tab-button" data-tab="history" title="Geçmiş">
+            <img src="assets/history.png" alt="Geçmiş" class="tab-icon">
+        </button>
+        <button class="tab-button" data-tab="support" title="Destek">
+            <img src="assets/support.png" alt="Destek" class="tab-icon">
+        </button>
+    </div>
         <div id="settingsContent" class="tab-content active">
             <button id="applySettingsBtn" class="accent" data-lang-key="apply">Uygula</button>
             <button id="importSettingsBtn" class="accent" data-lang-key="importExport">Aktar/Al</button>
@@ -261,6 +267,12 @@
                 <option value="light" data-lang-key="logoColorLight">Beyaz</option>
                 <option value="dark" data-lang-key="logoColorDark">Koyu</option>
             </select>
+            <label for="buttonDisplayMode" data-lang-key="buttonDisplayMode">Arama Butonları Görünümü:</label>
+            <select id="buttonDisplayMode">
+                <option value="icons-and-text" data-lang-key="iconsAndText">İkon ve Yazı</option>
+                <option value="icons-only" data-lang-key="iconsOnly">Sadece İkonlar</option>
+                <option value="text-only" data-lang-key="textOnly">Sadece Yazı</option>
+            </select>
             <label for="showLensSearch" data-lang-key="showLensSearch">Lens Butonunu Göster:</label>
             <select id="showLensSearch">
                 <option value="true" data-lang-key="yes">Evet</option>
@@ -435,6 +447,17 @@
                 <div id="feedbackStatus" class="error-message"></div>
             </form>
         </div>
+    <div class="contact-area" style="margin-top: 25px; padding: 15px; background-color: #202124; border-radius: 15px; text-align: left;">
+        <p data-lang-key="contactEmail">Email: lakastanmi@gmail.com</p>
+        <p data-lang-key="contactHours">Çalışma Saatleri: 16:30 - 21:30</p>
+    </div>
+        <div class="social-links" style="margin-top: 10px; text-align: center;">
+        <div class="social-icons" style="display: flex; justify-content: center; gap: 15px; margin-top: 10px;">
+            <a href="https://web.telegram.org/k/#@fluxoDev" target="_blank" title="Fluxo Telegram" class="social-link">
+                <img src="assets/telegram.png" alt="Telegram" class="social-icon">
+            </a>
+        </div>
+    </div>
     </div>
     <button id="accountButton" title="Hesap">
         <img id="accountIcon" src="assets/account.png" alt="Hesap">
@@ -476,11 +499,26 @@
             <ul id="suggestions" role="listbox" aria-label="Arama önerileri"></ul>
         </div>
         <div id="buttons" class="buttons">
-            <button id="searchWebBtn" class="accent" data-lang-key="search">Ara</button>
-            <button id="searchImagesBtn" class="accent" data-lang-key="images">Görseller</button>
-            <button id="searchShoppingBtn" class="accent" data-lang-key="shopping">Alışveriş</button>
-            <button id="searchNewsBtn" class="accent" data-lang-key="news">Haberler</button>
-            <button id="searchAIBtn" class="accent" data-lang-key="aiSearch">AI Arama</button>
+            <button id="searchWebBtn" class="accent">
+                <img src="assets/search.png" alt="Web Arama" class="button-icon">
+                <span class="button-text" data-lang-key="search">Ara</span>
+            </button>
+            <button id="searchImagesBtn" class="accent">
+                <img src="assets/images.png" alt="Görseller" class="button-icon">
+                <span class="button-text" data-lang-key="images">Görseller</span>
+            </button>
+            <button id="searchShoppingBtn" class="accent">
+                <img src="assets/shopping.png" alt="Alışveriş" class="button-icon">
+                <span class="button-text" data-lang-key="shopping">Alışveriş</span>
+            </button>
+            <button id="searchNewsBtn" class="accent">
+                <img src="assets/news.png" alt="Haberler" class="button-icon">
+                <span class="button-text" data-lang-key="news">Haberler</span>
+            </button>
+            <button id="searchAIBtn" class="accent">
+                <img src="assets/aisearch.png" alt="AI Arama" class="button-icon">
+                <span class="button-text" data-lang-key="aiSearch">AI Arama</span>
+            </button>
         </div>
         <div class="favorites" id="favorites">
             <div id="addFavoriteBtn" class="favorite-item accent" data-lang-key="addFavorite"> + </div>
@@ -941,7 +979,8 @@ window.onload = () => {
     document.querySelector(".buttons").style.display = showSearchShortcuts === "true" ? "flex" : "none";
     document.getElementById("removeBgBtn").style.display = showBgRemove === "true" ? "block" : "none";
 
-    updateLanguage(l);
+    // Init - Dil'i erken çağır
+    updateLanguage(l);  // Düzeltildi: Parantez eklendi ve l parametresi
 
     applyBackground(bgUrl);
     loadFavorites();
