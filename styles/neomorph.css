@@ -388,23 +388,35 @@ body.light .weather-error {
     margin-bottom: 0;
     z-index: 1001;
     display: flex;
-    gap: 10px;
+    flex-direction: row;
+    flex-wrap: nowrap;
     justify-content: center;
-    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+    width: auto;  /* Buttons genişlesin */
     position: relative;
+    flex-shrink: 0;  /* Buttons küçülmesin, genişlesin */
 }
 
 .buttons button {
     background-color: var(--element-color);
     color: var(--text-color);
     border: none;
-    padding: 10px 20px;
+    height: 40px;  /* Sabit y ekseni (yükseklik) */
+    padding: 0 10px;  /* Sadece x ekseni padding (yatay), dikey 0 – yükseklik sabit kalır */
     border-radius: 50px;
     font-size: 14px;
     cursor: pointer;
     box-shadow: 4px 4px 8px var(--shadow-dark), -4px -4px 8px var(--shadow-light);
     transition: all 0.3s ease;
     will-change: transform, box-shadow;
+    flex-shrink: 0;
+    white-space: nowrap;
+    display: inline-flex;  /* İçerik otomatik genişletir x'i */
+    align-items: center;  /* Dikey ortala */
+    justify-content: center;  /* Yatay ortala eğer gerekirse */
+    min-width: auto;  /* Min kaldır, otomatik olsun */
+    min-height: 43px;
 }
 
 .buttons button:hover {
@@ -417,7 +429,60 @@ body.light .weather-error {
     box-shadow: inset 2px 2px 4px var(--shadow-dark), inset -2px -2px 4px var(--shadow-light);
     transform: translateY(0);
 }
+.button-icon {
+    width: 17px;
+    height: 17px;
+    margin-right: 5px;
+    vertical-align: middle;
+}
+.buttons .accent {
+    display: inline-flex;
+    align-items: center;
+    gap: clamp(3px, 0.8vw, 5px);  /* İkon-text arası responsive */
+    white-space: nowrap;
+    flex-shrink: 0;
+    min-width: auto;
+}
+.button-text {
+    font-size: 14px;  /* Text boyutu küçült, yer tasarrufu */
+}
+/* Text-only mod için */
+.buttons.text-only button {
+  padding: 0 16px;
+  min-width: auto;
+  box-shadow: 4px 4px 8px var(--shadow-dark), -4px -4px 8px var(--shadow-light);
+}
 
+.buttons.text-only .button-icon {
+  display: none;  /* İkonu gizle */
+}
+
+.buttons.text-only .button-text {
+  display: inline;  /* Text'i göster */
+}
+.buttons.icons-only {
+    gap: 8px;  /* İkonlar arası dar gap */
+}
+
+.buttons.icons-only button {
+  padding: 0;  /* Padding 0, kare için */
+  border-radius: 50px;
+  min-width: 43px;
+  box-shadow: 4px 4px 8px var(--shadow-dark), -4px -4px 8px var(--shadow-light);
+  width: 73px;  /* Kare buton, height ile uyumlu */
+  height: 43px;  /* Sabit yükseklik */
+  justify-content: center;  /* İkonu ortala */
+}
+
+.buttons.icons-only .button-icon {
+  width: 20px;  /* Küçük ikon, 43px çok büyüktü */
+  height: 20px;
+  margin: 0;  /* Gap yok */
+}
+
+.buttons.icons-only .button-text {
+  display: none;  /* Text gizle */
+}
 .favorites {
     margin-top: 20px;
     display: flex;
@@ -648,11 +713,11 @@ body.light #addFavoriteBtn:hover {
     top: 0;
     left: 0;
     right: 0;
-    width: 100%;
+    width: 100%; /* Tam genişlik, taşma yok */
     margin-left: 0;
     margin-right: 0;
     display: flex;
-    justify-content: center;
+    justify-content: center; 
     align-items: center;
     background-color: var(--element-color);
     z-index: 99999;
@@ -664,13 +729,16 @@ body.light #addFavoriteBtn:hover {
 .tab-button {
     background: none;
     border: none;
-    padding: 8px 16px;
+    padding: 8px 12px;  /* İkon için daralt */
     font-size: 16px;
     font-weight: 600;
-    color: var(--text-color);
+    color: var(--text-color);  /* Text'i gizle, ama hover title var */
     cursor: pointer;
     transition: all 0.3s ease;
     position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;  /* İkonu ortala */
 }
 
 .tab-button.active {
@@ -684,6 +752,17 @@ body.light #addFavoriteBtn:hover {
 
 .tab-content {
     display: none;
+}
+
+.tab-icon {
+    width: 20px;
+    height: 20px;
+    filter: brightness(0.8);  /* Koyu mod için hafif soluk */
+    transition: filter 0.2s;
+}
+
+.tab-button:hover .tab-icon {
+    filter: brightness(1.2);  /* Hover'da parlak */
 }
 
 .tab-content.active {
