@@ -9,7 +9,7 @@
     font-family: var(--site-font);
 }
 body {
-    background-color: #20212400;
+    background-color: #202124;
     color: #ffffff;
     height: 100vh;
     display: flex;
@@ -109,6 +109,7 @@ body.light .weather-error {
     transform: translate(-50%, -50%) scale(0.95);
     background-color: rgb(48, 49, 52);
     padding: 20px;
+
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
     z-index: 10010;
     color: #e8eaed;
@@ -234,18 +235,19 @@ body.light .info-bar {
 }
 .search-bar {
     width: 100%;
-    max-width: 580px;
-    margin-bottom: 20px;
+    max-width: 580px;  /* Sabit tut, küçülmesin */
+    margin: 0 auto 20px auto;
     position: relative;
     z-index: 1002;
+    flex-shrink: 0;  /* Arama barı küçülmesin */
 }
 .search-bar input {
     width: 100%;
-    padding: 14px 75px 14px 45px;
-    border: 1px solid #444; /* ince, flat border */
-    background-color: #2b2c2f; /* daha sade flat ton */
+    padding: 14px 75px 14px 45px;  /* Sabit padding, clamp yok */
+    border: 1px solid #444;
+    background-color: #2b2c2f;
     color: #e8eaed;
-    font-size: 16px;
+    font-size: 16px;  /* Sabit font, clamp yok */
     outline: none;
     transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
@@ -290,20 +292,33 @@ body.light .search-bar input:focus {
     margin-bottom: 0;
     z-index: 1001;
     display: flex;
-    gap: 10px;
+    flex-direction: row;
+    flex-wrap: nowrap;
     justify-content: center;
-    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+    width: auto;  /* Buttons genişlesin */
     position: relative;
+    flex-shrink: 0;  /* Buttons küçülmesin, genişlesin */
 }
+
 .buttons button {
     background-color: #303134;
     color: #e8eaed;
     border: 1px solid transparent;
-    padding: 10px 20px;
+    height: 40px;  /* Sabit y ekseni (yükseklik) */
+    padding: 0 10px;  /* Sadece x ekseni padding (yatay), dikey 0 – yükseklik sabit kalır */
     font-size: 14px;
     cursor: pointer;
     transition: transform 0.2s, box-shadow 0.2s, filter 0.2s;
     will-change: transform, box-shadow;
+    flex-shrink: 0;
+    white-space: nowrap;
+    display: inline-flex;  /* İçerik otomatik genişletir x'i */
+    align-items: center;  /* Dikey ortala */
+    justify-content: center;  /* Yatay ortala eğer gerekirse */
+    min-width: auto;  /* Min kaldır, otomatik olsun */
+    min-height: 43px;
 }
 .buttons button:active {
     transform: scale(0.95);
@@ -319,6 +334,57 @@ body.light .buttons button:hover {
     background-color: #f1f3f4;
     color: var(--accent-color);
     border: 1px solid var(--accent-color);
+}
+.button-icon {
+    width: clamp(12px, 2vw, 16px);  /* İkon boyutu responsive */
+    height: clamp(12px, 2vw, 16px);
+    flex-shrink: 0;
+    margin-right: 0;
+}
+.buttons .accent {
+    display: inline-flex;
+    align-items: center;
+    gap: clamp(3px, 0.8vw, 5px);  /* İkon-text arası responsive */
+    white-space: nowrap;
+    flex-shrink: 0;
+    min-width: auto;
+}
+.button-text {
+    font-size: 14px;  /* Text boyutu küçült, yer tasarrufu */
+}
+/* Text-only mod için */
+.buttons.text-only button {
+  padding: 0 16px;
+  min-width: auto;
+}
+
+.buttons.text-only .button-icon {
+  display: none;  /* İkonu gizle */
+}
+
+.buttons.text-only .button-text {
+  display: inline;  /* Text'i göster */
+}
+.buttons.icons-only {
+    gap: 8px;  /* İkonlar arası dar gap */
+}
+
+.buttons.icons-only button {
+  padding: 0;  /* Padding 0, kare için */
+  min-width: 43px;
+  width: 73px;  /* Kare buton, height ile uyumlu */
+  height: 43px;  /* Sabit yükseklik */
+  justify-content: center;  /* İkonu ortala */
+}
+
+.buttons.icons-only .button-icon {
+  width: 20px;  /* Küçük ikon, 43px çok büyüktü */
+  height: 20px;
+  margin: 0;  /* Gap yok */
+}
+
+.buttons.icons-only .button-text {
+  display: none;  /* Text gizle */
 }
 .favorites {
     margin-top: 20px;
@@ -341,7 +407,7 @@ body.light .buttons button:hover {
     align-items: center;
     justify-content: center;
     cursor: grab; /* modern taşıma göstergesi */
-    background-color: #2b2c2f; /* sade flat ton */
+    background-color: #2b2c2f; 
     transition: transform 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
     position: relative;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
@@ -418,6 +484,9 @@ body.light #addFavoriteBtn:hover {
     transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
     will-change: transform, box-shadow;
     margin: 0 8px;
+}
+body.light #addFavoriteBtn {
+    background-color: #f1f3f4;
 }
 #addFavoriteModalBtn.accent {
     margin-right: 10px;
@@ -498,7 +567,7 @@ body.light #accountButton:hover {
     background: #e0e0e0;
     color: #000;
 }
-#accountModal
+
 #accountButton img {
     width: 20px;
     height: 20px;
@@ -576,15 +645,35 @@ body.light .tab-menu {
 .tab-button {
     background: none;
     border: none;
-    padding: 8px 16px;
+    padding: 8px 12px;  /* İkon için daralt */
     font-size: 16px;
     font-weight: 600;
-    color: #e8eaed;
+    color: transparent;  /* Text'i gizle, ama hover title var */
     cursor: pointer;
     transition: color 0.2s, background 0.2s;
-    position: relative; /* Aktif çizgi için konumlandırma */
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;  /* İkonu ortala */
+}
+.tab-icon {
+    width: 20px;
+    height: 20px;
+    filter: brightness(0.8);  /* Koyu mod için hafif soluk */
+    transition: filter 0.2s;
 }
 
+.tab-button:hover .tab-icon {
+    filter: brightness(1.2);  /* Hover'da parlak */
+}
+
+body.light .tab-icon {
+    filter: brightness(1.2);  /* Açık mod için ayarla */
+}
+
+body.light .tab-button:hover .tab-icon {
+    filter: brightness(0.8);
+}
 .tab-button.active {
     color: #303134;
     border: 1px solid var(--accent-color);
@@ -657,7 +746,6 @@ body.light #menuPanel h3 {
     width: 100%;
     padding: 10px;
     margin-top: 5px;
-
     border: none;
     background-color: #202124;
     color: white;
@@ -1363,7 +1451,7 @@ body.light #recentBgList .recent-bg-item span {
 #bgFileInput {
     background-color: #303134;          /* Koyu arka plan */
     color: #e8eaed;                     /* Açık yazı */
-    border: 1px solid #5c5e60;          /* İnce gri çerçeve */               /* Yuvarlatılmış köşeler */
+    border: 1px solid #5c5e60;          /* İnce gri çerçeve */        
     padding: 10px 16px;                 /* İç boşluk genişletildi */
     font-size: 14px;                     /* Yazı boyutu */
     width: 100%;                          /* Tam genişlik */
@@ -1636,9 +1724,6 @@ body.light .multi-search-select-all:hover {
 @keyframes scaleIn-multi { /* Yeni, spesifik keyframe */
 0% { opacity: 0; transform: translateY(-10px) scale(0.95); }
 100% { opacity: 1; transform: translateY(0) scale(1); }
-}
-.multi-search-menu[style*="block"] {
-animation: scaleIn-multi 0.18s ease-out forwards; /* Eski scaleIn'i değiştir */
 }
 .weather-popup {
     position: fixed !important;
