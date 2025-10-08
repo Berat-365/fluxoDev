@@ -1,7 +1,7 @@
 # 📑 Changelog
 
 Bu dosya projede yapılan tüm önemli değişiklikleri takip eder.  
-Sürüm numaraları: Fluxo 4 (Part 1'den Part 13'e)
+Sürüm numaraları: Fluxo 4 (Part 9'den Part 15'e)
 
 ---
 
@@ -10,6 +10,38 @@ Sürüm numaraları: Fluxo 4 (Part 1'den Part 13'e)
 - Telefonlar için yeni arayüz
 - Hesaplar için **Google** desteği
 - Hesaplar için yenilikler
+
+---
+
+## [Fluxo 4 Part 15] - 2025-10-08
+### Eklendi (Added)
+- Duvar kağıdını kaldırma eklendi
+- Destek sekmesine sosyal linkler eklendi
+- Sistem geneli ikonlu yapı geliştirildi
+- Ayarlarda navigasyon barına ikonlar getirildi, arama kısayollarına ikonlar eklendi (ayarlardan düzenlenebilir)
+- İkonlar yenilendi
+- Temalar düzeltildi (Kutu, Neomorphism, Vanilla)
+
+## ⚠️ Önemli Uyarı
+Çeviriler eksik ve yanlış olabilir
+
+### Düzenlendi (Fixed)
+- Türkçe harflerin hesap oluşturmada kullanılamaması hatası giderildi
+- Hava Durumu Güncelleme Sıklığı ayarı çalışmama hatası giderildi
+- Hesaplar butonunun ikonunun hatalı görünümü düzeltildi
+
+### Bilinen Hatalar (Erors)
+- Yazı tipleri uygulanmıyor
+- Bazı yazılar çevirilemiyor
+- Ayarlar uygulanıyor fakat ayarlar sekmesinde görüntülenmiyor
+- Firefox tabanlı tarayıcılarda tamamen kullanılmaz durum
+- Hava Durumu Güncelleme Sıklığı ayarı çalışmama hatası
+- Hava Durumu API sisteminin kullanıcıyı değil kendi varsayılanlarını ilan etmesi hatası
+- Duvar kağıdı geçmişi 3 ile sınırlmasına uyulmama hatası
+  
+### Test Edilen Sistemler (deferred systems)
+- Google ile Hesaplar girişi > Hesaplar için büyük bir güncelleme düşünüyoruz ancak önce hatalar giderilmeli
+- Optimizasyonlar ve sistem ağırlığı azaltma çabaları > Muhtemelen bir sonraki yamada
 
 ---
 
