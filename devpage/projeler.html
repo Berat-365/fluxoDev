@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Projelerim - GitHub Glass</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .projects-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+      width: 90%;
+      max-width: 1100px;
+      margin: 40px auto;
+    }
+
+    .projects-container .glass {
+      padding: 20px;
+      text-align: center;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .projects-container .glass:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 12px 32px rgba(0,0,0,0.7);
+    }
+
+    .projects-container .glass h2 {
+      color: #94dd69;
+      margin-bottom: 12px;
+    }
+
+    .projects-container .glass p {
+      margin-bottom: 12px;
+      color: #c9d1d9;
+    }
+
+    .projects-container .glass .button {
+      display: inline-block;
+      margin: 6px 4px;
+    }
+
+    .status-label {
+      display: inline-block;
+      padding: 4px 8px;
+      border-radius: 8px;
+      font-size: 0.8rem;
+      font-weight: bold;
+      color: #fff;
+      background: rgba(121, 255, 88, 0.4);
+      margin-bottom: 10px;
+    }
+
+    .status-coming-soon {
+      background: rgba(255, 69, 58, 0.4);
+    }
+  </style>
+</head>
+<body>
+  <!-- Navbar -->
+  <nav>
+    <ul>
+      <li><a href="index.html">Anasayfa</a></li>
+      <li><a href="hakkimda.html">Hakkımda</a></li>
+      <li><a href="projeler.html">Projelerim</a></li>
+    </ul>
+    <div class="github">
+      <a href="https://github.com/Berat-365" target="_blank">Berat-365</a>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero">
+    <h1>📂 Projelerim</h1>
+    <p>İşte üzerinde çalıştığım projelerden bazıları:</p>
+  </section>
+
+  <div class="projects-container">
+    <!-- Fluxo -->
+    <div class="glass">
+      <span class="status-label">Stable</span>
+      <h2>Fluxo Anasayfa</h2>
+      <p>Tarayıcının sıkıcı ve kısıtlı anasayfasına Kişiselleştirilebilir ve Açık kaynaklı yeni sekme sayfası.</p>
+      <p>Version: Fluxo 3 Nexora</p>
+      <a href="https://github.com/Berat-365/Fluxo" target="_blank" class="button">GitHub Repo</a>
+      <a href="https://berat-365.github.io/fluxo/" target="_blank" class="button">Hemen Kullan</a>
+    </div>
+
+    <!-- FluxoDev -->
+    <div class="glass">
+      <span class="status-label">Development</span>
+      <h2>Fluxo Geliştirici Sürümü</h2>
+      <p>Fluxo'nun gelecek sürümlerinin geliştirme ortamı.</p>
+      <p>Version: FluxoDev 4 Zenora | Part 12 Update</p>
+      <a href="https://github.com/Berat-365/FluxoDev" target="_blank" class="button">GitHub Repo</a>
+      <a href="https://berat-365.github.io/fluxoDev/" target="_blank" class="button">Hemen Dene</a>
+      <a href="https://github.com/Berat-365/fluxoDev/blob/main/CHANGELOG.md" target="_blank" class="button">Güncelleme Günlüğü</a>
+    </div>
+
+    <!-- Fluxo Mobile -->
+    <div class="glass">
+      <span class="status-label status-coming-soon">Çok Yakında</span>
+      <h2>Fluxo Mobile</h2>
+      <p>Mobil sürümü, küçük ekranlar için optimize edilmiş sistem.</p>
+      <p>Genel özelliklerin çoğu aktif olmayabilir!</p>
+    </div>
+
+    <!-- Kullanıcı Sayfası -->
+    <div class="glass">
+      <span class="status-label">Live</span>
+      <h2>GitHub Kullanıcı Sayfam</h2>
+      <p>Başkalarının da kullanabilmesi için github kullanıcı sayfası.</p>
+    </div>
+
+    <!-- Pong -->
+    <div class="glass">
+      <span class="status-label status-coming-soon">Çok Yakında</span>
+      <h2>Multiplayer Pong Oyunu</h2>
+      <p>Çok yakında çıkacak, eğlenceli ve multiplayer oyun deneyimi sunacak.</p>
+    </div>
+  </div>
+
+  <footer>© 2025 Berat-365 | MyHomepage | akgogbrt@gmail.com</footer>
+</body>
+</html>

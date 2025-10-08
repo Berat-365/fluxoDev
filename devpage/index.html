@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Anasayfa - GitHub Glass</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+.stats-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+  width: 90%;
+  max-width: 1100px;
+  margin: 40px auto;
+}
+
+.stats-container .glass {
+  padding: 20px;
+  text-align: center;
+  border-radius: 16px;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.6);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.stats-container .glass:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 32px rgba(0,0,0,0.7);
+}
+
+.stats-container img {
+  width: 100%;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+}
+
+/* Profil + Achievements container */
+.profile-achievements {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 20px;
+  margin-top: 40px;
+  width: 90%;
+  max-width: 1100px;
+}
+
+.profile-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.profile-box img {
+  border-radius: 50%;
+  border: 4px solid rgba(255,255,255,0.2);
+  width: 160px;
+  height: 160px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.6);
+}
+
+.achievements-box {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+}
+
+.achievements-box img {
+  height: 80px;
+  width: auto;
+  object-fit: contain;
+  transition: transform 0.3s ease;
+}
+
+.achievements-box img:hover {
+  transform: translateY(-4px);
+}
+
+/* Sosyal / Quotes / Blog container */
+.extras-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px,1fr));
+  gap: 20px;
+  width: 90%;
+  max-width: 1100px;
+  margin: 40px auto;
+}
+
+.extras-container .glass {
+  padding: 20px;
+  border-radius: 16px;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.6);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.extras-container .glass:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 32px rgba(0,0,0,0.7);
+}
+
+.extras-container img {
+  width: 100%;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+}
+
+/* Contributions */
+#contributions-graph {
+  overflow-x: auto;
+  padding: 10px 0;
+}
+
+/* Yıllar dropdown */
+#year-select {
+  margin-bottom: 12px;
+  padding: 6px 10px;
+  border-radius: 8px;
+  border: 1px solid rgba(255,255,255,0.3);
+  background: rgba(0,0,0,0.2);
+  color: #94dd69;
+  font-weight: bold;
+}
+
+/* Scrollbar teması */
+#contributions-graph::-webkit-scrollbar {
+  height: 8px;
+}
+
+#contributions-graph::-webkit-scrollbar-thumb {
+  background: rgba(148,221,105,0.6);
+  border-radius: 4px;
+}
+
+#contributions-graph::-webkit-scrollbar-track {
+  background: rgba(255,255,255,0.05);
+}
+
+/* Firefox scrollbar */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(148,221,105,0.6) rgba(255,255,255,0.05);
+}
+
+  </style>
+</head>
+<body>
+  <!-- Navbar -->
+  <nav>
+    <ul>
+      <li><a href="index.html">Anasayfa</a></li>
+      <li><a href="hakkimda.html">Hakkımda</a></li>
+      <li><a href="projeler.html">Projelerim</a></li>
+    </ul>
+    <div class="github">
+      <a href="https://github.com/Berat-365" target="_blank">Berat-365</a>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero">
+    <img src="https://github.com/Berat-365.png?size=160" alt="Berat Profil Fotoğrafı">
+    <h1>👋 Merhaba, Ben Berat-365</h1>
+    <p>Burası benim <b>Anasayfa</b> bölümüm.</p>
+  </section>
+
+  <!-- Profil + Achievements -->
+  <div class="profile-achievements">
+    <div class="achievements-container">
+      <img src="https://github-profile-trophy.vercel.app/?username=Berat-365&theme=radical&row=1" alt="Achievements" class="achievements">
+    </div>
+  </div>
+
+  <!-- GitHub Stats -->
+  <div class="stats-container">
+    <div class="glass">
+      <h2>Temel Bilgiler</h2>
+      <img src="https://github-readme-stats.vercel.app/api?username=Berat-365&show_icons=true&bg_color=00000000&text_color=94dd69&icon_color=58a6ff&theme=radical" alt="GitHub Stats">
+    </div>
+    <div class="glass">
+      <h2>En Çok Kullanılan Diller</h2>
+      <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=Berat-365&layout=compact&bg_color=00000000&text_color=94dd69&icon_color=58a6ff" alt="Top Languages">
+    </div>
+    <div class="glass">
+      <h2>GitHub Streak</h2>
+      <img src="https://github-readme-streak-stats.herokuapp.com/?user=Berat-365&theme=radical&background=00000000&stroke=94dd69&fire=58a6ff&currStreakLabel=94dd69" alt="GitHub Streak">
+    </div>
+    <div class="glass">
+      <h2>Contributions</h2>
+      <select id="year-select"></select>
+      <div id="contributions-graph"></div>
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- Fluxo Stats -->
+  <div class="stats-container">
+    <div class="glass">
+      <h2>Fluxo Anasayfa</h2>
+      <img src="https://github-readme-stats.vercel.app/api/pin/?username=Berat-365&repo=Fluxo&theme=radical&bg_color=00000000&text_color=94dd69&icon_color=58a6ff" alt="Fluxo Repo Stats">
+      <div style="margin-top:10px;">
+        <a href="https://github.com/Berat-365/Fluxo" target="_blank" class="button">GitHub Repo</a>
+        <a href="https://berat-365.github.io/fluxo/" target="_blank" class="button">Hemen Kullan</a>
+      </div>
+    </div>
+    <div class="glass">
+      <h2>FluxoDev Anasayfa</h2>
+      <img src="https://github-readme-stats.vercel.app/api/pin/?username=Berat-365&repo=FluxoDev&theme=radical&bg_color=00000000&text_color=94dd69&icon_color=58a6ff" alt="FluxoDev Repo Stats">
+      <div style="margin-top:10px;">
+        <a href="https://github.com/Berat-365/FluxoDev" target="_blank" class="button">GitHub Repo</a>
+        <a href="https://berat-365.github.io/fluxoDev/" target="_blank" class="button">Hemen Dene</a>
+      </div>
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- Sosyal, Quotes ve Blog -->
+  <div class="extras-container">
+    <div class="glass">
+      <h2>📬 Sosyal / İletişim</h2>
+      <p>GitHub: <a href="https://github.com/Berat-365" target="_blank">Berat-365</a></p>
+      <p>Discord: Yakında 🎉</p>
+      <p>E-mail: akgogbrt@gmail.com</p>
+    </div>
+
+    <div class="glass">
+      <h2>💡 Rastgele Alıntı</h2>
+      <p id="quote"> ... </p>
+    </div>
+
+    <div class="glass">
+      <h2>📝 Blog / Duyurular</h2>
+      <p>Berat-365 kendi Github sayfasını geliştirdi ve diğer kullanıcılar için kullanılabilir hale getirdi!.</p>
+    </div>
+  </div>
+
+  <footer>© 2025 Berat-365 | MyHomepage</footer>
+
+  <script>
+    // Quotes API
+    fetch('https://api.adviceslip.com/advice')
+      .then(res => res.json())
+      .then(data => {
+        document.getElementById('quote').innerText = `"${data.slip.advice}"`;
+      })
+      .catch(() => {
+        document.getElementById('quote').innerText = "Alıntı yüklenemedi.";
+      });
+
+    // Contributions Graph - yıllara göre
+    const username = "Berat-365";
+    const graphDiv = document.getElementById("contributions-graph");
+    const yearSelect = document.getElementById("year-select");
+    const currentYear = new Date().getFullYear();
+
+    // Yılları dropdown'a ekle
+    for(let y=currentYear; y>=2015; y--){
+      const opt = document.createElement("option");
+      opt.value = y;
+      opt.innerText = y;
+      yearSelect.appendChild(opt);
+    }
+
+    async function fetchContributions(year){
+      graphDiv.innerHTML = " ... ";
+      try {
+        const res = await fetch(`https://gh-contributions-api.vercel.app/api?username=${username}&year=${year}`);
+        const data = await res.json();
+        graphDiv.innerHTML = "";
+
+        data.weeks.forEach(week=>{
+          const weekDiv = document.createElement("div");
+          weekDiv.style.display="flex";
+          weekDiv.style.gap="2px";
+          week.forEach(day=>{
+            const dayDiv = document.createElement("div");
+            dayDiv.style.width="12px";
+            dayDiv.style.height="12px";
+            dayDiv.style.background=day.color;
+            dayDiv.title=`${day.date}: ${day.count} contributions`;
+            weekDiv.appendChild(dayDiv);
+          });
+          graphDiv.appendChild(weekDiv);
+        });
+      } catch(e){
+        graphDiv.innerHTML="Contributions yüklenemedi.";
+      }
+    }
+
+    yearSelect.addEventListener("change", e=>{
+      fetchContributions(e.target.value);
+    });
+
+    // Başlangıç olarak current year
+    fetchContributions(currentYear);
+  </script>
+</body>
+</html>
