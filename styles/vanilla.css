@@ -1,3 +1,4 @@
+/* vanilla.css */
 :root {
     --site-font: 'Inter', sans-serif; 
     --accent-color: #dce4e6;
@@ -1638,6 +1639,16 @@ body.light #feedbackStatus.success {
 }
 body.light .social-links h4 {
     color: #000;
+}
+.contact-area {
+    background-color: #202124;
+    color: #e8eaed;
+    border: none;
+    margin-top: 25px;
+    padding: 15px;
+    border-radius: 15px;
+    text-align: left;
+    text-decoration: none;
 }
 .social-link {
     display: inline-flex;
