@@ -1,3 +1,4 @@
+/* neomorph.css */
 :root {
     --site-font: 'Inter', sans-serif;
     --accent-color: #dce4e6;
@@ -1604,7 +1605,62 @@ body.light #feedbackStatus.success {
     color: var(--accent-color);
     border: none;
 }
+.social-links h4 {
+    font-size: 16px;
+    margin-bottom: 10px;
+    color: var(--text-color);
+}
+body.light .social-links h4 {
+    color: #000;
+}
+.contact-area {
+    background-color: var(--element-color);
+    color: var(--text-color);
+    border: none;
+    margin-top: 25px;
+    padding: 15px;
+    border-radius: 15px;
+    text-align: left;
+    text-decoration: none;
+    box-shadow: inset 3px 3px 6px var(--shadow-dark), inset -3px -3px 6px var(--shadow-light);
+}
+.social-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 60px;
+    height: 43px;
+    background-color: var(--element-color);
+    border-radius: 50px;
+    transition: all 0.3s ease;
+    box-shadow: inset 3px 3px 6px var(--shadow-dark), inset -3px -3px 6px var(--shadow-light);
+    text-decoration: none;
+}
+.social-link:hover {
+    transform: scale(1.1);
+    background-color: var(--accent-color);
+}
+body.light .social-link {
+    background-color: #e0e0e0;
+}
+body.light .social-link:hover {
+    background-color: var(--accent-color);
+}
+.social-icon {
+    width: 20px;
+    height: 20px;
+    filter: brightness(1);
+    transition: filter 0.2s;
+}
+.social-link:hover .social-icon {
+    filter: brightness(0.8);
+}
 
+#accentColor::-webkit-color-swatch {
+    border-radius: 6px;
+    color: var(--accent-color);
+    border: 1px solid var(--accent-color);
+}
 #resetBrowserBtn {
     background-color: var(--element-color);
     color: var(--text-color);
