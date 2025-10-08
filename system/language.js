@@ -164,7 +164,11 @@ const translations = {
     glassmorph: "Glassmorfizm",
     box: "Kutu",
     invalidUsername: "Uygunsuz kullanıcı adı: Karakterler (a-z,0-9,_), 3-20 uzunluk, küfür yok.",
-    noHistory: "Geçmiş Yok"
+    noHistory: "Geçmiş Yok",
+    buttonDisplayMode: "Arama Butonları Görünümü:",
+    iconsAndText: "İkon ve Yazı",
+    iconsOnly: "Sadece İkonlar",
+    textOnly: "Sadece Yazı",
 
   },
   az: {
