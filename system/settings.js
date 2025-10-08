@@ -48,7 +48,8 @@ const defaultSettings = {
   visualCrossingApiKey: "",
   safeSearchOptions: "safeSearchEnable",
   disableSearchHistoryLog: "disableSearchHistoryLogDisable",
-  privateMode: "privateModeDisable"
+  privateMode: "privateModeDisable",
+  buttonDisplayMode: "text-only", 
 };
 
 // Güvenli localStorage erişimi
@@ -500,7 +501,8 @@ export function saveSettingsFromInputs() {
       showLensSearch: getSettingFromInputs('showLensSearch', 'showLensSearch'),
       showVoiceSearch: getSettingFromInputs('showVoiceSearch', 'showVoiceSearch'),
       showMultiSearch: getSettingFromInputs('showMultiSearch', 'showMultiSearch'),
-      showBgRemove: getSettingFromInputs('showBgRemove', 'showBgRemove')
+      showBgRemove: getSettingFromInputs('showBgRemove', 'showBgRemove'),
+      buttonDisplayMode: getSettingFromInputs('buttonDisplayMode', 'buttonDisplayMode'),
     };
 
     // Hava durumu API doğrulama (wttr.in için anahtar gerekmez)
@@ -613,6 +615,33 @@ if (logoEl) {
 } else {
     console.warn('Logo elementi bulunamadı.');
 }
+
+// Arama butonları görünümü
+const buttonMode = settings.buttonDisplayMode || defaultSettings.buttonDisplayMode;
+const buttonsEl = document.getElementById('buttons');
+if (buttonsEl) {
+  // Önceki mod class'larını temizle
+  buttonsEl.classList.remove('icons-only', 'text-only');
+  
+  if (buttonMode === 'icons-only') {
+    buttonsEl.classList.add('icons-only');
+  } else if (buttonMode === 'text-only') {
+    buttonsEl.classList.add('text-only');
+  }
+  // icons-and-text: Varsayılan, class yok – her şey görünür
+}
+
+// Alternatif: Direct style manipulation (class yerine, eğer class çalışmıyorsa)
+const buttonIcons = document.querySelectorAll('.buttons .accent .button-icon');
+const buttonTexts = document.querySelectorAll('.buttons .accent .button-text');
+
+buttonIcons.forEach(icon => {
+  icon.style.display = (buttonMode === 'text-only') ? 'none' : 'inline-block';
+});
+
+buttonTexts.forEach(text => {
+  text.style.display = (buttonMode === 'icons-only') ? 'none' : 'inline';
+});
 
 
     // Görünüm ayarları
@@ -892,6 +921,28 @@ function loadTheme() {
     menuIcon.src = theme === "light" ? "assets/menu-dark.png" : "assets/menu.png";
     accountIcon.src = theme === "light" ? "assets/account-dark.png" : "assets/account.png";
     lensIcon.src = theme === "light" ? "assets/lens-dark.png" : "assets/lens.png";
+
+    // Tab ikonları (Ayarlar, Geçmiş, Destek)
+    const settingsIcon = document.querySelector('.tab-button[data-tab="settings"] img');
+    const historyIcon = document.querySelector('.tab-button[data-tab="history"] img');
+    const supportIcon = document.querySelector('.tab-button[data-tab="support"] img');
+
+    if (settingsIcon) settingsIcon.src = theme === "light" ? "assets/settings-dark.png" : "assets/settings.png";
+    if (historyIcon) historyIcon.src = theme === "light" ? "assets/history-dark.png" : "assets/history.png";
+    if (supportIcon) supportIcon.src = theme === "light" ? "assets/support-dark.png" : "assets/support.png";
+
+    // Arama buton ikonları
+    const searchWebIcon = document.getElementById("searchWebBtn")?.querySelector('.button-icon');
+    const searchImagesIcon = document.getElementById("searchImagesBtn")?.querySelector('.button-icon');
+    const searchShoppingIcon = document.getElementById("searchShoppingBtn")?.querySelector('.button-icon');
+    const searchNewsIcon = document.getElementById("searchNewsBtn")?.querySelector('.button-icon');
+    const searchAIicon = document.getElementById("searchAIBtn")?.querySelector('.button-icon');
+
+    if (searchWebIcon) searchWebIcon.src = theme === "light" ? "assets/search-dark.png" : "assets/search.png";
+    if (searchImagesIcon) searchImagesIcon.src = theme === "light" ? "assets/images-dark.png" : "assets/images.png";
+    if (searchShoppingIcon) searchShoppingIcon.src = theme === "light" ? "assets/shopping-dark.png" : "assets/shopping.png";
+    if (searchNewsIcon) searchNewsIcon.src = theme === "light" ? "assets/news-dark.png" : "assets/news.png";
+    if (searchAIicon) searchAIicon.src = theme === "light" ? "assets/aisearch-dark.png" : "assets/aisearch.png";
 
     // select menüyü güncelle
     const themeSelect = document.getElementById("themeSelect");
