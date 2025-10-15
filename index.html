@@ -7,10 +7,10 @@
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
     <title>FluxoDev</title>
-    <link rel="icon" type="image/icon" href="ico/favicon.ico">
+    <link rel="icon" type="image/icon" href="assets/favicon.ico">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Open+Sans:wght@400;700&family=Lato:wght@400;700&family=Montserrat:wght@400;700&family=Inter:wght@400;700&family=Lavishly+Yours&family=Rouge+Script&family=Fascinate&family=Qahiri&family=Roboto+Mono:wght@400;700&family=Fira+Sans:wght@400;700&family=Meow+Script&family=Source+Code+Pro:wght@400;700&family=JetBrains+Mono:wght@400;700&family=Poppins:wght@400;700&family=Raleway:wght@400;700&family=Ubuntu:wght@400;700&family=Merriweather:wght@400;700&family=Dancing+Script:wght@400;700&family=Pacifico&family=Satisfy&family=Zilla+Slab:wght@400;700&family=Spectral:wght@400;700&family=Noto+Sans:wght@400;700&family=Noto+Serif:wght@400;700&family=Playfair+Display:wght@400;700&family=Alegreya:wght@400;700&family=Alegreya+Sans:wght@400;700&family=Source+Sans+Pro:wght@400;700&family=Source+Serif+Pro:wght@400;700&family=Fraunces:wght@400;700&family=Inknut+Antiqua:wght@400;700&family=BioRhyme:wght@400;700&family=Karla:wght@400;700&family=Lora:wght@400;700&family=Work+Sans:wght@400;700&family=Rubik:wght@400;700&family=Space+Mono:wght@400;700&family=IBM+Plex+Sans:wght@400;700&family=IBM+Plex+Serif:wght@400;700&family=IBM+Plex+Mono:wght@400;700&family=Crimson+Text:wght@400;700&family=Arvo:wght@400;700&family=Nunito:wght@400;700&family=Cardo:wght@400;700&family=EB+Garamond:wght@400;700&family=Oswald:wght@400;700&family=Bitter:wght@400;700&family=Libre+Baskerville:wght@400;700&family=Tangerine:wght@400;700&family=Bad+Script&family=Sacramento&family=Archivo+Narrow:wght@400;700&family=Domine:wght@400;700&family=Josefin+Sans:wght@400;700&family=Vollkorn:wght@400;700&family=PT+Sans:wght@400;700&family=PT+Serif:wght@400;700&family=Cabin:wght@400;700&family=Overpass:wght@400;700&family=Quicksand:wght@400;700&family=Heebo:wght@400;700&family=Fjalla+One&family=Catamaran:wght@400;700&family=Mukta:wght@400;700&family=Barlow:wght@400;700&family=Signika:wght@400;700&family=Cormorant:wght@400;700&family=Space+Grotesk:wght@400;700&family=Syne:wght@400;700&family=Bebas+Neue&family=Anton&family=Chivo:wght@400;700&family=Manrope:wght@400;700&family=Red+Hat+Display:wght@400;700&family=Exo+2:wght@400;700&family=Comfortaa:wght@400;700&family=Mulish:wght@400;700&family=Asap:wght@400;700&family=Kumbh+Sans:wght@400;700&family=Lexend:wght@400;700&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    <link id="themeStylesheet" rel="stylesheet" href="./styles/vanilla.css">
+    <link id="systemThemeLink" rel="stylesheet" href="./styles/vanilla.css">
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
     <script type="text/javascript">
         (function(){
@@ -25,37 +25,48 @@
         #voiceIcon.active {
             filter: invert(29%) sepia(99%) saturate(7482%) hue-rotate(359deg) brightness(97%) contrast(119%);
         }
+        .transcript:empty::before {
+            content: attr(data-placeholder);
+            color: #999;
+            pointer-events: none;
+        }
+        @media (max-width: 768px) {
+            #backgroundVideo, #backgroundYouTube { transform: scale(1); }
+            .container { padding: 10px; }
+        }
     </style>
 </head>
 <body>
     <video id="backgroundVideo" autoplay loop muted playsinline preload="auto" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: -1; will-change: transform;">
         <source src="" type="video/mp4">
     </video>
-    <iframe id="backgroundYouTube" frameborder="0" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; object-fit: cover; transform: scale(1.1); will-change: transform;" allow="autoplay; encrypted-media"></iframe>
+    <iframe id="backgroundYouTube" frameborder="0" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; object-fit: cover; transform: scale(1.1); will-change: transform;" allow="autoplay; encrypted-media" src=""></iframe>
     <div class="weather-widget" id="weatherWidget" onclick="openWeatherWidget()"> ... </div>
     <div class="info-bar" id="infoBar">
-        FluxoDev 4 Part 15 | Vanilla |  <span id="languageDisplay"></span>
+        FluxoDev 4 Part 16 | Vanilla |  <span id="languageDisplay"></span>
         <span id="accountInfo" style="margin-left:0px;"></span>
     </div>
     <div class="url-sidebar" id="urlSidebar"></div>
     <button id="menuButton">
-        <img id="menuIcon" src="assets/menu.png" alt="Menü">
+        <img id="menuIcon" src="assets/light/menu.png" alt="Menü">
     </button>
     <div id="menuPanel">
     <div class="tab-menu">
-        <button class="tab-button" data-tab="settings" title="Ayarlar">
-            <img src="assets/settings.png" alt="Ayarlar" class="tab-icon">
+        <button class="tab-button active" data-tab="settings" title="Ayarlar">
+            <img src="assets/light/settings.png" alt="Ayarlar" class="tab-icon">
         </button>
         <button class="tab-button" data-tab="history" title="Geçmiş">
-            <img src="assets/history.png" alt="Geçmiş" class="tab-icon">
+            <img src="assets/light/history.png" alt="Geçmiş" class="tab-icon">
         </button>
         <button class="tab-button" data-tab="support" title="Destek">
-            <img src="assets/support.png" alt="Destek" class="tab-icon">
+            <img src="assets/light/support.png" alt="Destek" class="tab-icon">
         </button>
     </div>
         <div id="settingsContent" class="tab-content active">
-            <button id="applySettingsBtn" class="accent" data-lang-key="apply">Uygula</button>
-            <button id="importSettingsBtn" class="accent" data-lang-key="importExport">Aktar/Al</button>
+            <div class="tab-menu-settings">
+                <button id="applySettingsBtn" class="accent" data-lang-key="apply">Uygula</button>
+                <div id="applyStatus" class="status-message **data-lang-key="settingsStatus"**" style="display: none;"></div>
+            </div>
             <div id="importExportModal" class="modal">
                 <h3 data-lang-key="importExportTitle">Ayarları Aktar/Al</h3>
                 <button id="exportSettingsBtn" class="accent" data-lang-key="export">Aktar</button>
@@ -102,7 +113,7 @@
                 <option value="'Dancing Script', cursive">Dancing Script</option>
                 <option value="'Pacifico', cursive">Pacifico</option>
                 <option value="'Satisfy', cursive">Satisfy</option>
-                <option value="'Zilla Slab', serif">Zilla Slab</option>
+                <option value="'', serif"></option>
                 <option value="'Spectral', serif">Spectral</option>
                 <option value="'Noto Sans', sans-serif">Noto Sans</option>
                 <option value="'Noto Serif', serif">Noto Serif</option>
@@ -183,17 +194,19 @@
                 <div class="color-option" style="background-color: #6F958D;" onclick="selectColor('#6F958D')"></div>
                 <div class="color-option" style="background-color: #4caf99;" onclick="selectColor('#4caf99')"></div>
                 <div class="color-option" style="background-color: #4caf50;" onclick="selectColor('#4caf50')"></div>
-                <div class="color-option" style="background-color: #006405;" onclick="selectColor('#006405')"></div>            
+                <div class="color-option" style="background-color: #1d441f;" onclick="selectColor('#1d441f')"></div>            
                 <div class="color-option" style="background-color: #006dd4;" onclick="selectColor('#006dd4')"></div>
-                <div class="color-option" style="background-color: #0400d4;" onclick="selectColor('#0400d4')"></div>
+                <div class="color-option" style="background-color: #001e3b;" onclick="selectColor('#001e3b')"></div>
                 <div class="color-option" style="background-color: #ffeb3b;" onclick="selectColor('#ffeb3b')"></div>
-                <div class="color-option" style="background-color: #ff5722;" onclick="selectColor('#ff5722')"></div>
+                <div class="color-option" style="background-color: #a19000;" onclick="selectColor('#a19000')"></div>
                 <div class="color-option" style="background-color: #ff2222;" onclick="selectColor('#ff2222')"></div>
-                <div class="color-option" style="background-color: #582b00;" onclick="selectColor('#582b00')"></div>
+                <div class="color-option" style="background-color: #880000;" onclick="selectColor('#880000')"></div>
                 <div class="color-option" style="background-color: #df10c3;" onclick="selectColor('#df10c3')"></div>
-                <div class="color-option" style="background-color: #8f186b;" onclick="selectColor('#8f186b')"></div>
+                <div class="color-option" style="background-color: #500546;" onclick="selectColor('#500546')"></div>
                 <div class="color-option" style="background-color: #6a1bd1;" onclick="selectColor('#6a1bd1')"></div>
-                <div class="color-option" style="background-color: #450d66;" onclick="selectColor('#7218a7')"></div>
+                <div class="color-option" style="background-color: #250949;" onclick="selectColor('#250949')"></div>
+                <div class="color-option" style="background-color: #e91e63;" onclick="selectColor('#e91e63')"></div>
+                <div class="color-option" style="background-color: #860101;" onclick="selectColor('#860101')"></div>
             </div>
             <input type="color" id="accentColor" value="#6F958D">
 
@@ -211,7 +224,7 @@
                 <option value="fr" data-lang-key="french">Français</option>
                 <option value="it" data-lang-key="italian">Italiano</option>
                 <option value="ar" data-lang-key="arabic">العربية</option>
-                <option value="az" data-lang-key="azerbaijani">Azərbaycan Türkçesi</option>
+                <option value="az" data-lang-key="azerbaijani">Azərbaycan dili</option>
                 <option value="tk" data-lang-key="turkmen">Türkmençe</option>
                 <option value="gag" data-lang-key="gagauz">Gagavuzca</option>
                 <option value="kk" data-lang-key="kazakh">Қазақша</option>
@@ -280,13 +293,13 @@
             </select>
             <label for="showVoiceSearch" data-lang-key="showVoiceSearch">Sesli Arama Butonunu Göster:</label>
             <select id="showVoiceSearch">
-                <option value="true">Evet</option>
-                <option value="false">Hayır</option>
+                <option data-lang-key="yes" value="true">Evet</option>
+                <option data-lang-key="no" value="false">Hayır</option>
             </select>
             <label for="showMultiSearch" data-lang-key="showMultiSearch">Çoklu Arama Butonunu Göster:</label>
             <select id="showMultiSearch">
-                <option value="true">Evet</option>
-                <option value="false">Hayır</option>
+                <option data-lang-key="yes" value="true">Evet</option>
+                <option data-lang-key="no" value="false">Hayır</option>
             </select>
             <label for="showInfoBar" data-lang-key="showInfoBar">Bilgi Barını Göster:</label>
             <select id="showInfoBar">
@@ -376,28 +389,6 @@
             </select>
 
             <h3 data-lang-key="widgetsSet">Araç Ayarları</h3>
-            <div class="mb-4">
-                <label for="weatherAPI" data-lang-key="weatherAPI" class="text-sm mb-1">Hava Durumu API:</label>
-                <select id="weatherAPI" class="border rounded px-2 py-1 text-sm w-full max-w-xs">
-                    <option value="openweathermap" data-lang-key="openweathermap">OpenWeatherMap</option>
-                    <option value="weatherapi" data-lang-key="weatherapi">WeatherAPI</option>
-                    <option value="openmeteo" data-lang-key="openmeteo">Open-Meteo (ücretsiz)</option>
-                    <option value="visualcrossing" data-lang-key="visualcrossing">Visual Crossing</option>
-                    <option value="wttrin" data-lang-key="wttrin">wttr.in (Varsayılan)</option>
-                </select>
-            </div>
-            <div class="api-key-input" id="openWeatherMapKeyInput">
-                <label for="openWeatherMapApiKey" data-lang-key="openWeatherMapApiKey">OpenWeatherMap API Anahtarı:</label>
-                <input type="text" id="openWeatherMapApiKey" placeholder="OpenWeatherMap anahtarınızı girin" class="border rounded px-2 py-1 text-sm w-full max-w-xs">
-            </div>
-            <div class="api-key-input" id="weatherApiKeyInput">
-                <label for="weatherApiKey" data-lang-key="weatherApiKey">WeatherAPI Anahtarı:</label>
-                <input type="text" id="weatherApiKey" placeholder="WeatherAPI anahtarınızı girin" class="border rounded px-2 py-1 text-sm w-full max-w-xs">
-            </div>
-            <div class="api-key-input" id="visualCrossingKeyInput">
-                <label for="visualCrossingApiKey" data-lang-key="visualCrossingApiKey">Visual Crossing API Anahtarı:</label>
-                <input type="text" id="visualCrossingApiKey" placeholder="Visual Crossing anahtarınızı girin" class="border rounded px-2 py-1 text-sm w-full max-w-xs">
-            </div>
             <label for="weatherLocation" data-lang-key="weatherLocation">Hava Durumu Konumu:</label>
             <input type="text" id="weatherLocation" placeholder="Şehir ismi">
             <label for="weatherUpdateInterval" data-lang-key="weatherUpdateInterval">Hava Durumu Güncelleme Sıklığı:</label>
@@ -417,6 +408,8 @@
             <input type="text" id="settingsShortcutInput" placeholder="Ör: Ctrl + Shift + X" value="Ctrl + Shift + X">
             <label for="historyShortcutInput" data-lang-key="historyShortcut">Geçmiş Paneli:</label>
             <input type="text" id="historyShortcutInput" placeholder="Ör: Ctrl + Shift + H" value="Ctrl + Shift + H">
+            <label for="supportShortcutInput" data-lang-key="supportShortcut">Destek Paneli:</label>
+            <input type="text" id="supportShortcutInput" placeholder="Ör: Ctrl + Alt + S" value="Ctrl + Alt + S">
             <label for="imagesShortcutInput" data-lang-key="imagesShortcut">Görseller Araması:</label>
             <input type="text" id="imagesShortcutInput" placeholder="Ör: Ctrl + i" value="Ctrl + i">
             <label for="shoppingShortcutInput" data-lang-key="shoppingShortcut">Alışveriş Araması:</label>
@@ -439,33 +432,37 @@
         <div id="supportContent" class="tab-content">
             <h3 data-lang-key="support">Destek</h3>
             <form id="feedbackForm">
-                <label for="feedbackMessage">Şikayet/Geri Bildirim</label>
-                <input type="text" id="feedbackTitle" name="title" placeholder="Geri bildirim başlığı" required>
-                <textarea id="feedbackMessage" name="message" placeholder="Geri bildiriminizi buraya yazın" rows="5" required></textarea>
+                <label data-lang-key="feedbackMessageTitle" for="feedbackMessage">Şikayet/Geri Bildirim</label>
+                <input type="text" data-lang-key="feedbackTitle" id="feedbackTitle" name="title" placeholder="Geri bildirim başlığı" required>
+                <textarea id="feedbackMessage" data-lang-key="feedbackMessageHolder" name="message" placeholder="Geri bildiriminizi buraya yazın" rows="5" required></textarea>
 
-                <button type="submitFeedbackBtn" data-lang-key="submitFeedback" class="accent">Geri Bildirim Gönder</button>
+                <button type="button" id="submitFeedbackBtn" data-lang-key="submitFeedback" class="accent">Geri Bildirim Gönder</button>
                 <div id="feedbackStatus" class="error-message"></div>
-            </form>
-        </div>
-    <div class="contact-area" style="margin-top: 25px;">
+            </form> 
+            <hr>
+                <div class="contact-area" style="margin-top: 25px;">
         <p data-lang-key="contactEmail">Email: lakastanmi@gmail.com</p>
         <p data-lang-key="contactHours">Çalışma Saatleri: 16:30 - 21:30</p>
-    </div>
+        </div>
         <div class="social-links" style="margin-top: 10px; text-align: center;">
         <div class="social-icons" style="display: flex; justify-content: center; gap: 15px; margin-top: 10px;">
             <a href="https://web.telegram.org/k/#@fluxoDev" target="_blank" title="Fluxo Telegram" class="social-link">
-                <img src="assets/telegram.png" alt="Telegram" class="social-icon">
+                <img src="assets/contacts/telegram.png" alt="Telegram" class="social-icon">
             </a>
+            <a href="https://berat-365.github.io/Github-Page/" target="_blank" title="My Github Page" class="social-link">
+                <img src="assets/contacts/github.png" alt="My Github Page" class="social-icon">
+            </a>
+        </div>
         </div>
     </div>
     </div>
     <button id="accountButton" title="Hesap">
-        <img id="accountIcon" src="assets/account.png" alt="Hesap">
+        <img id="accountIcon" src="assets/light/account.png" alt="Hesap">
     </button>
     <div id="addFavoriteModal">
         <span class="close" onclick="document.getElementById('addFavoriteModal').style.display='none'">×</span>
         <label for="modalName" data-lang-key="favoriteName">İsim:</label>
-        <input type="text" id="modalName" placeholder="Favori ismi">
+        <input type="text" data-lang-key="favoriteNameHolder" id="modalName" placeholder="Favori ismi">
         <label for="modalUrl" data-lang-key="favoriteUrl">URL:</label>
         <input type="text" id="modalUrl" placeholder="https://...">
         <button id="addFavoriteModalBtn" class="accent" data-lang-key="add">Ekle</button>
@@ -477,7 +474,7 @@
         <div class="multi-search-item" data-engine="yandex"><img src="https://yandex.com/favicon.ico" alt="Yandex" class="search-icon"><span>Yandex</span></div>
         <div class="multi-search-item" data-engine="brave"><img src="https://brave.com/static-assets/images/brave-favicon.png" alt="Brave" class="search-icon"><span>Brave</span></div>
         <div class="multi-search-item" data-engine="yahoo"><img src="https://www.yahoo.com/favicon.ico" alt="Yahoo" class="search-icon"><span>Yahoo</span></div>
-        <div id="selectAllMultiSearch" class="multi-search-select-all">Tümünü Seç</div>
+        <div id="selectAllMultiSearch" data-lang-key="selectAll" class="multi-search-select-all">Tümünü Seç</div>
     </div>
     <div id="voiceSearchModal" class="modal">
         <div id="voiceTranscript" contenteditable="true" class="transcript" data-placeholder="Söyledikleriniz burada görünecek..."></div>
@@ -487,36 +484,36 @@
     <div class="container">
         <div class="logo" id="logo">
             <a href="#" onclick="window.location.reload()">
-                <img src="assets/logo.png" alt="Fluxo Logo" id="logoImg">
+                <img src="assets/logo/logo.png" alt="Fluxo Logo" id="logoImg">
                 <span class="logo-name" id="logoName">Fluxo</span>
             </a>
         </div>
         <div class="search-bar" id="searchBar">
-            <span class="icon-left"><img id="multiSearchIcon" src="assets/multisearch.png" alt="Çoklu Arama"></span>
+            <span class="icon-left"><img id="multiSearchIcon" src="assets/light/multisearch.png" alt="Çoklu Arama"></span>
             <input type="text" id="searchInput" placeholder="Arama yap..." autofocus>
-            <span class="icon-right" id="voiceSearchBtn"><img id="voiceIcon" src="assets/mic.png" alt="Sesli Arama"></span>
-            <span class="icon-right" id="lensSearchBtn"><img id="lensIcon" src="assets/lens.png" alt="Google Lens"></span>
+            <span class="icon-right" id="voiceSearchBtn"><img id="voiceIcon" src="assets/light/mic.png" alt="Sesli Arama"></span>
+            <span class="icon-right" id="lensSearchBtn"><img id="lensIcon" src="assets/light/lens.png" alt="Google Lens"></span>
             <ul id="suggestions" role="listbox" aria-label="Arama önerileri"></ul>
         </div>
         <div id="buttons" class="buttons">
             <button id="searchWebBtn" class="accent">
-                <img src="assets/search.png" alt="Web Arama" class="button-icon">
+                <img src="assets/light/search.png" alt="Web Arama" class="button-icon">
                 <span class="button-text" data-lang-key="search">Ara</span>
             </button>
             <button id="searchImagesBtn" class="accent">
-                <img src="assets/images.png" alt="Görseller" class="button-icon">
+                <img src="assets/light/images.png" alt="Görseller" class="button-icon">
                 <span class="button-text" data-lang-key="images">Görseller</span>
             </button>
             <button id="searchShoppingBtn" class="accent">
-                <img src="assets/shopping.png" alt="Alışveriş" class="button-icon">
+                <img src="assets/light/shopping.png" alt="Alışveriş" class="button-icon">
                 <span class="button-text" data-lang-key="shopping">Alışveriş</span>
             </button>
             <button id="searchNewsBtn" class="accent">
-                <img src="assets/news.png" alt="Haberler" class="button-icon">
+                <img src="assets/light/news.png" alt="Haberler" class="button-icon">
                 <span class="button-text" data-lang-key="news">Haberler</span>
             </button>
             <button id="searchAIBtn" class="accent">
-                <img src="assets/aisearch.png" alt="AI Arama" class="button-icon">
+                <img src="assets/light/aisearch.png" alt="AI Arama" class="button-icon">
                 <span class="button-text" data-lang-key="aiSearch">AI Arama</span>
             </button>
         </div>
@@ -526,89 +523,166 @@
     </div>
 <div id="weatherPopup" class="weather-popup">
     <span class="close-popup" onclick="closeWeatherPopup()">&times;</span>
-    <h3 id="popupLocation">Hava Durumu Tahmini</h3>
+    <h3 data-lang-key="forecastDayTitle" id="popupLocation">Hava Durumu Tahminleri</h3>
     <div id="forecastList"></div>
 </div>
 </div>
-    <div id="accountModal">
-        <div id="accountModalInner">
-            <span class="close" onclick="closeAccountPanel()">×</span>
-            <h3 id="accountModalTitle" data-lang-key="account">Hesap</h3>
-            <div id="accountForm">
-                <input type="text" id="accountUsername" placeholder="Kullanıcı adı" autocomplete="username">
-                <input type="password" id="accountPassword" placeholder="Şifre" autocomplete="current-password">
-                <div>
-                    <button id="accountLoginBtn" class="accent" data-lang-key="login">Giriş Yap</button>
-                    <button id="accountRegisterBtn" class="accent" data-lang-key="register">Kayıt Ol</button>
-                    <button id="googleLoginBtn" class="accent" data-lang-key="googleLogin">Google ile Giriş Yap</button>                    
-                </div>
-                <span id="accountError" class="error-message" data-lang-key="accountError">Hatalı kullanıcı adı veya şifre.</span>
+<div id="accountModal">
+    <div id="accountModalInner">
+        <span class="close" onclick="closeAccountPanel()">×</span>
+        <h3 id="accountModalTitle" data-lang-key="account">Hesap</h3>
+        <div id="accountForm">
+            <input type="text" id="accountUsername" data-lang-key="usernameInput" placeholder="Kullanıcı adı" autocomplete="username">
+            <input type="password" id="accountPassword" data-lang-key="accountPasswordInput" placeholder="" autocomplete="current-password">
+            <div>
+                <button id="accountLoginBtn" class="accent" data-lang-key="login">Giriş Yap</button>
+                <button id="accountRegisterBtn" class="accent" data-lang-key="register">Kayıt Ol</button>
+                <button id="googleLoginBtn" class="accent" data-lang-key="googleLogin">Google ile Giriş Yap</button>                    
             </div>
-            <div id="accountLoggedIn">
-                <span id="accountWelcome"></span>
-                <button id="accountLogoutBtn" class="accent" data-lang-key="logout">Çıkış Yap</button>
+            <span id="accountError" class="error-message" data-lang-key="accountError">Hatalı kullanıcı adı veya şifre.</span>
+        </div>
+<div id="accountLoggedIn">
+    <div id="accountWelcome" class="welcome-section"></div>
+    
+    <div class="profile-edit">
+        <div class="edit-section">
+            <label for="editNameInput" data-lang-key="changeAccountName" class="section-label">Ad Değiştir:</label>
+            <div class="input-group">
+                <input type="text" id="editNameInput" data-lang-key="changeAccountNameInput" placeholder="Yeni adınızı girin">
+                <div class="button-group">
+                    <button id="saveNameBtn" data-lang-key="save" class="accent small-accent">Kaydet</button>
+                    <button id="revertNameBtn" data-lang-key="undo" class="accent small-accent" style="display: none;">Geri Al</button>
+                </div>
+            </div>
+        </div>
+        
+    <div class="edit-section">
+        <label for="profilePicInput" data-lang-key="profilePicInput" class="section-label">Profil Resmi Yükle:</label>
+    <div class="input-group">
+        <input type="file" id="profilePicInput" accept="image/*" style="display: none;">
+        <button id="uploadPicBtn" data-lang-key="choosePic" class="accent small-accent">Resim Seç</button>
+        <div id="picPreview" class="preview-container" style="margin-top: 10px;"></div>
+        <div class="button-group" style="margin-top: 10px;">
+            <button id="savePicBtn" data-lang-key="savePic" class="accent small-accent" style="display: none;">Resmi Kaydet</button>
+            <button id="removePicBtn" data-lang-key="deletePic" class="accent small-accent danger" style="display: none;">Resmi Kaldır</button>
+        </div>
             </div>
         </div>
     </div>
+    
+    <button id="accountLogoutBtn" class="accent logout-btn" data-lang-key="logout">Çıkış Yap</button>
+</div>
     <!-- Sağ tık menüsü -->
-    <div id="favoriteContextMenu" >
+    <div id="favoriteContextMenu" data-index="-1">
         <div class="fav-menu-item" data-action="open" data-lang-key="openFav" style="padding:8px 16px; cursor:pointer;">Aç</div>
         <div class="fav-menu-item" data-action="renameFav" data-lang-key="renameFav" style="padding:8px 16px; cursor:pointer;">Yeniden Adlandır</div>    
         <div class="fav-menu-item" data-action="moveLeft" data-lang-key="moveLeftFav" style="padding:8px 16px; cursor:pointer;">Sola Kaydır</div>
         <div class="fav-menu-item" data-action="moveRight" data-lang-key="moveRightFav" style="padding:8px 16px; cursor:pointer;">Sağa Kaydır</div>
         <div class="fav-menu-item" data-action="remove" data-lang-key="removeFav" style="padding:8px 16px; cursor:pointer; color:#ff4444;">Sil</div>
     </div>
+
     <script type="module">
-import { translations, updateLanguage } from './system/language.js';
-import { resetBrowser, selectColor, rgbToHex, updateSearchEnginePreview, openImportExportModal, closeImportExportModal, exportSettings, importSettings, applySettings } from './system/settings.js';
-import { applyBackground, updateRecentBgList, removeBackground } from './system/background.js';
-import { search, fetchSuggestions, debounce, toggleMultiSearchMenu } from './system/search.js';
-import { loadFavorites, addFavoriteFromModal, showFavoriteContextMenu, handleDragStart, handleDragOver, handleDrop, removeFavorite } from './system/favorites.js';
-import { loadSearchHistory, removeSearchHistory } from './system/history.js';
-import { updateAccountUI, showAccountModal, closeAccountPanel, updateAccountModalTheme } from './system/account.js';
-import { initVoiceSearch } from './system/voice.js';
-import { bindShortcuts } from './system/shortcuts.js';
-import { fetchWeather, startWeatherUpdate } from './system/weather.js';
-import { isInappropriateUsername } from './system/security.js';
+        import { translations, updateLanguage } from './system/language.js';
+        import { resetBrowser, selectColor, rgbToHex, updateSearchEnginePreview, openImportExportModal, closeImportExportModal, exportSettings, importSettings, applySettings, saveSettingsFromInputs } from './system/settings.js';
+        import { applyBackground, updateRecentBgList, removeBackground } from './system/background.js';
+        import { search, fetchSuggestions, debounce, toggleMultiSearchMenu } from './system/search.js';
+        import { loadFavorites, addFavoriteFromModal, showFavoriteContextMenu, handleDragStart, handleDragOver, handleDrop, removeFavorite } from './system/favorites.js';
+        import { loadSearchHistory, removeSearchHistory } from './system/history.js';
+        import { updateAccountUI, showAccountModal, closeAccountPanel, updateAccountModalTheme } from './system/account.js';
+        import { initVoiceSearch } from './system/voice.js';
+        import { bindShortcuts } from './system/shortcuts.js';
+        import { fetchWeather, startWeatherUpdate } from './system/weather.js';
+        import { isInappropriateUsername } from './system/security.js';
 
-// Erken ata: window.updateLanguage'ı tanımla (hoisting için)
-window.updateLanguage = updateLanguage;
+        window.updateLanguage = updateLanguage;
+        window.selectColor = selectColor;
 
-// Menu events
-document.getElementById("menuButton").addEventListener("click", (e) => {
-    e.stopPropagation();
-    const p = document.getElementById("menuPanel");
-    p.style.display = p.style.display === "block" ? "none" : "block";
+        // FONT SELECT CHANGE EVENT
+        document.getElementById("fontSelect").addEventListener("change", function() {
+            const font = this.value;
+            localStorage.setItem("font", font);
+            document.documentElement.style.fontFamily = font;
+            document.body.style.fontFamily = font;
+        });
+
+        function closeAllModals(e) {
+    if (e && e.target.closest("#menuPanel")) return;
+    document.getElementById("menuPanel").style.display = "none";
+    document.getElementById("addFavoriteModal").style.display = "none";
+    document.getElementById("voiceSearchModal").style.display = "none";
     const accountModal = document.getElementById("accountModal");
-    accountModal.style.display = "none";
-    accountModal.classList.remove("active");
-    document.querySelectorAll(".tab-content").forEach(content => content.classList.remove("active"));
-    document.getElementById("settingsContent").classList.add("active");
-    document.querySelectorAll(".tab-button").forEach(btn => btn.classList.remove("active"));
-    document.querySelector(".tab-button[data-tab='settings']").classList.add("active");
-    loadSearchHistory(); 
-});
+    if (!e || !e.target.closest("#accountModal")) {
+        accountModal.style.display = "none";
+        accountModal.classList.remove("active");
+    }
+    document.getElementById("suggestions").style.display = "none";
+    const menu = document.getElementById("favoriteContextMenu");
+    menu.style.display = "none";
+    document.querySelectorAll(".favorite-item").forEach(item => item.classList.remove("context-active"));
+}
 
-document.querySelectorAll(".tab-button").forEach(button => {
-    button.addEventListener("click", () => {
-        const tab = button.getAttribute("data-tab");
+    // Menu events
+    document.getElementById("menuButton").addEventListener("click", (e) => {
+        e.stopPropagation();
+        const p = document.getElementById("menuPanel");
+        p.style.display = p.style.display === "block" ? "none" : "block";
+        const accountModal = document.getElementById("accountModal");
+        accountModal.style.display = "none";
+        accountModal.classList.remove("active");
         document.querySelectorAll(".tab-content").forEach(content => content.classList.remove("active"));
+        document.getElementById("settingsContent").classList.add("active");
         document.querySelectorAll(".tab-button").forEach(btn => btn.classList.remove("active"));
-        document.getElementById(`${tab}Content`).classList.add("active");
-        button.classList.add("active");
-        if (tab === "history") {
-            loadSearchHistory();
-        }
+        document.querySelector(".tab-button[data-tab='settings']").classList.add("active");
+        loadSearchHistory(); 
     });
-});
+
+    document.querySelectorAll(".tab-button").forEach(button => {
+        button.addEventListener("click", () => {
+            const tab = button.getAttribute("data-tab");
+            document.querySelectorAll(".tab-content").forEach(content => content.classList.remove("active"));
+            document.querySelectorAll(".tab-button").forEach(btn => btn.classList.remove("active"));
+            document.getElementById(`${tab}Content`).classList.add("active");
+            button.classList.add("active");
+            if (tab === "history") {
+                loadSearchHistory();
+            }
+        });
+    });
 
 document.getElementById("applySettingsBtn").addEventListener("click", () => {
-    applySettings({applyBackground, updateLanguage, loadFavorites, updateSearchEnginePreview, fetchWeather, bindShortcuts, startWeatherUpdate});
-    document.getElementById("menuPanel").style.display = "none";
-    const accountModal = document.getElementById("accountModal");
-    accountModal.style.display = "none";
-    accountModal.classList.remove("active");
-    location.reload(); 
+    const statusEl = document.getElementById("applyStatus");
+    statusEl.style.display = "block";  // Mesajı göster
+    
+    // saveSettingsFromInputs çağır (içinde applySettings var, options geçir)
+    const options = {
+        updateSearchEnginePreview,
+        loadCachedBackground: applyBackground,  // background.js'den
+        updateLanguage,
+        loadFavorites,
+        fetchWeather,
+        bindShortcuts,
+        startWeatherUpdate
+    };
+    
+    const lang = localStorage.getItem("language") || "tr";  // Dil al
+    
+    if (saveSettingsFromInputs(options)) {  // Başarı kontrolü
+        statusEl.textContent = translations[lang].settingsApplied || "Ayarlar uygulandı.";  // Çeviri kullan
+        statusEl.className = "status-message success";
+        
+        // Başarıda panel kapat ve reload (gecikmeli, mesaj görünsün diye)
+        setTimeout(() => {
+            document.getElementById("menuPanel").style.display = "none";
+            const accountModal = document.getElementById("accountModal");
+            accountModal.style.display = "none";
+            accountModal.classList.remove("active");
+            location.reload();
+        }, 1500);  // 1.5 sn bekle
+    } else {
+        statusEl.textContent = translations[lang].settingsApplyFailed || "Ayarlar uygulanmadı.";  // Çeviri kullan
+        statusEl.className = "status-message error";
+    }
+    updateLanguage(lang);  // Tüm çevirileri güncelle (data-lang-key için)
 });
 
 document.getElementById("clearHistoryBtn").onclick = () => {
@@ -622,7 +696,6 @@ document.getElementById("addFavoriteModalBtn").addEventListener("click", addFavo
 
 document.getElementById("multiSearchIcon").parentElement.addEventListener("click", toggleMultiSearchMenu);
 
-document.getElementById("importSettingsBtn").onclick = openImportExportModal;
 document.getElementById("exportSettingsBtn").onclick = exportSettings;
 document.getElementById("importSettingsBtnModal").onclick = () => document.getElementById("importFileInput").click();
 document.getElementById("importFileInput").onchange = (e) => {
@@ -715,14 +788,12 @@ document.getElementById("accountLogoutBtn").onclick = () => {
     closeAccountPanel();
 };
 
-// Search buttons
-document.getElementById("searchWebBtn").addEventListener("click", () => search("web"));
-document.getElementById("searchImagesBtn").addEventListener("click", () => search("images"));
-document.getElementById("searchShoppingBtn").addEventListener("click", () => search("shopping"));
-document.getElementById("searchNewsBtn").addEventListener("click", () => search("news"));
-document.getElementById("searchAIBtn").addEventListener("click", () => search("ai"));
+    document.getElementById("searchWebBtn").addEventListener("click", () => search("web"));
+    document.getElementById("searchImagesBtn").addEventListener("click", () => search("images"));
+    document.getElementById("searchShoppingBtn").addEventListener("click", () => search("shopping"));
+    document.getElementById("searchNewsBtn").addEventListener("click", () => search("news"));
+    document.getElementById("searchAIBtn").addEventListener("click", () => search("ai"));
 
-// Context menu
 document.getElementById("favoriteContextMenu").addEventListener("click", function(e) {
     const action = e.target.getAttribute("data-action");
     const index = parseInt(this.getAttribute("data-index"));
@@ -794,7 +865,7 @@ document.addEventListener("click", (e) => {
 });
 
 window.closeAccountPanel = closeAccountPanel;
-window.updateLanguage = updateLanguage;  // Tekrar ata, emin ol
+window.updateLanguage = updateLanguage; 
 
 // Suggestions
 let selectedIndex = -1;
@@ -896,10 +967,6 @@ window.onload = () => {
     systemLink.disabled = false;
     }
 
-    localStorage.setItem("weatherAPI", "wttr.in"); 
-    localStorage.setItem("openWeatherMapApiKey", ""); 
-    localStorage.setItem("weatherApiKey", ""); 
-    localStorage.setItem("visualCrossingApiKey", ""); 
     localStorage.setItem("linkBehavior", "newTab"); 
     localStorage.setItem("aiProvider", "chatgpt"); 
     localStorage.setItem("customAiUrl", ""); 
@@ -934,7 +1001,6 @@ window.onload = () => {
     document.getElementById("customAiUrl").value = customAiUrl;
     document.getElementById("showAISearch").value = showAISearch;
     document.getElementById("searchAIBtn").style.display = showAISearch ? "inline-block" : "none";
-    document.getElementById("weatherAPI").value = localStorage.getItem("weatherAPI") || "openweathermap";
     document.getElementById("showSearch").value = showSearch;
     document.getElementById("showSearchShortcuts").value = showSearchShortcuts;
     document.getElementById("showAccountButton").value = showAccountButton;
@@ -979,14 +1045,14 @@ window.onload = () => {
     document.querySelector(".buttons").style.display = showSearchShortcuts === "true" ? "flex" : "none";
     document.getElementById("removeBgBtn").style.display = showBgRemove === "true" ? "block" : "none";
 
-    // Init - Dil'i erken çağır
-    updateLanguage(l);  // Düzeltildi: Parantez eklendi ve l parametresi
+    
+    updateLanguage(l);  
 
-    applyBackground(bgUrl);
     loadFavorites();
+    applyBackground(bgUrl);
     fetchWeather();
     startWeatherUpdate();
-    applySettings({applyBackground, updateLanguage, loadFavorites, updateSearchEnginePreview, fetchWeather, bindShortcuts, startWeatherUpdate});
+    applySettings({applyBackground, updateLanguage, loadFavorites, updateSearchEnginePreview, fetchWeather, bindShortcuts, startWeatherUpdate,});
     updateAccountModalTheme();
     bindShortcuts();
     updateAccountUI();
