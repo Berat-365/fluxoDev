@@ -14,7 +14,6 @@ const defaultSettings = {
   showSearch: "true",
   showSearchShortcuts: "true",
   showAISearch: "true",
-  showScienceSearch: "true",
   showAccountButton: "true",
   showAccountInfoText: "true",
   logoDisplay: "logo-name",
@@ -23,7 +22,7 @@ const defaultSettings = {
   showVoiceSearch: "true",
   showMultiSearch: "true",
   showLensSearch: "true",
-  safeSearch: "true",
+  safeSearch: "true",  
   disableSearchHistoryLog: "false",
   privateMode: "false",
   maxFavorites: "5",
@@ -36,28 +35,37 @@ const defaultSettings = {
   newsShortcut: "Ctrl + N",
   accountShortcut: "Ctrl + Shift + A",
   aiShortcut: "Ctrl + Shift + I",
+  supportShortcut: "Ctrl + Alt + S",
   weatherLocation: "",
   weatherUpdateInterval: "manual",
   linkBehavior: "newTab",
   multiSearchEnabled: "false",
   aiProvider: "chatgpt",
   customAiUrl: "",
-  weatherAPI: "wttr.in",
-  openWeatherMapApiKey: "",
-  weatherApiKey: "",
-  visualCrossingApiKey: "",
-  safeSearchOptions: "safeSearchEnable",
-  disableSearchHistoryLog: "disableSearchHistoryLogDisable",
-  privateMode: "privateModeDisable",
   buttonDisplayMode: "text-only", 
 };
 
+// Global ayar cache'i (performans için)
+let cachedSettings = null;
+
 // Güvenli localStorage erişimi
 function safeGetItem(key) {
-  try { return localStorage.getItem(key); } catch (e) { return null; }
+  try { 
+    const val = localStorage.getItem(key);
+    return val !== null ? val : undefined;
+  } catch (e) { 
+    console.warn(`localStorage.getItem failed for ${key}:`, e);
+    return undefined;
+  }
 }
 function safeSetItem(key, value) {
-  try { localStorage.setItem(key, value); return true; } catch (e) { console.warn(`localStorage.setItem failed for ${key}:`, e); return false; }
+  try { 
+    localStorage.setItem(key, value); 
+    return true; 
+  } catch (e) { 
+    console.warn(`localStorage.setItem failed for ${key}:`, e); 
+    return false; 
+  }
 }
 function safeRemoveItem(key) {
   try { localStorage.removeItem(key); return true; } catch (e) { return false; }
@@ -72,10 +80,11 @@ export function checkStorageAvailability() {
     return true;
   } catch (e) {
     console.warn('localStorage kullanılamıyor:', e);
-    let lang = 'tr';
-    try { lang = safeGetItem('language') || 'tr'; } catch {}
+    let lang = safeGetItem('language') || 'tr';
     const t = (typeof translations !== 'undefined' && translations[lang]) ? translations[lang] : {};
-    try { alert(t.storageError || 'Depolama alanı dolu veya erişilemiyor. Lütfen tarayıcı ayarlarınızı kontrol edin.'); } catch {}
+    try { 
+      alert(t.storageError || 'Depolama alanı dolu veya erişilemiyor. Lütfen tarayıcı ayarlarınızı kontrol edin.'); 
+    } catch {}
     return false;
   }
 }
@@ -96,6 +105,7 @@ export function selectColor(color) {
   safeSetItem('accentColor', color);
 }
 
+// RGB'yi HEX'e dönüştür
 export function rgbToHex(rgb) {
   if (!rgb) return '#000000';
   const result = rgb.match(/\d+/g);
@@ -124,7 +134,7 @@ export function updateSearchEnginePreview() {
 // ------------------------- Shortcuts -------------------------
 function _normalizeShortcut(s) {
   if (!s || typeof s !== 'string') return '';
-  return s.replace(/\s*\+\s*/g, ' + ').trim().toLocaleUpperCase('en-US');
+  return s.replace(/\s*\+\s*/g, ' + ').trim().toUpperCase();  // Locale kaldırıldı
 }
 
 export function bindShortcuts() {
@@ -142,7 +152,8 @@ export function bindShortcuts() {
     shopping: safeGetItem("shoppingShortcut") || defaultSettings.shoppingShortcut,
     news: safeGetItem("newsShortcut") || defaultSettings.newsShortcut,
     account: safeGetItem("accountShortcut") || defaultSettings.accountShortcut,
-    ai: safeGetItem("aiShortcut") || defaultSettings.aiShortcut
+    ai: safeGetItem("aiShortcut") || defaultSettings.aiShortcut,
+    support: safeGetItem("supportShortcut") || defaultSettings.supportShortcut  // Eksik ekle
   };
 
   Object.keys(shortcuts).forEach(k => { shortcuts[k] = _normalizeShortcut(shortcuts[k]); });
@@ -154,7 +165,7 @@ export function bindShortcuts() {
     if (e.shiftKey) parts.push('SHIFT');
     if (e.altKey) parts.push('ALT');
 
-    let keyName = e.key.length === 1 ? e.key.toLocaleUpperCase('en-US') : e.key.replace(/^Arrow/, '').toLocaleUpperCase('en-US');
+    let keyName = e.key.length === 1 ? e.key.toUpperCase() : e.key.replace(/^Arrow/, '').toUpperCase();
     parts.push(keyName);
     const keyCombo = parts.join(' + ');
 
@@ -199,6 +210,16 @@ export function bindShortcuts() {
       } else if (keyCombo === shortcuts.ai && $('searchInput')?.value.trim()) {
         e.preventDefault();
         if (typeof window.search === 'function') window.search("ai");
+      } else if (keyCombo === shortcuts.support) {  // Eksik handler ekle
+        e.preventDefault();
+        const p = $('menuPanel');
+        if (p) {
+          p.style.display = p.style.display === "block" ? "none" : "block";
+          document.querySelectorAll(".tab-content").forEach(c => c.classList.remove("active"));
+          $('supportContent')?.classList.add("active");
+          document.querySelectorAll(".tab-button").forEach(btn => btn.classList.remove("active"));
+          document.querySelector(".tab-button[data-tab='support']")?.classList.add("active");
+        }
       }
     } catch (err) {
       console.error('bindShortcuts handler error:', err);
@@ -270,13 +291,13 @@ export async function cacheBackgroundImage(url) {
 
     const saved = await idbPut(`bg_${url}`, blob);
     if (!saved) {
-      const reader = await new Promise((res, rej) => {
+      const reader = new Promise((res, rej) => {
         const r = new FileReader();
         r.onloadend = () => res(r.result);
         r.onerror = rej;
         r.readAsDataURL(blob);
       });
-      safeSetItem(`bgCache_${url}`, reader);
+      safeSetItem(`bgCache_${url}`, await reader);
     }
   } catch (e) {
     console.error('cacheBackgroundImage hata:', e);
@@ -331,7 +352,9 @@ export async function loadCachedBackground(url) {
       return;
     } else {
       console.error('Geçersiz YouTube URL:', url);
-      try { alert('Geçersiz YouTube URL\'si. Lütfen geçerli bir video bağlantısı girin.'); } catch {}
+      const lang = safeGetItem('language') || 'tr';
+      const t = (typeof translations !== 'undefined' && translations[lang]) ? translations[lang] : {};
+      try { alert(t.invalidYouTube || 'Geçersiz YouTube URL\'si. Lütfen geçerli bir video bağlantısı girin.'); } catch {}
       if (youTubeElement) {
         youTubeElement.style.display = 'none';
         youTubeElement.src = '';
@@ -428,17 +451,31 @@ export async function loadCachedBackground(url) {
 function getSettingFromInputs(key, inputId) {
   const el = inputId ? $(inputId) : null;
   const elVal = el?.value?.trim?.();
-  if (elVal) return elVal;
+  if (elVal !== undefined) return elVal;
   const stored = safeGetItem(key);
-  if (stored !== null && stored !== undefined) return stored;
+  if (stored !== undefined) return stored;
   return defaultSettings[key] ?? '';
+}
+
+// Ayar cache'ini yükle
+function loadCachedSettings() {
+  if (cachedSettings) return cachedSettings;
+  cachedSettings = {};
+  Object.keys(defaultSettings).forEach(k => {
+    const stored = safeGetItem(k);
+    cachedSettings[k] = stored !== undefined ? stored : defaultSettings[k];
+  });
+  return cachedSettings;
 }
 
 export function saveSettings(settings) {
   if (!checkStorageAvailability()) return false;
   try {
     Object.entries(settings).forEach(([k, v]) => {
-      if (v !== undefined && v !== null) safeSetItem(k, String(v));
+      if (v !== undefined && v !== null) {
+        safeSetItem(k, String(v));
+        if (cachedSettings) cachedSettings[k] = String(v);  // Cache güncelle
+      }
     });
     return true;
   } catch (e) {
@@ -482,36 +519,23 @@ export function saveSettingsFromInputs() {
       newsShortcut: _normalizeShortcut(getSettingFromInputs('newsShortcut', 'newsShortcutInput')),
       accountShortcut: _normalizeShortcut(getSettingFromInputs('accountShortcut', 'accountShortcutInput')),
       aiShortcut: _normalizeShortcut(getSettingFromInputs('aiShortcut', 'aiShortcutInput')),
+      supportShortcut: _normalizeShortcut(getSettingFromInputs('supportShortcut', 'supportShortcutInput')),  // Eksik ekle
       weatherLocation: getSettingFromInputs('weatherLocation', 'weatherLocation'),
       weatherUpdateInterval: getSettingFromInputs('weatherUpdateInterval', 'weatherUpdateInterval'),
       linkBehavior: getSettingFromInputs('linkBehavior', 'linkBehavior'),
       multiSearchEnabled: getSettingFromInputs('multiSearchEnabled', 'multiSearchEnabled'),
       aiProvider: getSettingFromInputs('aiProvider', 'aiProviderSelect'),
       customAiUrl: getSettingFromInputs('customAiUrl', 'customAiUrl'),
-      weatherAPI: getSettingFromInputs('weatherAPI', 'weatherAPI'),
-      openWeatherMapApiKey: getSettingFromInputs('openWeatherMapApiKey', 'openWeatherMapApiKey'),
-      weatherApiKey: getSettingFromInputs('weatherApiKey', 'weatherApiKey'),
-      visualCrossingApiKey: getSettingFromInputs('visualCrossingApiKey', 'visualCrossingApiKey'),
-      safeSearchOptions: getSettingFromInputs('safeSearchOptions', 'safeSearchOptions'),
-      disableSearchHistoryLog: getSettingFromInputs('disableSearchHistoryLog', 'disableSearchHistoryLogOptions'),
-      privateMode: getSettingFromInputs('privateMode', 'privateModeOptions'),
-      safeSearch: getSettingFromInputs('safeSearchOptions', 'safeSearchOptions') === 'safeSearchEnable' ? 'true' : 'false',
-      disableSearchHistoryLog: getSettingFromInputs('disableSearchHistoryLog', 'disableSearchHistoryLogOptions') === 'disableSearchHistoryLogEnable' ? 'true' : 'false',
-      privateMode: getSettingFromInputs('privateMode', 'privateModeOptions') === 'privateModeEnable' ? 'true' : 'false',
       showLensSearch: getSettingFromInputs('showLensSearch', 'showLensSearch'),
       showVoiceSearch: getSettingFromInputs('showVoiceSearch', 'showVoiceSearch'),
       showMultiSearch: getSettingFromInputs('showMultiSearch', 'showMultiSearch'),
       showBgRemove: getSettingFromInputs('showBgRemove', 'showBgRemove'),
       buttonDisplayMode: getSettingFromInputs('buttonDisplayMode', 'buttonDisplayMode'),
+      // Tutarlı boolean'lar (select options'tan türet)
+      safeSearch: getSettingFromInputs('safeSearchOptions', 'safeSearchOptions') === 'safeSearchEnable' ? 'true' : 'false',
+      disableSearchHistoryLog: getSettingFromInputs('disableSearchHistoryLogOptions', 'disableSearchHistoryLogOptions') === 'disableSearchHistoryLogEnable' ? 'true' : 'false',
+      privateMode: getSettingFromInputs('privateModeOptions', 'privateModeOptions') === 'privateModeEnable' ? 'true' : 'false',
     };
-
-    // Hava durumu API doğrulama (wttr.in için anahtar gerekmez)
-    const apiKeyRequired = ['openweathermap', 'weatherapi', 'visualcrossing'];
-    if (apiKeyRequired.includes(settings.weatherAPI) && !settings[`${settings.weatherAPI}ApiKey`]) {
-      console.warn(`Hava durumu API'si için anahtar eksik: ${settings.weatherAPI}`);
-      alert(`Hava durumu API'si (${settings.weatherAPI}) için anahtar eksik. Varsayılan API (wttr.in) kullanılacak.`);
-      settings.weatherAPI = 'wttr.in';
-    }
 
     saveSettings(settings);
     applySettings({
@@ -523,8 +547,11 @@ export function saveSettingsFromInputs() {
       bindShortcuts,
       startWeatherUpdate: typeof window.startWeatherUpdate === 'function' ? window.startWeatherUpdate : undefined
     });
-    // Force reload for font (hard reload)
-    setTimeout(() => location.reload(true), 100);  // Cache bypass ile reload
+    // Font için reload kaldırıldı, canlı uygulanıyor
+    // const currentFont = safeGetItem('font');
+    // if (settings.font !== currentFont) {
+    //   setTimeout(() => location.reload(true), 100);
+    // }
     return true;
   } catch (e) {
     console.error('saveSettingsFromInputs hata:', e);
@@ -536,142 +563,121 @@ export function applySettings(options = {}) {
   try {
     if (!checkStorageAvailability()) {
       console.warn('Depolama kullanılamıyor, varsayılan ayarlar uygulanacak.');
+      cachedSettings = { ...defaultSettings };
+    } else {
+      loadCachedSettings();  // Cache yükle
     }
-
-    const settings = {};
-    Object.keys(defaultSettings).forEach(k => {
-      const stored = safeGetItem(k);
-      settings[k] = stored !== null ? stored : defaultSettings[k];
-    });
-
-    // Hava durumu API doğrulama (wttr.in için anahtar gerekmez)
-    const apiKeyRequired = ['openweathermap', 'weatherapi', 'visualcrossing'];
-    if (apiKeyRequired.includes(settings.weatherAPI) && !settings[`${settings.weatherAPI}ApiKey`]) {
-      console.warn(`Hava durumu API'si için anahtar eksik: ${settings.weatherAPI}`);
-      alert(`Hava durumu API'si (${settings.weatherAPI}) için anahtar eksik. Varsayılan API (wttr.in) kullanılacak.`);
-      settings.weatherAPI = 'wttr.in';
-    }
+    const settings = cachedSettings || { ...defaultSettings };
 
     const themeStylesheet = document.getElementById('themeStylesheet');
     if (themeStylesheet) {
-        const systemTheme = settings.systemTheme || 'vanilla'; // vanilla veya neomorph
+        const systemTheme = settings.systemTheme || 'vanilla';
         themeStylesheet.href = `./styles/${systemTheme}.css`;
     }
 
-        document.body.classList.remove('light', 'dark');
-    if (settings.theme) document.body.classList.add(settings.theme)
+    document.body.classList.remove('light', 'dark');
+    if (settings.theme) document.body.classList.add(settings.theme);
 
-    // Font - Güçlendirilmiş uygulama
+    // Fontu uygula (sadece family)
     const fontFamily = settings.font || defaultSettings.font;
-    document.documentElement.style.setProperty('font-family', fontFamily, 'important');  // !important ekle
-    document.body.style.setProperty('font-family', fontFamily, 'important');  // Body'ye de uygula (override için)
+    document.documentElement.style.setProperty('--font-family', fontFamily, 'important');
+    document.body.style.setProperty('font-family', fontFamily, 'important');
 
-    // Dinamik Google Font yükle (eğer değiştiyse)
-    const currentFont = safeGetItem('font') || defaultSettings.font;
-    if (fontFamily !== currentFont) {
-      // Font adını çıkar (örn: "'Open Sans', sans-serif" -> "Open Sans")
-      const familyName = fontFamily.split(',')[0].replace(/['"]/g, '').trim().replace(/ /g, '+');  // + ile boşluk değiştir
-      if (familyName && familyName !== 'Segoe+UI' && familyName !== 'Arial' && familyName !== 'Courier+New' && familyName !== 'Georgia' && familyName !== 'Times+New+Roman' && familyName !== 'Comic+Sans+MS' && familyName !== 'Impact' && familyName !== 'Verdana' && familyName !== 'Trebuchet+MS' && familyName !== 'Tahoma' && familyName !== 'Garamond' && familyName !== 'Baskerville') {  // Yerel fontları atla
-        const link = document.createElement('link');
-        link.href = `https://fonts.googleapis.com/css2?family=${familyName}:wght@400;700&display=swap`;
-        link.rel = 'stylesheet';
-        link.id = 'dynamic-font-link';  // ID ver, duplicate önle
-        const existing = document.getElementById('dynamic-font-link');
-        if (existing) existing.remove();  // Eski'yi sil
-        document.head.appendChild(link);
-        console.log('Yeni font yüklendi:', familyName);  // Debug log
-      }
+    // --- Eklendi: Google Fonts veya harici font linkini güncelle ---
+    let fontLink = document.getElementById('fontStylesheet');
+    if (fontLink) {
+      // Sadece Google Fonts için uygula, ör: "'Open Sans', sans-serif"
+      // Font adını ayıkla (tırnaksız ilk kelime)
+      const match = fontFamily.match(/'([^']+)'/);
+      const fontName = match ? match[1] : fontFamily.split(',')[0].replace(/['"]/g, '').trim();
+      // Google Fonts URL'si oluştur
+      fontLink.href = `https://fonts.googleapis.com/css?family=${encodeURIComponent(fontName)}:400,700&display=swap`;
     }
-    safeSetItem('font', fontFamily);  // Kaydet
 
     // Vurgu rengi
     selectColor(settings.accentColor || defaultSettings.accentColor);
 
+    // Logo ayarları
+    const logoEl = document.getElementById('logo');
+    if (logoEl) {
+        logoEl.style.display = settings.logoDisplay === 'none' ? 'none' : 'flex';
+        logoEl.style.justifyContent = settings.logoPosition || 'flex-start';
 
-// Logo ayarları
-const logoEl = document.getElementById('logo');
-if (logoEl) {
-    // Logo görünümü
-    logoEl.style.display = settings.logoDisplay === 'none' ? 'none' : 'flex';
-    logoEl.style.justifyContent = settings.logoPosition || 'flex-start';
-
-    // Logo resmi
-    const logoImg = logoEl.querySelector('img');
-    if (logoImg) {
-        switch (settings.logoColor) {
-            case 'light':
-                logoImg.src = 'assets/logo-light.png';
-                break;
-            case 'dark':
-                logoImg.src = 'assets/logo-dark.png';
-                break;
-            default:
-                logoImg.src = 'assets/logo.png';
+        const logoImg = logoEl.querySelector('img');
+        if (logoImg) {
+            switch (settings.logoColor) {
+                case 'light':
+                    logoImg.src = 'assets/logo/logo-light.png';
+                    break;
+                case 'dark':
+                    logoImg.src = 'assets/logo/logo-dark.png';
+                    break;
+                default:
+                    logoImg.src = 'assets/logo/logo.png';
+            }
+            logoImg.style.filter = 'none';
+        } else {
+            console.warn('Logo resmi bulunamadı.');
         }
-        logoImg.style.filter = 'none';
     } else {
-        console.warn('Logo resmi bulunamadı.');
+        console.warn('Logo elementi bulunamadı.');
     }
-} else {
-    console.warn('Logo elementi bulunamadı.');
-}
 
-// Arama butonları görünümü
-const buttonMode = settings.buttonDisplayMode || defaultSettings.buttonDisplayMode;
-const buttonsEl = document.getElementById('buttons');
-if (buttonsEl) {
-  // Önceki mod class'larını temizle
-  buttonsEl.classList.remove('icons-only', 'text-only');
-  
-  if (buttonMode === 'icons-only') {
-    buttonsEl.classList.add('icons-only');
-  } else if (buttonMode === 'text-only') {
-    buttonsEl.classList.add('text-only');
-  }
-  // icons-and-text: Varsayılan, class yok – her şey görünür
-}
+    // Arama butonları görünümü
+    const buttonMode = settings.buttonDisplayMode || defaultSettings.buttonDisplayMode;
+    const buttonsEl = document.getElementById('buttons');
+    if (buttonsEl) {
+      buttonsEl.classList.remove('icons-only', 'text-only');
+      
+      if (buttonMode === 'icons-only') {
+        buttonsEl.classList.add('icons-only');
+      } else if (buttonMode === 'text-only') {
+        buttonsEl.classList.add('text-only');
+      }
+    }
 
-// Alternatif: Direct style manipulation (class yerine, eğer class çalışmıyorsa)
-const buttonIcons = document.querySelectorAll('.buttons .accent .button-icon');
-const buttonTexts = document.querySelectorAll('.buttons .accent .button-text');
+    // Direct style manipulation
+    const buttonIcons = document.querySelectorAll('.buttons .accent .button-icon');
+    const buttonTexts = document.querySelectorAll('.buttons .accent .button-text');
 
-buttonIcons.forEach(icon => {
-  icon.style.display = (buttonMode === 'text-only') ? 'none' : 'inline-block';
-});
+    buttonIcons.forEach(icon => {
+      icon.style.display = (buttonMode === 'text-only') ? 'none' : 'inline-block';
+    });
 
-buttonTexts.forEach(text => {
-  text.style.display = (buttonMode === 'icons-only') ? 'none' : 'inline';
-});
+    buttonTexts.forEach(text => {
+      text.style.display = (buttonMode === 'icons-only') ? 'none' : 'inline';
+    });
 
+    // Görünüm ayarları - Genişletilmiş toggleMap
+    const toggleMap = {
+      showFavorites: 'favorites',
+      showSuggestions: 'suggestions',
+      showWeather: 'weatherWidget',
+      showInfoBar: 'infoBar',
+      showSearch: 'searchBar',
+      showSearchShortcuts: 'buttons',
+      showAISearch: 'searchAIBtn',
+      showScienceSearch: 'scienceSearchBtn',  // Eksik ekle
+      showAccountButton: 'accountButton',
+      showLensSearch: 'lensSearchBtn',
+      showAccountInfoText: 'accountInfo',
+      showVoiceSearch: 'voiceSearchBtn',
+      showMultiSearch: 'multiSearchIcon',
+      showBgRemove: 'removeBgBtn'  // Eksik ekle
+    };
+    Object.entries(toggleMap).forEach(([settingKey, elId]) => {
+      const el = $(elId);
+      if (el) {
+        el.style.display = settings[settingKey] === 'true' ? '' : 'none';
+      }
+    });
 
-    // Görünüm ayarları
-const toggleMap = {
-  showFavorites: 'favorites',
-  showSuggestions: 'suggestions',
-  showWeather: 'weatherWidget',
-  showInfoBar: 'infoBar',
-  showSearch: 'searchBar',
-  showSearchShortcuts: 'buttons',
-  showAISearch: 'searchAIBtn',
-  showAccountButton: 'accountButton',
-  showLensSearch: 'lensSearchBtn',
-  showAccountInfoText: 'accountInfo',
-  showVoiceSearch: 'voiceSearchBtn',
-  showMultiSearch: 'multiSearchIcon',
-};
-Object.entries(toggleMap).forEach(([settingKey, elId]) => {
-  const el = $(elId);
-  if (el) {
-    el.style.display = settings[settingKey] === 'true' ? '' : 'none';
-  }
-});
-
-    // Diğer ayarlar
+    // Diğer ayarlar - Tutarlı okuma
     window.linkBehavior = settings.linkBehavior || defaultSettings.linkBehavior;
     window.multiSearchEnabled = settings.multiSearchEnabled === 'true';
-    window.safeSearch = settings.safeSearchOptions === 'safeSearchEnable';
-    window.disableSearchHistory = settings.disableSearchHistoryLog === 'disableSearchHistoryLogEnable';
-    window.privateMode = settings.privateMode === 'privateModeEnable';
+    window.safeSearch = settings.safeSearch === 'true';  // Tutarlı boolean
+    window.disableSearchHistory = settings.disableSearchHistoryLog === 'true';
+    window.privateMode = settings.privateMode === 'true';
 
     // Arama motoru önizlemesi
     if (typeof options.updateSearchEnginePreview === 'function') options.updateSearchEnginePreview();
@@ -718,6 +724,12 @@ Object.entries(toggleMap).forEach(([settingKey, elId]) => {
       window.startWeatherUpdate();
     }
 
+    // Tema ikonlarını güncelle (loadTheme mantığını entegre et)
+    loadThemeIcons(settings.theme || defaultSettings.theme);
+
+    // --- Eklendi: Ayar inputlarını güncelle ---
+    updateSettingsInputs(settings);
+
     return settings;
   } catch (e) {
     console.error('applySettings hata:', e);
@@ -725,10 +737,60 @@ Object.entries(toggleMap).forEach(([settingKey, elId]) => {
   }
 }
 
+// Tema ikonlarını güncelle (loadTheme'den entegre)
+function loadThemeIcons(theme) {
+  const icons = {
+    multiSearchIcon: theme === "dark" ? "assets/light/multisearch.png" : "assets/dark/multisearch-dark.png",
+    voiceIcon: theme === "light" ? "assets/dark/mic-dark.png" : "assets/light/mic.png",
+    menuIcon: theme === "light" ? "assets/dark/menu-dark.png" : "assets/light/menu.png",
+    accountIcon: theme === "light" ? "assets/dark/account-dark.png" : "assets/light/account.png",
+    lensIcon: theme === "light" ? "assets/dark/lens-dark.png" : "assets/light/lens.png"
+  };
+
+  Object.entries(icons).forEach(([id, src]) => {
+    const el = document.getElementById(id);
+    if (el) el.src = src;
+  });
+
+  // Tab ikonları
+  const tabIcons = {
+    settings: theme === "light" ? "assets/dark/settings-dark.png" : "assets/light/settings.png",
+    history: theme === "light" ? "assets/dark/history-dark.png" : "assets/light/history.png",
+    support: theme === "light" ? "assets/dark/support-dark.png" : "assets/light/support.png"
+  };
+
+  Object.entries(tabIcons).forEach(([tab, src]) => {
+    const el = document.querySelector(`.tab-button[data-tab="${tab}"] img`);
+    if (el) el.src = src;
+  });
+
+  // Arama buton ikonları
+  const searchIcons = {
+    searchWebBtn: theme === "light" ? "assets/dark/search-dark.png" : "assets/light/search.png",
+    searchImagesBtn: theme === "light" ? "assets/dark/images-dark.png" : "assets/light/images.png",
+    searchShoppingBtn: theme === "light" ? "assets/dark/shopping-dark.png" : "assets/light/shopping.png",
+    searchNewsBtn: theme === "light" ? "assets/dark/news-dark.png" : "assets/light/news.png",
+    searchAIBtn: theme === "light" ? "assets/dark/aisearch-dark.png" : "assets/light/aisearch.png"
+  };
+
+  Object.entries(searchIcons).forEach(([btnId, src]) => {
+    const el = document.getElementById(btnId)?.querySelector('.button-icon');
+    if (el) el.src = src;
+  });
+
+  // Select'i güncelle
+  const themeSelect = document.getElementById("themeSelect");
+  if (themeSelect) themeSelect.value = theme;
+}
+
 // ------------------------- Settings Export / Import / Modal -------------------------
 export function exportSettings() {
+  // Sadece Fluxo anahtarlarını export et (temizlik)
   const s = {};
-  Object.keys(localStorage).forEach(k => s[k] = localStorage.getItem(k));
+  Object.keys(defaultSettings).forEach(k => {
+    const val = safeGetItem(k);
+    if (val !== undefined) s[k] = val;
+  });
   return JSON.stringify(s, null, 2);
 }
 
@@ -737,7 +799,10 @@ export function importSettings(settingsJson) {
   try {
     const settings = JSON.parse(settingsJson);
     Object.entries(settings).forEach(([k, v]) => {
-      if (v !== undefined && v !== null) localStorage.setItem(k, v);
+      if (defaultSettings.hasOwnProperty(k) && v !== undefined && v !== null) {
+        safeSetItem(k, v);
+        if (cachedSettings) cachedSettings[k] = v;
+      }
     });
     return true;
   } catch (e) {
@@ -757,16 +822,40 @@ export function openImportExportModal() {
 }
 
 // ------------------------- Settings Tarayıcı Sıfırlama -------------------------
-export function resetBrowser() {
+export function resetBrowser() {  
   try {
-    // localStorage temizle
+    // localStorage ve sessionStorage temizle
     localStorage.clear();
+    sessionStorage.clear();
+    cachedSettings = null;  // Cache temizle
 
-    // IndexedDB temizle
+    // Cookies temizle
+    document.cookie.split(";").forEach(cookie => {
+      document.cookie = cookie.replace(/^ +/, "").replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/");
+    });
+
+    // IndexedDB tüm veritabanlarını sil (döngü ile)
     if (window.indexedDB) {
-      const req = indexedDB.deleteDatabase('fluxo_bg_db');
-      req.onsuccess = () => console.log('IndexedDB silindi.');
-      req.onerror = (e) => console.warn('IndexedDB silinemedi:', e);
+      const dbs = [];
+      const req = indexedDB.databases ? indexedDB.databases() : Promise.resolve([]);
+      req.then(dbsList => {
+        dbsList.forEach(db => indexedDB.deleteDatabase(db.name));
+        console.log('IndexedDB veritabanları silindi.');
+      }).catch(e => console.warn('IndexedDB listelenemedi:', e));
+    }
+
+    // Cache ve service worker temizle
+    if ('caches' in window) {
+      caches.keys().then(keys => {
+        keys.forEach(key => caches.delete(key));
+        console.log('Cache silindi.');
+      });
+    }
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.getRegistrations().then(registrations => {
+        registrations.forEach(reg => reg.unregister());
+        console.log('Service worker silindi.');
+      });
     }
 
     // Arka planı sıfırla
@@ -797,10 +886,11 @@ export function resetBrowser() {
       startWeatherUpdate: typeof window.startWeatherUpdate === 'function' ? window.startWeatherUpdate : undefined
     });
 
-    // Sayfayı yenile
-    location.reload();
+    // Sayfayı yenile (async tamamlandıktan sonra)
+    setTimeout(() => location.reload(true), 500);  // Gecikme, temizleme bitsin
   } catch (e) {
     console.error('resetBrowser hata:', e);
+    location.reload(true);  // Hata durumunda reload
   }
 }
 
@@ -809,9 +899,9 @@ document.addEventListener('DOMContentLoaded', () => {
   // Uygula butonu
   $('applySettingsBtn')?.addEventListener('click', () => {
     if (saveSettingsFromInputs()) {
-      alert('Ayarlar kaydedildi.');
+      console.log('Ayarlar kaydedildi ve uygulandı.');
     } else {
-      alert('Ayarlar kaydedilemedi. Depolama alanınızı kontrol edin.');
+      console.warn('Ayarlar kaydedilemedi. Depolama alanınızı kontrol edin.');
     }
   });
 
@@ -852,7 +942,9 @@ document.addEventListener('DOMContentLoaded', () => {
             bindShortcuts,
             startWeatherUpdate: typeof window.startWeatherUpdate === 'function' ? window.startWeatherUpdate : undefined
           });
-          alert('Ayarlar başarıyla içe aktarıldı.');
+          const lang = safeGetItem('language') || 'tr';
+          const t = (typeof translations !== 'undefined' && translations[lang]) ? translations[lang] : {};
+          alert(t.settingsImported || 'Ayarlar başarıyla içe aktarıldı.');
           closeImportExportModal();
         } else {
           alert('Ayarlar içe aktarılamadı. Geçerli bir JSON dosyası seçin.');
@@ -873,14 +965,14 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-$('removeBgBtn')?.addEventListener('click', () => {
-  if (confirm('Duvar kağıdı kaldırılacak. Devam?')) {
-    safeSetItem('bgUrl', '');
-    document.getElementById('bgUrlInput').value = ''; // Input'u temizle
-    loadCachedBackground('');
-    alert('Duvar kağıdı kaldırıldı.');
-  }
-});
+  $('removeBgBtn')?.addEventListener('click', () => {
+    if (confirm('Duvar kağıdı kaldırılacak. Devam?')) {
+      safeSetItem('bgUrl', '');
+      document.getElementById('bgUrlInput').value = '';
+      loadCachedBackground('');
+      alert('Duvar kağıdı kaldırıldı.');
+    }
+  });
 
   // Tarayıcıyı sıfırla
   $('resetBrowserBtn')?.addEventListener('click', () => {
@@ -901,53 +993,74 @@ $('removeBgBtn')?.addEventListener('click', () => {
   });
 });
 
-// Sayfa yüklendiğinde tema uygula
-function loadTheme() {
-    const theme = localStorage.getItem("theme") || "dark";
-    document.body.classList.remove("light", "dark");
-    document.body.classList.add(theme);
+function updateSettingsInputs(settings) {
+  // Text/select inputs
+  const inputMap = {
+    bgUrlInput: 'bgUrl',
+    fontSelect: 'font',
+    themeSelect: 'theme',
+    systemThemeSelect: 'systemTheme',
+    accentColor: 'accentColor',
+    languageSelect: 'language',
+    searchEngineSelect: 'searchEngine',
+    logoDisplaySelect: 'logoDisplay',
+    logoPositionSelect: 'logoPosition',
+    logoColorSelect: 'logoColor',
+    maxFavorites: 'maxFavorites',
+    searchShortcutInput: 'searchShortcut',
+    favoriteShortcutInput: 'favoriteShortcut',
+    settingsShortcutInput: 'settingsShortcut',
+    historyShortcutInput: 'historyShortcut',
+    imagesShortcutInput: 'imagesShortcut',
+    shoppingShortcutInput: 'shoppingShortcut',
+    newsShortcutInput: 'newsShortcut',
+    accountShortcutInput: 'accountShortcut',
+    aiShortcutInput: 'aiShortcut',
+    supportShortcutInput: 'supportShortcut',
+    weatherLocation: 'weatherLocation',
+    weatherUpdateInterval: 'weatherUpdateInterval',
+    linkBehavior: 'linkBehavior',
+    multiSearchEnabled: 'multiSearchEnabled',
+    aiProviderSelect: 'aiProvider',
+    customAiUrl: 'customAiUrl',
+    buttonDisplayMode: 'buttonDisplayMode'
+  };
+  Object.entries(inputMap).forEach(([inputId, settingKey]) => {
+    const el = document.getElementById(inputId);
+    if (el && settings[settingKey] !== undefined) {
+      el.value = settings[settingKey];
+    }
+  });
 
-    // İkonları güncelle
-    const logoImg = document.getElementById("logoImg");
-    const multiSearchIcon = document.getElementById("multiSearchIcon");
-    const voiceIcon = document.getElementById("voiceIcon");
-    const menuIcon = document.getElementById("menuIcon");
-    const accountIcon = document.getElementById("accountIcon");
-    const lensIcon = document.getElementById("lensIcon");
+  // Checkbox/toggle inputs (as select or checkbox)
+  const toggleIds = [
+    'showFavorites', 'showSuggestions', 'showWeather', 'showInfoBar', 'showSearch',
+    'showSearchShortcuts', 'showAISearch', 'showScienceSearch', 'showAccountButton',
+    'showAccountInfoText', 'showLensSearch', 'showVoiceSearch', 'showMultiSearch', 'showBgRemove'
+  ];
+  toggleIds.forEach(id => {
+    const el = document.getElementById(id);
+    if (el && settings[id] !== undefined) {
+      // For checkbox
+      if (el.type === 'checkbox') {
+        el.checked = settings[id] === 'true';
+      } else {
+        el.value = settings[id];
+      }
+    }
+  });
 
-    logoImg.src = theme === "dark" ? "assets/logo-dark.png" : "assets/logo.png";
-    multiSearchIcon.src = theme === "dark" ? "assets/multisearch.png" : "assets/multisearch-dark.png";
-    voiceIcon.src = theme === "light" ? "assets/mic-dark.png" : "assets/mic.png";
-    menuIcon.src = theme === "light" ? "assets/menu-dark.png" : "assets/menu.png";
-    accountIcon.src = theme === "light" ? "assets/account-dark.png" : "assets/account.png";
-    lensIcon.src = theme === "light" ? "assets/lens-dark.png" : "assets/lens.png";
-
-    // Tab ikonları (Ayarlar, Geçmiş, Destek)
-    const settingsIcon = document.querySelector('.tab-button[data-tab="settings"] img');
-    const historyIcon = document.querySelector('.tab-button[data-tab="history"] img');
-    const supportIcon = document.querySelector('.tab-button[data-tab="support"] img');
-
-    if (settingsIcon) settingsIcon.src = theme === "light" ? "assets/settings-dark.png" : "assets/settings.png";
-    if (historyIcon) historyIcon.src = theme === "light" ? "assets/history-dark.png" : "assets/history.png";
-    if (supportIcon) supportIcon.src = theme === "light" ? "assets/support-dark.png" : "assets/support.png";
-
-    // Arama buton ikonları
-    const searchWebIcon = document.getElementById("searchWebBtn")?.querySelector('.button-icon');
-    const searchImagesIcon = document.getElementById("searchImagesBtn")?.querySelector('.button-icon');
-    const searchShoppingIcon = document.getElementById("searchShoppingBtn")?.querySelector('.button-icon');
-    const searchNewsIcon = document.getElementById("searchNewsBtn")?.querySelector('.button-icon');
-    const searchAIicon = document.getElementById("searchAIBtn")?.querySelector('.button-icon');
-
-    if (searchWebIcon) searchWebIcon.src = theme === "light" ? "assets/search-dark.png" : "assets/search.png";
-    if (searchImagesIcon) searchImagesIcon.src = theme === "light" ? "assets/images-dark.png" : "assets/images.png";
-    if (searchShoppingIcon) searchShoppingIcon.src = theme === "light" ? "assets/shopping-dark.png" : "assets/shopping.png";
-    if (searchNewsIcon) searchNewsIcon.src = theme === "light" ? "assets/news-dark.png" : "assets/news.png";
-    if (searchAIicon) searchAIicon.src = theme === "light" ? "assets/aisearch-dark.png" : "assets/aisearch.png";
-
-    // select menüyü güncelle
-    const themeSelect = document.getElementById("themeSelect");
-    if (themeSelect) themeSelect.value = theme;
+  // Special select options for boolean settings
+  const safeSearchOptions = document.getElementById('safeSearchOptions');
+  if (safeSearchOptions) {
+    safeSearchOptions.value = settings.safeSearch === 'true' ? 'safeSearchEnable' : 'safeSearchDisable';
+  }
+  const disableSearchHistoryLogOptions = document.getElementById('disableSearchHistoryLogOptions');
+  if (disableSearchHistoryLogOptions) {
+    disableSearchHistoryLogOptions.value = settings.disableSearchHistoryLog === 'true' ? 'disableSearchHistoryLogEnable' : 'disableSearchHistoryLogDisable';
+  }
+  const privateModeOptions = document.getElementById('privateModeOptions');
+  if (privateModeOptions) {
+    privateModeOptions.value = settings.privateMode === 'true' ? 'privateModeEnable' : 'privateModeDisable';
+  }
 }
-
-// Sayfa yüklendiğinde çalıştır
-window.addEventListener("DOMContentLoaded", loadTheme);
