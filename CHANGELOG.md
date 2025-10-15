@@ -1,15 +1,76 @@
 # 📑 Changelog
 
 Bu dosya projede yapılan tüm önemli değişiklikleri takip eder.  
-Sürüm numaraları: Fluxo 4 (Part 9'den Part 15'e)
+Sürüm numaraları: Fluxo 4 (Part 9'den Part 16'ya)
 
 ---
 
-## [Unreleased]
-- Yeni **Araçlar** eklenecek (Saat, Borsa araçları...)
-- Telefonlar için yeni arayüz
-- Hesaplar için **Google** desteği
-- Hesaplar için yenilikler
+## 📢 Önemli Duyuru
+- Part 20 aşamasında artık sistemi DEV statüsünden çıkarıp ana sürüm haline getireceğiz!
+- Zenora güncellemesinden 7-12 hafta sonra FluxoDev5 aşamaları başlayacaktır!
+
+## 🧩 Eklenecek Sistemler
+- Yeni Araçlar (Saat, Notlar, Borsa...)
+- Favori Klasörleme (Test Aşamasında)
+- Bölünmüş Görünüm (Test Aşamasında)
+- Temaya Göre Simgeler (Test Aşamasında)
+- Telefonlar İçin Optimize Edilen Arayüz
+
+---
+
+## [Fluxo 4 Part 16] - 2025-10-15
+### Eklendi (Added)
+- Uygula tuşu başa sabitlendi
+- Artık OpenMeteo varsayılan istemci olarak kullanılıyor
+- Daha stabil ayarlar sistemi
+- Google ile giriş yapma sistemi eklendi
+- Kullanıcılar (yanlızca yerel hesaplarda) kendi profil ikonunu seçebilir
+- Kullanıcılar isimlerini değiştirebilir
+- Destek kısmına yeni link eklendi
+- Box teması düzenlendi, Glassmorphism teması düzenlendi, Neomorphism teması düzenlendi 
+- Renk katoloğu yenilendi
+
+## ⚠️ Önemli Uyarı
+- Çeviriler eksik ve yanlış olabilir!
+- Sağ Tık menüsü çalışmıyor, favorileri silemeyebilirsiniz!
+- 3 arkaplan sınırı uygulanmadıysa ayarlar>Bu sayfayı sıfırla tuşuna tıklamanızı öneririz (bellek yenileme)
+- Fluxo Secure Max 16 yamasında hatalı davranabilir!
+
+### Düzenlendi (Fixed)
+- Sistemdeki hantallık sorunu giderildi (Dev sürümleri daha ağır olduğundan sorunlar devam edebilir)
+- Hava Durumu API sisteminin kullanıcıyı değil kendi varsayılanlarını ilan etmesi hatası giderildi
+- Uygula tuşuna tıklayınca seçimlerin sıfırlanma hatası giderildi
+- hazır renkleri seçememe hatası giderildi
+- Yazı tipi seçememe hatası giderildi
+- Destek kısmındaki sosyal kısmının tüm menülerde gözükme hatası giderildi
+- Vanilla UI açık temada seçme kutu görünümü hatası giderildi
+- Box UI açık temada seçme kutu görünümü hatası giderildi
+- Vanilla UI, Box UI açık tema sorunları giderildi
+- Çeviri hataları düzeltildi
+- Firefox tabanlı tarayıcılarda tamamen kullanılmaz durum düzeltildi (küçük hatalar mevcut)
+- Duvar kağıdı geçmişi 3 ile sınırlmasına uyulmama hatası giderildi
+- Hava Durumu Güncelleme Sıklığı ayarı çalışmama hatası düzenlendi
+- Destek kısmındaki hatalı ayırma çizgisi düzeltildi
+
+### Bilinen Hatalar (Erors)
+- Yanlızca İngilizce dilinde tamamen çeviri var (part 17 güncellemesi ile tüm dillere uygulanacaktır)
+- Favoriler için sağ tık menüsü teknik hata dolayısıyla kullanılamamaktadır
+- Türkçe hariç diğer dillerde yazının kutudan taşma hataları
+- Mikrofon kullanarak arama yapıldığında tamam tuşunun çalışmama hatası
+- İngilizce hariç dillerde şifre kısmının örnek metni görünmeme hatası
+- feedbackScript.js hataları (Report gönderememe, çıktı alamama)
+- secure.js hataları
+
+### Bir Sonraki Yamada (In the Next Patch)
+- Hatalar giderilecek
+- Araçlar Gelecek!
+- Yeni Tema!
+- Animasyonları devre dışı bırakma seçeneği
+
+### Test Edilen Sistemler (deferred systems)
+- Bölünmüş görünüm için yeniden denemeler başlayacak
+- Favori klasörleme sistemi yeniden test aşamasına sokulacak
+- Temaya göre simgeler
 
 ---
 
