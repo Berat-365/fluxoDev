@@ -29,6 +29,7 @@ Sürüm numaraları: Fluxo 4 (Part 9'den Part 16'ya)
 - Destek kısmına yeni link eklendi
 - Box teması düzenlendi, Glassmorphism teması düzenlendi, Neomorphism teması düzenlendi 
 - Renk katoloğu yenilendi
+- 404 sayfası daha modern ve güzel hale getirildi
 
 ## ⚠️ Önemli Uyarı
 - Çeviriler eksik ve yanlış olabilir!
