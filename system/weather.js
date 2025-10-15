@@ -1,4 +1,4 @@
-// 🌦️ --- HAVA DURUMU MODÜLÜ (Geliştirilmiş Sürüm) ---
+// 🌦️ --- HAVA DURUMU MODÜLÜ (OpenMeteo Tek Varsayılan) ---
 
 // 🔹 Konum tespiti (IP tabanlı)
 async function getLocationByIP() {
@@ -60,50 +60,19 @@ function getConditionText(code, lang = "tr") {
   return maps[lang]?.[code] || "Bilinmeyen";
 }
 
-// 🔹 Gelişmiş Emoji eşleştirme (daha fazla dil desteği)
-function getWeatherEmoji(conditionText = "") {
-  const t = conditionText.toLowerCase();
-  const lang = localStorage.getItem("language") || "tr";
-  const terms = {
-    tr: { rain: "yağmur", snow: "kar", sun: "güneş", clear: "açık", cloud: "bulut", overcast: "kapalı", storm: "fırtına", thunder: "yıldırım", fog: "sis", mist: "pus", haze: "pus", drizzle: "çiseleme", sleet: "karla yağmur", partly: "parçalı", sunny: "güneşli", cloudy: "bulutlu" },
-    az: { rain: "yağış", snow: "qar", sun: "günəş", clear: "açıq", cloud: "bulud", overcast: "buludlu", storm: "firtına", thunder: "yıldırım", fog: "duman", mist: "duman", haze: "duman", drizzle: "çilək", sleet: "qarlı yağış", partly: "qismən", sunny: "günəşli", cloudy: "buludlu" },
-    tk: { rain: "ýagyş", snow: "gar", sun: "güneş", clear: "açyk", cloud: "bulut", overcast: "bulutly", storm: "furtına", thunder: "ýyldyrym", fog: "duman", mist: "duman", haze: "duman", drizzle: "çilek", sleet: "garly ýagyş", partly: "bölünip", sunny: "güneşli", cloudy: "bulutly" },
-    kk: { rain: "жаңбыр", snow: "қар", sun: "күн", clear: "ашық", cloud: "бұлт", overcast: "бұлтты", storm: "дауыл", thunder: "күкірт", fog: "тұман", mist: "тұман", haze: "тұман", drizzle: "шашыраңқы жаңбыр", sleet: "қар жаңбыр", partly: "бөліп", sunny: "күнді", cloudy: "бұлтты" },
-    ky: { rain: "жаан", snow: "кар", sun: "күн", clear: "ачык", cloud: "булут", overcast: "булуттуу", storm: "борoon", thunder: "күкүрт", fog: "туман", mist: "туман", haze: "туман", drizzle: "чийки", sleet: "кар жаан", partly: "бөлүнүп", sunny: "күнүлүү", cloudy: "булуттуу" },
-    uz: { rain: "yomg'ir", snow: "qor", sun: "quyosh", clear: "ochiq", cloud: "bulut", overcast: "bulutli", storm: "bo'ron", thunder: "momaq", fog: "tuman", mist: "tuman", haze: "tuman", drizzle: "chillak", sleet: "qor yomg'ir", partly: "qisman", sunny: "quyoshli", cloudy: "bulutli" },
-    tt: { rain: "яҫын", snow: "кар", sun: "киңәш", clear: "асылу", cloud: "бөткөн", overcast: "бөткөн", storm: "фүртлә", thunder: "ялтыртау", fog: "туман", mist: "туман", haze: "туман", drizzle: "чиләк", sleet: "карлы яҫын", partly: "бүлектән", sunny: "киңәшле", cloudy: "бөткөн" },
-    ba: { rain: "яҫын", snow: "кар", sun: "киңәш", clear: "асылу", cloud: "бөткөн", overcast: "бөткөн", storm: "фүртлә", thunder: "ялтыртау", fog: "туман", mist: "туман", haze: "туман", drizzle: "чиләк", sleet: "карлы яҫын", partly: "бүлектән", sunny: "киңәшле", cloudy: "бөткөн" },
-    ug: { rain: "يامغۇر", snow: "قار", sun: "قۇياش", clear: "ئېچىق", cloud: "بۇلۇت", overcast: "بۇلۇتلۇق", storm: "ئۈرۈل", thunder: "موقا", fog: "ئۈلكە", mist: "ئۈلكە", haze: "ئۈلكە", drizzle: "ئاز ئۆسلەتكەن يامغۇر", sleet: "قار يامغۇر", partly: "ئاياللىق", sunny: "قۇياشلىق", cloudy: "بۇلۇتلۇق" },
-    sah: { rain: "суорут", snow: "суох", sun: "күн", clear: "аас", cloud: "булут", overcast: "булут", storm: "буор", thunder: "күрүк", fog: "тумус", mist: "тумус", haze: "тумус", drizzle: "суорут", sleet: "суох суорут", partly: "бөлүнүп", sunny: "күннүк", cloudy: "булуттук" },
-    cv: { rain: "яҫ", snow: "кар", sun: "кӑн", clear: "аҫы", cloud: "ҫӑк", overcast: "ҫӑк", storm: "фӗр", thunder: "ялт", fog: "туман", mist: "туман", haze: "туман", drizzle: "чилӗк", sleet: "кар яҫ", partly: "пӑр-ҫӑк", sunny: "кӑнле", cloudy: "ҫӑк" },
-    en: { rain: "rain", snow: "snow", sun: "sun", clear: "clear", cloud: "cloud", overcast: "overcast", storm: "storm", thunder: "thunder", fog: "fog", mist: "mist", haze: "haze", drizzle: "drizzle", sleet: "sleet", partly: "partly", sunny: "sunny", cloudy: "cloudy" },
-    es: { rain: "lluvia", snow: "nieve", sun: "sol", clear: "despejado", cloud: "nube", overcast: "cubierto", storm: "tormenta", thunder: "trueno", fog: "niebla", mist: "niebla", haze: "neblina", drizzle: "llovizna", sleet: "aguanieve", partly: "parcialmente", sunny: "soleado", cloudy: "nublado" },
-    jp: { rain: "雨", snow: "雪", sun: "太陽", clear: "晴れ", cloud: "雲", overcast: "どんより", storm: "嵐", thunder: "雷", fog: "霧", mist: "霧", haze: "霞", drizzle: "霧雨", sleet: "みぞれ", partly: "部分的に", sunny: "晴れ", cloudy: "曇り" },
-    zh: { rain: "雨", snow: "雪", sun: "太阳", clear: "晴朗", cloud: "云", overcast: "阴天", storm: "风暴", thunder: "雷", fog: "雾", mist: "雾", haze: "雾霾", drizzle: "毛毛雨", sleet: "霰", partly: "部分", sunny: "晴朗", cloudy: "多云" },
-    ko: { rain: "비", snow: "눈", sun: "태양", clear: "맑음", cloud: "구름", overcast: "흐림", storm: "폭풍", thunder: "천둥", fog: "안개", mist: "안개", haze: "연무", drizzle: "이슬비", sleet: "진눈깨비", partly: "부분적", sunny: "맑음", cloudy: "구름 많음" },
-    de: { rain: "Regen", snow: "Schnee", sun: "Sonne", clear: "klar", cloud: "Wolke", overcast: "bedeckt", storm: "Sturm", thunder: "Gewitter", fog: "Nebel", mist: "Nebel", haze: "Dunst", drizzle: "Nieselregen", sleet: "Schneeregen", partly: "teilweise", sunny: "sonnig", cloudy: "bewölkt" },
-    fr: { rain: "pluie", snow: "neige", sun: "soleil", clear: "dégagé", cloud: "nuage", overcast: "couvert", storm: "tempête", thunder: "tonnerre", fog: "brouillard", mist: "brume", haze: "brume", drizzle: "bruine", sleet: "neige fondue", partly: "partiellement", sunny: "ensoleillé", cloudy: "nuageux" },
-    ar: { rain: "مطر", snow: "ثلج", sun: "شمس", clear: "صافي", cloud: "سحابة", overcast: "مغطى", storm: "عاصفة", thunder: "رعد", fog: "ضباب", mist: "ضباب", haze: "ضباب", drizzle: "رذاذ", sleet: "ثلج ممطر", partly: "جزئيًا", sunny: "مشمس", cloudy: "غائم" },
-    ru: { rain: "дождь", snow: "снег", sun: "солнце", clear: "ясно", cloud: "облако", overcast: "пасмурно", storm: "буря", thunder: "гром", fog: "туман", mist: "морось", haze: "дымка", drizzle: "морось", sleet: "мокрый снег", partly: "переменная", sunny: "солнечно", cloudy: "облачно" },
-    mn: { rain: "бороо", snow: "цас", sun: "нар", clear: "цэлмэг", cloud: "үүл", overcast: "үүлтэй", storm: "шуурга", thunder: "цөмөөр", fog: "манан", mist: "манан", haze: "манан", drizzle: "чийглэг бороо", sleet: "цасан бороо", partly: "хагас", sunny: "нартай", cloudy: "үүлтэй" },
-    he: { rain: "גשם", snow: "שלג", sun: "שמש", clear: "בהיר", cloud: "ענן", overcast: "מעונן", storm: "סערה", thunder: "רעם", fog: "ערפל", mist: "ערפל", haze: "ערפל", drizzle: "טפטוף", sleet: "גשם קל", partly: "חלקי", sunny: "שמשי", cloudy: "מעונן" },
-    hi: { rain: "बारिश", snow: "बर्फ", sun: "सूरज", clear: "साफ़", cloud: "बादल", overcast: "बादल", storm: "तूफान", thunder: "बज्रपात", fog: "कोहरा", mist: "कोहरा", haze: "कोहरा", drizzle: "हल्की बारिश", sleet: "हिमपात", partly: "आंशिक", sunny: "धूपी", cloudy: "बादली" },
-    el: { rain: "βροχή", snow: "χιόνι", sun: "ήλιος", clear: "καθαρός", cloud: "σύννεφο", overcast: "συννεφιά", storm: "καταιγίδα", thunder: "βροντή", fog: "ομίχλη", mist: "ομίχλη", haze: "θολούρα", drizzle: "ψιλόβροχο", sleet: "χιονοθυέλλα", partly: "μερικώς", sunny: "ηλιόλουστος", cloudy: "συννεφιασμένος" },
-    it: { rain: "pioggia", snow: "neve", sun: "sole", clear: "sereno", cloud: "nuvola", overcast: "coperto", storm: "tempesta", thunder: "tuono", fog: "nebbia", mist: "nebbia", haze: "nebbia", drizzle: "pioggerella", sleet: "nevischio", partly: "parzialmente", sunny: "soleggiato", cloudy: "nuvoloso" },
-    gag: { rain: "yağmur", snow: "kar", sun: "güneş", clear: "açık", cloud: "bulut", overcast: "kapalı", storm: "fırtına", thunder: "yıldırım", fog: "sis", mist: "pus", haze: "pus", drizzle: "çiseleme", sleet: "karla yağmur", partly: "parçalı", sunny: "güneşli", cloudy: "bulutlu" }
+// OpenMeteo weather code to emoji mapping
+function getWeatherEmojiFromCode(code) {
+  const emojiMap = {
+    0: "☀️", 1: "🌤️", 2: "⛅", 3: "☁️",
+    45: "🌫️", 48: "🌫️", 51: "🌦️", 53: "🌦️", 55: "🌧️",
+    61: "🌧️", 63: "🌧️", 65: "🌧️", 71: "🌨️", 73: "🌨️", 75: "🌨️",
+    80: "🌦️", 81: "🌦️", 82: "🌧️", 95: "⛈️", 96: "⛈️", 99: "⛈️"
   };
-  const emojis = { rain: "🌧️", snow: "❄️", sun: "☀️", clear: "☀️", cloud: "☁️", overcast: "☁️", storm: "⛈️", thunder: "⛈️", fog: "🌫️", mist: "🌫️", haze: "🌫️", drizzle: "🌦️", sleet: "🌨️", partly: "⛅", sunny: "🌤️", cloudy: "🌥️" };
-  const langTerms = terms[lang] || terms.tr;
-  for (const [key, emoji] of Object.entries(emojis)) {
-    if (t.includes(key) || t.includes(langTerms[key])) return emoji;
-  }
-  return "🌡️";
+  return emojiMap[code] || "🌡️";
 }
 
 export async function fetchWeather() {
-  const apiRaw = localStorage.getItem("weatherAPI") || "wttr.in";
   const lang = localStorage.getItem("language") || "tr";
-  const api = apiRaw.replace("wttr.in", "wttr");
   let location = localStorage.getItem("weatherLocation") || "Istanbul";
   const widget = document.getElementById("weatherWidget");
   if (!widget || localStorage.getItem("showWeather") === "false") return;
@@ -117,64 +86,17 @@ export async function fetchWeather() {
       localStorage.setItem("weatherLocation", location);
     }
 
-    let url, coords;
-    const keys = {
-      openweathermap: localStorage.getItem("openWeatherMapApiKey"),
-      weatherapi: localStorage.getItem("weatherApiKey"),
-      visualcrossing: localStorage.getItem("visualCrossingApiKey")
-    };
-
-    if (api === "wttr") {
-      url = `https://wttr.in/${encodeURIComponent(location)}?format=j1&lang=${lang}`;
-    } else if (api === "openweathermap") {
-      if (!keys.openweathermap) throw new Error("OpenWeatherMap API anahtarı eksik");
-      url = `https://api.openweathermap.org/data/2.5/weather?q=${encodeURIComponent(location)}&appid=${keys.openweathermap}&units=metric&lang=${lang}`;
-    } else if (api === "weatherapi") {
-      if (!keys.weatherapi) throw new Error("WeatherAPI anahtarı eksik");
-      url = `https://api.weatherapi.com/v1/current.json?key=${keys.weatherapi}&q=${encodeURIComponent(location)}&lang=${lang}`;
-    } else if (api === "openmeteo") {
-      coords = await getCoordsByCity(location) || await getLocationByIP();
-      url = `https://api.open-meteo.com/v1/forecast?latitude=${coords.lat}&longitude=${coords.lon}&current_weather=true&hourly=temperature_2m&timezone=Europe/Istanbul`;
-    } else if (api === "visualcrossing") {
-      if (!keys.visualcrossing) throw new Error("VisualCrossing API anahtarı eksik");
-      url = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${encodeURIComponent(location)}?unitGroup=metric&key=${keys.visualcrossing}&contentType=json&lang=${lang}`;
-    } else {
-      throw new Error(`Geçersiz API: ${apiRaw}`);
-    }
-
+    const coords = await getCoordsByCity(location) || await getLocationByIP();
+    const url = `https://api.open-meteo.com/v1/forecast?latitude=${coords.lat}&longitude=${coords.lon}&current_weather=true&hourly=temperature_2m&timezone=Europe/Istanbul`;
     const response = await fetch(url);
     if (!response.ok) throw new Error(`Hata: ${response.status}`);
 
     const data = await response.json();
-    let temp, condition, emoji = "🌡️";
+    if (!data.current_weather) throw new Error("OpenMeteo veri hatası");
 
-    if (api === "wttr") {
-      if (!data.current_condition?.[0]) throw new Error("wttr.in veri hatası");
-      temp = data.current_condition[0].temp_C;
-      condition = data.current_condition[0].weatherDesc[0].value;
-      emoji = getWeatherEmoji(condition);
-    } else if (api === "openweathermap") {
-      if (!data.main || !data.weather?.[0]) throw new Error("OpenWeatherMap veri hatası");
-      temp = Math.round(data.main.temp);
-      condition = data.weather[0].description;
-      emoji = getWeatherEmoji(condition);
-    } else if (api === "weatherapi") {
-      if (!data.current) throw new Error("WeatherAPI veri hatası");
-      temp = Math.round(data.current.temp_c);
-      condition = data.current.condition.text;
-      emoji = getWeatherEmoji(condition);
-    } else if (api === "openmeteo") {
-      if (!data.current_weather) throw new Error("OpenMeteo veri hatası");
-      temp = Math.round(data.current_weather.temperature);
-      condition = getConditionText(data.current_weather.weathercode, lang);
-      emoji = getWeatherEmojiFromCode(data.current_weather.weathercode);
-    } else if (api === "visualcrossing") {
-      const cc = data.currentConditions || data.current_conditions;
-      if (!cc) throw new Error("VisualCrossing veri hatası");
-      temp = Math.round(cc.temp);
-      condition = cc.conditions || "Genel hava";
-      emoji = getWeatherEmoji(condition);
-    }
+    const temp = Math.round(data.current_weather.temperature);
+    const condition = getConditionText(data.current_weather.weathercode, lang);
+    const emoji = getWeatherEmojiFromCode(data.current_weather.weathercode);
 
     widget.innerHTML = `<div class="weather-info"><span>${location}: ${temp}°C | ${emoji} ${condition}</span></div>`;
   } catch (error) {
@@ -196,7 +118,7 @@ export function startWeatherUpdate() {
 
 // Storage değişikliği dinle (aynı sekmede ayar değişikliklerini yakala)
 window.addEventListener('storage', (e) => {
-  if (e.key === 'weatherLocation' || e.key === 'weatherAPI' || e.key === 'weatherUpdateInterval' || e.key === 'showWeather') {
+  if (e.key === 'weatherLocation' || e.key === 'weatherUpdateInterval' || e.key === 'showWeather') {
     fetchWeather();
     startWeatherUpdate();
   }
@@ -209,32 +131,12 @@ window.addEventListener('settingsChanged', () => {
 });
 
 document.addEventListener("DOMContentLoaded", () => {
-  const weatherApiSelect = document.getElementById("weatherAPI");
-  if (weatherApiSelect) {
-    weatherApiSelect.addEventListener("change", (e) => {
-      localStorage.setItem("weatherAPI", e.target.value);
-      const api = e.target.value.replace("wttr.in", "wttr");
-      const inputs = {
-        openweathermap: "openWeatherMapKeyInput",
-        weatherapi: "weatherApiKeyInput",
-        visualcrossing: "visualCrossingKeyInput"
-      };
-      Object.entries(inputs).forEach(([key, id]) => {
-        const el = document.getElementById(id);
-        if (el) el.classList.toggle("active", api === key);
-      });
-      if (localStorage.getItem("showWeather") === "true" && localStorage.getItem("weatherLocation")?.trim()) {
-        fetchWeather();
-      }
-    });
-  }
   startWeatherUpdate();
 });
 
 // JS'te fetch5DayForecast fonksiyonunu güncelle ve openWeatherWidget'i değiştir
 async function fetch5DayForecast() {
     const lang = localStorage.getItem("language") || "tr";
-    const apiRaw = localStorage.getItem("weatherAPI") || "wttr.in";
     const location = localStorage.getItem("weatherLocation") || "Istanbul";
     const listEl = document.getElementById("forecastList");
     const popupLoc = document.getElementById("popupLocation");
@@ -331,17 +233,6 @@ window.openWeatherWidget = function() {
 window.closeWeatherPopup = function() {
     document.getElementById("weatherPopup").style.display = "none";
 };
-
-// OpenMeteo weather code to emoji mapping
-function getWeatherEmojiFromCode(code) {
-  const emojiMap = {
-    0: "☀️", 1: "🌤️", 2: "⛅", 3: "☁️",
-    45: "🌫️", 48: "🌫️", 51: "🌦️", 53: "🌦️", 55: "🌧️",
-    61: "🌧️", 63: "🌧️", 65: "🌧️", 71: "🌨️", 73: "🌨️", 75: "🌨️",
-    80: "🌦️", 81: "🌦️", 82: "🌧️", 95: "⛈️", 96: "⛈️", 99: "⛈️"
-  };
-  return emojiMap[code] || "🌡️";
-}
 
 // Dışarı tıklamada kapat
 document.addEventListener("click", (e) => {
