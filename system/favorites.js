@@ -156,5 +156,3 @@ export function showFavoriteContextMenu(e, index, fav) {
     const favItems = document.querySelectorAll(".favorite-item");
     if (favItems[index]) favItems[index].classList.add("context-active");
 }
-
-// Context menu click handler (ana script'te event listener olarak ekle)
