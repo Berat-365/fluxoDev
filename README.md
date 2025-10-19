@@ -1,30 +1,36 @@
-# FluxoDev
-Fluxo 4 Zenora
+# FluxoDev  
+**Fluxo 4 Zenora – Geliştirme Deposu**  
 
-Fluxo’nun geliştirme deposu.  
-Ana proje için: [Fluxo](https://github.com/Berat-365/fluxo)
-Dev Beta için: [Fluxo](https://berat-365.github.io/fluxoDev/)
+Fluxo’nun gelişim sürecini takip edin ve katkıda bulunun.  
 
-## Changelog
-
-Tüm değişiklikler için [CHANGELOG.md](CHANGELOG.md) dosyasına bakabilirsiniz.
-
+- 🌐 Ana proje: [Fluxo](https://github.com/Berat-365/fluxo)  
+- ⚡ Dev Beta: [Fluxo Dev Beta](https://berat-365.github.io/fluxoDev/)  
 
 ---
 
-
-## ⚠️ Önemli Uyarı
-Dev sürümü ile ana sürüm birbirine bağlı verileri silmeyiniz!
+## 📝 Changelog
+Tüm değişiklikleri görmek için: [CHANGELOG.md](CHANGELOG.md)  
 
 ---
 
-## 🔧 Geliştirme Ortamı
+## ⚠️ Dikkat Edin
+Dev sürümü ile ana sürüm birbirine bağlı verileri **silmeyin!**  
+
+---
+
+## 💻 Geliştirme Ortamı
 
 Projeyi yerel bilgisayarınızda çalıştırmak için:  
 
 ```bash
-# Depoyu klonla
+# Depoyu klonlayın
 git clone https://github.com/Berat-365/fluxoDev.git
 
-# Klasöre gir
+# Klasöre girin
 cd fluxoDev
+
+# Gerekli paketleri yükleyin
+npm install
+
+# Geliştirme sunucusunu başlatın
+npm run dev
