@@ -1,6 +1,4 @@
-// 🌦️ --- HAVA DURUMU MODÜLÜ (OpenMeteo Tek Varsayılan) ---
-
-// 🔹 Konum tespiti (IP tabanlı)
+// weather.js - Hava durumu widget'ı
 async function getLocationByIP() {
   try {
     const res = await fetch("https://ipapi.co/json/");
@@ -30,7 +28,7 @@ async function getCoordsByCity(city) {
 // 🔹 Dil bazlı hava durumu metni (OpenMeteo için)
 function getConditionText(code, lang = "tr") {
   const maps = {
-    tr: { 0: "Açık", 1: "Parçalı bulutlu", 2: "Bulutlu", 3: "Kapalı", 45: "Sis", 48: "Sis", 51: "Çiseleme", 53: "Yağmur", 55: "Şiddetli yağmur", 61: "Hafif yağmur", 63: "Yağmur", 65: "Şiddetli yağmur", 71: "Hafif kar", 73: "Kar", 75: "Şiddetli kar", 80: "Saçma yağmur", 81: "Hafif saçma yağmur", 82: "Şiddetli saçma yağmur", 95: "Fırtına", 96: "Yıldırımlı fırtına", 99: "Şiddetli fırtına" },
+    tr: { 0: "Açık", 1: "Parçalı bulutlu", 2: "Bulutlu", 3: "Kapalı", 45: "Sis", 48: "Sis", 51: "Çiseleme", 53: "Yağmur", 55: "Şiddetli yağmur", 61: "Hafif yağmur", 63: "Yağmur", 65: "Şiddetli yağmur", 71: "Hafif kar", 73: "Kar", 75: "Şiddetli kar", 80: "Sağnak yağmur", 81: "Hafif sağnak yağmur", 82: "Şiddetli sağnak yağmur", 95: "Fırtına", 96: "Yıldırımlı fırtına", 99: "Şiddetli fırtına" },
     az: { 0: "Açıq", 1: "Qismən buludlu", 2: "Buludlu", 3: "Buludlu", 45: "Duman", 48: "Duman", 51: "Çilək", 53: "Yağış", 55: "Güclü yağış", 61: "Zəif yağış", 63: "Yağış", 65: "Güclü yağış", 71: "Zəif qar", 73: "Qar", 75: "Güclü qar", 80: "Dəbədə yağış", 81: "Zəif dəbədə yağış", 82: "Güclü dəbədə yağış", 95: "Fırtına", 96: "Yıldırımlı fırtına", 99: "Güclü fırtına" },
     tk: { 0: "Açyk", 1: "Bölünip bulutly", 2: "Bulutly", 3: "Bulutly", 45: "Duman", 48: "Duman", 51: "Çilek", 53: "Ýagyş", 55: "Güýçli ýagyş", 61: "Hafif ýagyş", 63: "Ýagyş", 65: "Güýçli ýagyş", 71: "Hafif gar", 73: "Gar", 75: "Güýçli gar", 80: "Saçma ýagyş", 81: "Hafif saçma ýagyş", 82: "Güýçli saçma ýagyş", 95: "Furtına", 96: "Ýyldyrymlı furtına", 99: "Güýçli furtına" },
     kk: { 0: "Ашық", 1: "Бөліп бұлтты", 2: "Бұлтты", 3: "Бұлтты", 45: "Тұман", 48: "Тұман", 51: "Шашыраңқы жаңбыр", 53: "Жаңбыр", 55: "Күшті жаңбыр", 61: "Жеңіл жаңбыр", 63: "Жаңбыр", 65: "Күшті жаңбыр", 71: "Жеңіл қар", 73: "Қар", 75: "Күшті қар", 80: "Шағын жаңбыр", 81: "Жеңіл шағын жаңбыр", 82: "Күшті шағын жаңбыр", 95: "Дауыл", 96: "Мамырмен дауыл", 99: "Күшті дауыл" },
@@ -40,7 +38,7 @@ function getConditionText(code, lang = "tr") {
     ba: { 0: "Асылу", 1: "Бүлектән бөткөн", 2: "Бөткөн", 3: "Бөткөн", 45: "Туман", 48: "Туман", 51: "Чиләк", 53: "Яңын", 55: "Күчле яңын", 61: "Әйлән яңын", 63: "Яңын", 65: "Күчле яңын", 71: "Әйлән кар", 73: "Кар", 75: "Күчле кар", 80: "Шашма яңын", 81: "Әйлән шашма яңын", 82: "Күчле шашма яңын", 95: "Фүртлә", 96: "Ялтсыз фүртлә", 99: "Күчле фүртлә" },
     ug: { 0: "ئېچىق", 1: "ئاياللىق بۇلۇتلۇق", 2: "بۇلۇتلۇق", 3: "بۇلۇتلۇق", 45: "ئۈلكە", 48: "ئۈلكە", 51: "ئاز ئۆسلەتكەن يامغۇر", 53: "يامغۇر", 55: "كۈچلۈك يامغۇر", 61: "ئاز يامغۇر", 63: "يامغۇر", 65: "كۈچلۈك يامغۇر", 71: "ئاز قار", 73: "قار", 75: "كۈچلۈك قار", 80: "ئۆسلەتكەن يامغۇر", 81: "ئاز ئۆسلەتكەن يامغۇر", 82: "كۈچلۈك ئۆسلەتكەن يامغۇر", 95: "ئۈرۈل", 96: "قاچىلما ئۈرۈل", 99: "كۈچلۈك ئۈرۈل" },
     sah: { 0: "Ачык", 1: "Бөлүнүп булуттуу", 2: "Булуттуу", 3: "Булуттуу", 45: "Туман", 48: "Туман", 51: "Чийки", 53: "Жамгыр", 55: "Күчтүү жамгыр", 61: "Айыл жамгыр", 63: "Жамгыр", 65: "Күчтүү жамгыр", 71: "Айыл кар", 73: "Кар", 75: "Күчтүү кар", 80: "Жамгыр", 81: "Айыл жамгыр", 82: "Күчтүү жамгыр", 95: "Бороон", 96: "Чагылдырылган бороон", 99: "Күчтүү бороон" },
-    cv: { 0: "Аçык", 1: "Пӑр-ҫӑк", 2: "Ҫӑк", 3: "Ҫӑк", 45: "Туман", 48: "Туман", 51: "Чилӗк", 53: "Яҫ", 55: "Кӑлӑш яҫ", 61: "Ҫӑк яҫ", 63: "Яҫ", 65: "Кӑлӑш яҫ", 71: "Ҫӑк кар", 73: "Кар", 75: "Кӑлӑш кар", 80: "Шашма яҫ", 81: "Ҫӑк шашма яҫ", 82: "Кӑлӑш шашма яҫ", 95: "Фӗр", 96: "Ялтсыз фӗр", 99: "Кӑлӑш фӗр" },
+    cv: { 0: "Аçыk", 1: "Пӑр-ҫӑк", 2: "Ҫӑк", 3: "Ҫӑк", 45: "Туман", 48: "Туман", 51: "Чилӗк", 53: "Яҫ", 55: "Кӑлӑш яҫ", 61: "Ҫӑк яҫ", 63: "Яҫ", 65: "Кӑлӑш яҫ", 71: "Ҫӑк кар", 73: "Кар", 75: "Кӑлӑш кар", 80: "Шашма яҫ", 81: "Ҫӑк шашма яҫ", 82: "Кӑлӑш шашма яҫ", 95: "Фӗр", 96: "Ялтсыз фӗр", 99: "Кӑлӑш фӗр" },
     en: { 0: "Clear", 1: "Partly cloudy", 2: "Cloudy", 3: "Overcast", 45: "Fog", 48: "Fog", 51: "Drizzle", 53: "Rain", 55: "Heavy rain", 61: "Light rain", 63: "Rain", 65: "Heavy rain", 71: "Light snow", 73: "Snow", 75: "Heavy snow", 80: "Showers", 81: "Light showers", 82: "Heavy showers", 95: "Thunderstorm", 96: "Thunderstorm with hail", 99: "Severe thunderstorm" },
     es: { 0: "Despejado", 1: "Parcialmente nublado", 2: "Nublado", 3: "Cubierta", 45: "Niebla", 48: "Niebla", 51: "Llovizna", 53: "Lluvia", 55: "Lluvia fuerte", 61: "Lluvia ligera", 63: "Lluvia", 65: "Lluvia fuerte", 71: "Nieve ligera", 73: "Nieve", 75: "Nieve fuerte", 80: "Chubascos", 81: "Chubascos ligeros", 82: "Chubascos fuertes", 95: "Tormenta", 96: "Tormenta con granizo", 99: "Tormenta severa" },
     jp: { 0: "晴れ", 1: "部分的に曇り", 2: "曇り", 3: "どんより", 45: "霧", 48: "霧", 51: "霧雨", 53: "雨", 55: "強い雨", 61: "小雨", 63: "雨", 65: "強い雨", 71: "小雪", 73: "雪", 75: "強い雪", 80: "にわか雨", 81: "小にわか雨", 82: "強いにわか雨", 95: "雷雨", 96: "雹の雷雨", 99: "激しい雷雨" },
@@ -55,7 +53,8 @@ function getConditionText(code, lang = "tr") {
     hi: { 0: "साफ़", 1: "आंशिक बादल", 2: "बादल", 3: "बादल", 45: "कोहरा", 48: "कोहरा", 51: "हल्की बारिश", 53: "बारिश", 55: "भारी बारिश", 61: "हल्की बारिश", 63: "बारिश", 65: "भारी बारिश", 71: "हल्का बर्फ", 73: "बर्फ", 75: "भारी बर्फ", 80: "बरसात", 81: "हल्की बरसात", 82: "भारी बरसात", 95: "तूफान", 96: "ओले के साथ तूफान", 99: "भारी तूफान" },
     el: { 0: "Καθαρός", 1: "Μερικώς συννεφιασμένος", 2: "Συννεφιασμένος", 3: "Συννεφιά", 45: "Ομίχλη", 48: "Ομίχλη", 51: "Ψιλόβροχο", 53: "Βροχή", 55: "Ισχυρή βροχή", 61: "Ασθενής βροχή", 63: "Βροχή", 65: "Ισχυρή βροχή", 71: "Ασθενής χιόνι", 73: "Χιόνι", 75: "Ισχυρό χιόνι", 80: "Πρόσκαιρες βροχές", 81: "Ασθενείς βροχές", 82: "Ισχυρές βροχές", 95: "Καταιγίδα", 96: "Καταιγίδα με χαλάζι", 99: "Έντονη καταιγίδα" },
     it: { 0: "Sereno", 1: "Parzialmente nuvoloso", 2: "Nuvoloso", 3: "Coperto", 45: "Nebbia", 48: "Nebbia", 51: "Pioggerella", 53: "Pioggia", 55: "Pioggia forte", 61: "Pioggia leggera", 63: "Pioggia", 65: "Pioggia forte", 71: "Neve leggera", 73: "Neve", 75: "Neve forte", 80: "Rovesci", 81: "Rovesci leggeri", 82: "Rovesci forti", 95: "Tempesta", 96: "Tempesta con grandine", 99: "Tempesta forte" },
-    gag: { 0: "Açık", 1: "Parçalı bulutlu", 2: "Bulutlu", 3: "Kapalı", 45: "Sis", 48: "Sis", 51: "Çiseleme", 53: "Yağmur", 55: "Şiddetli yağmur", 61: "Hafif yağmur", 63: "Yağmur", 65: "Şiddetli yağmur", 71: "Hafif kar", 73: "Kar", 75: "Şiddetli kar", 80: "Saçma yağmur", 81: "Hafif saçma yağmur", 82: "Şiddetli saçma yağmur", 95: "Fırtına", 96: "Yıldırımlı fırtına", 99: "Şiddetli fırtına" }
+    gag: { 0: "Açık", 1: "Parçalı bulutlu", 2: "Bulutlu", 3: "Kapalı", 45: "Sis", 48: "Sis", 51: "Çiseleme", 53: "Yağmur", 55: "Şiddetli yağmur", 61: "Hafif yağmur", 63: "Yağmur", 65: "Şiddetli yağmur", 71: "Hafif kar", 73: "Kar", 75: "Şiddetli kar", 80: "Saçma yağmur", 81: "Hafif saçma yağmur", 82: "Şiddetli saçma yağmur", 95: "Fırtına", 96: "Yıldırımlı fırtına", 99: "Şiddetli fırtına" },
+    pt: { 0: "Despejado", 1: "Parcialmente nublado", 2: "Nublado", 3: "Encoberto", 45: "Nevoeiro", 48: "Nevoeiro", 51: "Chuvisco", 53: "Chuva", 55: "Chuva forte", 61: "Chuva leve", 63: "Chuva", 65: "Chuva forte", 71: "Neve leve", 73: "Neve", 75: "Neve forte", 80: "Aguaceiro", 81: "Aguaceiro leve", 82: "Aguaceiro forte", 95: "Tempestade", 96: "Trovoada", 99: "Tempestade severa" }
   };
   return maps[lang]?.[code] || "Bilinmeyen";
 }
@@ -77,7 +76,7 @@ export async function fetchWeather() {
   const widget = document.getElementById("weatherWidget");
   if (!widget || localStorage.getItem("showWeather") === "false") return;
 
-  widget.innerHTML = `<span class="weather-loading">☁️ Yükleniyor...</span>`;
+  widget.innerHTML = `<span class="weather-loading">☁️ ... </span>`;
 
   try {
     if (!localStorage.getItem("weatherLocation")) {
@@ -142,8 +141,40 @@ async function fetch5DayForecast() {
     const popupLoc = document.getElementById("popupLocation");
     if (!listEl) return;
 
-    listEl.innerHTML = '<div class="forecast-day"><span class="weather-loading">☁️ Yükleniyor...</span></div>';
-    popupLoc.textContent = `${location} - 5 Günlük Tahmin`;
+    listEl.innerHTML = '<div class="forecast-day"><span class="weather-loading">☁️ ... </span></div>';
+
+    // 5 günlük tahmin başlığı için çeviriler
+    const forecastTitles = {
+      tr: "5 günlük tahmin",
+      az: "5 günlük proqnoz",
+      tk: "5 günlük çaklama",
+      kk: "5 күндік болжам",
+      ky: "5 күндүк болжолдоо",
+      uz: "5 kunlik prognoz",
+      tt: "5 көнлек фараз",
+      ba: "5 көнлек фараз",
+      ug: "5 كۈنلۈك پىروگنوظ",
+      sah: "5 күөннүүлээх оңоһук",
+      cv: "5 пӗлӗк яҫӑрӑш",
+      en: "5-day forecast",
+      es: "Pronóstico a 5 días",
+      jp: "5日間の予報",
+      zh: "5 天预报",
+      ko: "5일 예보",
+      de: "5-Tage-Wettervorhersage",
+      fr: "Prévisions à 5 jours",
+      ar: "توقعات الطقس لمدة 5 أيام",
+      ru: "Прогноз на 5 дней",
+      mn: "5 өдрийн төлөв",
+      he: "תחזית ל-5 ימים",
+      hi: "5 दिन का पूर्वानुमान",
+      el: "Πρόγνωση 5 ημερών",
+      it: "Previsioni a 5 giorni",
+      gag: "5 günlük tahmin",
+      pt: "Previsão a 5 dias"
+    };
+    const title = forecastTitles[lang] || "5 günlük tahmin";
+    popupLoc.innerHTML = `${location} - <span data-lang-key="5day_forecast">${title}</span>`;
 
     try {
         const coords = await getCoordsByCity(location) || await getLocationByIP();
