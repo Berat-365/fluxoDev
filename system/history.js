@@ -18,7 +18,7 @@ export function loadSearchHistory() {
                 li.className = "history-item";
                 li.innerHTML = `
                     <span class="history-text">${item}</span>
-                    <span class="history-engine">(${engine})</span>
+                    <img class="history-engine-logo" src="assets/engines/${engine.toLowerCase()}.png" alt="${engine}" onerror="this.src='assets/engines/unknown.png'">
                     <span class="history-remove-btn">×</span>
                 `;
                 li.querySelector(".history-text").onclick = () => {
