@@ -1662,7 +1662,9 @@ body.light #accountForm input[type="password"]:focus {
     padding: 8px 16px;
 }
 
-#accountForm .text
+#accountForm .text {
+color: var(--text-light);
+}
 
 #accountLoggedIn {
     display: flex;
@@ -3358,4 +3360,5 @@ body.light .context-active {
 .history-remove-btn {
     cursor: pointer;
     font-size: 16px;
+
 }
