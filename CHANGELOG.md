@@ -1,24 +1,56 @@
 # 📑 Changelog
 
 Bu dosya projede yapılan tüm önemli değişiklikleri takip eder.  
-Sürüm numaraları: Fluxo 4 (Part 9'den Part 16'ya)
+Sürüm numaraları: Fluxo 4 (Part 9'den Part 17'ye)
 
 ---
 
 ## 📢 Önemli Duyuru
 - Part 20 aşamasında artık sistemi DEV statüsünden çıkarıp ana sürüm haline getireceğiz!
-- Zenora güncellemesinden 7-12 hafta sonra FluxoDev5 aşamaları başlayacaktır!
 
 ## 🧩 Eklenecek Sistemler
-- Yeni Araçlar (Saat, Notlar, Borsa...)
-- Favori Klasörleme (Test Aşamasında)
 - Bölünmüş Görünüm (Test Aşamasında)
 - Temaya Göre Simgeler (Test Aşamasında)
 - Telefonlar İçin Optimize Edilen Arayüz
 
 ---
 
-## [Fluxo 4 Part 16] - 2025-10-15
+## Fluxo 4 Part 17 - 2025-10-19
+### Eklendi (Added)
+- Animasyonları kapatma seçeneği eklendi.
+- Araçlar eklendi; Finans, QR oluşturma, Saat, Notlar, Döviz çevirici, Haberler!
+- Favori klasörleme sistemi eklendi.
+- Geçmiş sekmesinde kullanılan arama motoru görüntüleme sistemi görünümü düzenlendi.
+- Genel UI değişiklikleri yapıldı
+- Skeuomorphism ve Fluent teması eklendi!!
+- Box teması yeniden düzenlendi
+- Portekizce (Brezilya) eklendi
+- Bilgi barı için düzenlemeler: Hangi temayı kullandığınızı görebileceksiniz, Görsel güncelleme.
+- Tüm dillerin çevirisi tamamlandı ve optimize edildi
+- Gagavuzca dili aslına sadık kalınarak yenilendi
+- 404 sayfası için görünüm değişikliği (Animasyonlar ilk etapta kapalı gelecek)
+
+## 📢 Duyuru
+- Bazı klavye kısayolları düzenlenmek adına kaldırıldı
+
+### Düzenlendi (Fixed)
+- Favoriler için sağ tık menüsünün görünmeme hatası giderildi
+- Türkçe hariç diğer dillerde yazının kutudan taşma hataları giderildi
+- Mikrofon kullanarak arama yapıldığında tamam tuşunun çalışmama hatası giderildi
+- İngilizce hariç dillerde şifre kısmının örnek metni görünmeme hatası giderildi
+- FeedbackScript.js hataları (Report gönderememe, çıktı alamama) giderildi
+- Secure.js hataları giderildi
+- Weather Widget çevirileri düzenlendi
+- Voice search fonksiyonunun işlevleri yerine getirildi
+- Hava durumu güncelleme sıklığı varsayılan ayarının hatalı davranması düzeltildi
+- Yazı tipleri seçeneklerinde bulunan boş seçenek kaldırıldı
+
+### Bilinen Hatalar (Erors)
+- Bu sürümde mevcut bir hata bulamadık eğer hata tespit ederseniz bize ulaşın
+
+---
+
+### Fluxo 4 Part 16 - 2025-10-15
 ### Eklendi (Added)
 - Uygula tuşu başa sabitlendi
 - Artık OpenMeteo varsayılan istemci olarak kullanılıyor
@@ -75,7 +107,7 @@ Sürüm numaraları: Fluxo 4 (Part 9'den Part 16'ya)
 
 ---
 
-## [Fluxo 4 Part 15] - 2025-10-08
+## Fluxo 4 Part 15 - 2025-10-08
 ### Eklendi (Added)
 - Duvar kağıdını kaldırma eklendi
 - Destek sekmesine sosyal linkler eklendi
@@ -107,7 +139,7 @@ Sürüm numaraları: Fluxo 4 (Part 9'den Part 16'ya)
 
 ---
 
-## [Fluxo 4 Part 14] - 2025-10-07
+## Fluxo 4 Part 14 - 2025-10-07
 ### Eklendi (Added)
 - Duvar kağıdını kaldırma eklendi
 - Google Lens eklentisi eklendi
@@ -151,7 +183,7 @@ Bu yamada Sistem temaları hatalıdır anlık olarak glassmorph ve neomorph tema
 
 ---
 
-## [Fluxo 4 Part 13] - 2025-10-03
+## Fluxo 4 Part 13 - 2025-10-03
 ### Eklendi (Added)
 - Script tamamen modüler hale getirildi (index.html %70 küçültüldü)
 - kaydetme sistemi local storge yerine IndexedDB'ye geçirildi
@@ -195,7 +227,7 @@ Bu yamada Sistem temaları hatalıdır anlık olarak glassmorph ve neomorph tema
 
 ---
 
-## [Fluxo 4 Part 12] - 2025-09-27
+## Fluxo 4 Part 12 - 2025-09-27
 ### Eklendi (Added)
 - Yeni Tema "Box" Eklendi
 - Vanilla teması güncellendi
@@ -222,7 +254,7 @@ Bu yamada Sistem temaları hatalıdır anlık olarak glassmorph ve neomorph tema
 
 ---
 
-## [Fluxo 4 Part 11] - 2025-09-26
+## Fluxo 4 Part 11 - 2025-09-26
 ### Eklendi (Added)
 - Yeni Temalar Eklendi!
 -   Neomorphism
@@ -241,7 +273,7 @@ Bu yamada Sistem temaları hatalıdır anlık olarak glassmorph ve neomorph tema
 
 ---
 
-## [Fluxo 4 Part 10] - 2025-09-17
+## Fluxo 4 Part 10 - 2025-09-17
 ### Eklendi (Added)
 - Tüm diller güncellendi ve optimize edildi
 - Gagavuzca yeniden eklendi
@@ -266,7 +298,7 @@ Bu yamada Sistem temaları hatalıdır anlık olarak glassmorph ve neomorph tema
 
 ---
 
-## [Fluxo 4 Part 9] - 2025-09-14
+## Fluxo 4 Part 9 - 2025-09-14
 ### Added
 - Moğolca, İtalyanca, İbranice, Hintçe, Yunanca eklendi
 - Gagavuzca kısa süre için kullanmdan kaldırıldı
@@ -286,7 +318,7 @@ Bu yamada Sistem temaları hatalıdır anlık olarak glassmorph ve neomorph tema
 
 ---
 
-## [Fluxo 4 Part 8] - 2025-09-12
+## Fluxo 4 Part 8 - 2025-09-12
 ### Added
 - Github'da yayımlandı.
 - Ayarlar>Görünüm sekmesi ayarları artık çalışıyor
