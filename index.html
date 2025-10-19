@@ -11,15 +11,17 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Open+Sans:wght@400;700&family=Lato:wght@400;700&family=Montserrat:wght@400;700&family=Inter:wght@400;700&family=Lavishly+Yours&family=Rouge+Script&family=Fascinate&family=Qahiri&family=Roboto+Mono:wght@400;700&family=Fira+Sans:wght@400;700&family=Meow+Script&family=Source+Code+Pro:wght@400;700&family=JetBrains+Mono:wght@400;700&family=Poppins:wght@400;700&family=Raleway:wght@400;700&family=Ubuntu:wght@400;700&family=Merriweather:wght@400;700&family=Dancing+Script:wght@400;700&family=Pacifico&family=Satisfy&family=Zilla+Slab:wght@400;700&family=Spectral:wght@400;700&family=Noto+Sans:wght@400;700&family=Noto+Serif:wght@400;700&family=Playfair+Display:wght@400;700&family=Alegreya:wght@400;700&family=Alegreya+Sans:wght@400;700&family=Source+Sans+Pro:wght@400;700&family=Source+Serif+Pro:wght@400;700&family=Fraunces:wght@400;700&family=Inknut+Antiqua:wght@400;700&family=BioRhyme:wght@400;700&family=Karla:wght@400;700&family=Lora:wght@400;700&family=Work+Sans:wght@400;700&family=Rubik:wght@400;700&family=Space+Mono:wght@400;700&family=IBM+Plex+Sans:wght@400;700&family=IBM+Plex+Serif:wght@400;700&family=IBM+Plex+Mono:wght@400;700&family=Crimson+Text:wght@400;700&family=Arvo:wght@400;700&family=Nunito:wght@400;700&family=Cardo:wght@400;700&family=EB+Garamond:wght@400;700&family=Oswald:wght@400;700&family=Bitter:wght@400;700&family=Libre+Baskerville:wght@400;700&family=Tangerine:wght@400;700&family=Bad+Script&family=Sacramento&family=Archivo+Narrow:wght@400;700&family=Domine:wght@400;700&family=Josefin+Sans:wght@400;700&family=Vollkorn:wght@400;700&family=PT+Sans:wght@400;700&family=PT+Serif:wght@400;700&family=Cabin:wght@400;700&family=Overpass:wght@400;700&family=Quicksand:wght@400;700&family=Heebo:wght@400;700&family=Fjalla+One&family=Catamaran:wght@400;700&family=Mukta:wght@400;700&family=Barlow:wght@400;700&family=Signika:wght@400;700&family=Cormorant:wght@400;700&family=Space+Grotesk:wght@400;700&family=Syne:wght@400;700&family=Bebas+Neue&family=Anton&family=Chivo:wght@400;700&family=Manrope:wght@400;700&family=Red+Hat+Display:wght@400;700&family=Exo+2:wght@400;700&family=Comfortaa:wght@400;700&family=Mulish:wght@400;700&family=Asap:wght@400;700&family=Kumbh+Sans:wght@400;700&family=Lexend:wght@400;700&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link id="systemThemeLink" rel="stylesheet" href="./styles/vanilla.css">
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <script type="text/javascript"
+        src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js">
+    </script>
     <script type="text/javascript">
         (function(){
-            emailjs.init({
-                publicKey: "aq-zHpAOGx4vIhf5o",
-            });
+            emailjs.init("aq-zHpAOGx4vIhf5o");
         })();
     </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode/1.4.4/qrcode.min.js"></script>
     <script src="/system/feedbackScript.js"></script>
+    <script src="/system/tools.js"></script>
     <style>         
         /* Microphone icon turns red when active */
         #voiceIcon.active {
@@ -43,7 +45,7 @@
     <iframe id="backgroundYouTube" frameborder="0" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; object-fit: cover; transform: scale(1.1); will-change: transform;" allow="autoplay; encrypted-media" src=""></iframe>
     <div class="weather-widget" id="weatherWidget" onclick="openWeatherWidget()"> ... </div>
     <div class="info-bar" id="infoBar">
-        FluxoDev 4 Part 16 | Vanilla |  <span id="languageDisplay"></span>
+        FluxoDev 4 Part 17 - <span id="themeDisplay"></span> | <span id="languageDisplay"></span>
         <span id="accountInfo" style="margin-left:0px;"></span>
     </div>
     <div class="url-sidebar" id="urlSidebar"></div>
@@ -65,7 +67,7 @@
         <div id="settingsContent" class="tab-content active">
             <div class="tab-menu-settings">
                 <button id="applySettingsBtn" class="accent" data-lang-key="apply">Uygula</button>
-                <div id="applyStatus" class="status-message **data-lang-key="settingsStatus"**" style="display: none;"></div>
+                <div id="applyStatus" class="status-message" data-lang-key="settingsStatus" style="display: none;"></div>
             </div>
             <div id="importExportModal" class="modal">
                 <h3 data-lang-key="importExportTitle">Ayarları Aktar/Al</h3>
@@ -113,7 +115,6 @@
                 <option value="'Dancing Script', cursive">Dancing Script</option>
                 <option value="'Pacifico', cursive">Pacifico</option>
                 <option value="'Satisfy', cursive">Satisfy</option>
-                <option value="'', serif"></option>
                 <option value="'Spectral', serif">Spectral</option>
                 <option value="'Noto Sans', sans-serif">Noto Sans</option>
                 <option value="'Noto Serif', serif">Noto Serif</option>
@@ -185,9 +186,11 @@
             <label for="systemthemeSelect" data-lang-key="systemtheme">Sistem Teması:</label>
             <select id="systemThemeSelect">
                 <option value="vanilla" data-lang-key="vanilla">Vanilla (Varsayılan)</option>
+                <option value="fluent" data-lang-key="fluent">Fluent</option>
                 <option value="box" data-lang-key="box">Box</option>
                 <option value="neomorph" data-lang-key="neomorph">Neomorph</option>
                 <option value="glassmorph" data-lang-key="glassmorph">Glassmorph</option>
+                <option value="skeuomorph" data-lang-key="skeuomorph">Skeuomorphism</option>
             </select>
             <label for="accentColor" data-lang-key="accentColor">Vurgu Rengi:</label>
             <div id="colorPalette" class="flex flex-wrap gap-2 mt-2">
@@ -214,16 +217,7 @@
             <label for="languageSelect" data-lang-key="language">Dil:</label>
             <select id="languageSelect">
                 <option value="tr" data-lang-key="turkish">Türkçe</option>
-                <option value="en" data-lang-key="english">English</option>
-                <option value="es" data-lang-key="spanish">Español</option>
-                <option value="ru" data-lang-key="russian">Русский</option>
-                <option value="jp" data-lang-key="japanese">日本語</option>
-                <option value="zh" data-lang-key="chinese">中文</option>
-                <option value="ko" data-lang-key="korean">한국어</option>
-                <option value="de" data-lang-key="german">Deutsch</option>
-                <option value="fr" data-lang-key="french">Français</option>
-                <option value="it" data-lang-key="italian">Italiano</option>
-                <option value="ar" data-lang-key="arabic">العربية</option>
+                <option value="en" data-lang-key="english">English</option>                
                 <option value="az" data-lang-key="azerbaijani">Azərbaycan dili</option>
                 <option value="tk" data-lang-key="turkmen">Türkmençe</option>
                 <option value="gag" data-lang-key="gagauz">Gagavuzca</option>
@@ -235,10 +229,20 @@
                 <option value="ug" data-lang-key="uyghur">ئۇيغۇرچە</option>
                 <option value="sah" data-lang-key="yakut">Саха тыла</option>
                 <option value="cv" data-lang-key="chuvash">Чӑваш чӗлхи</option>
-                <option value="mn" data-lang-key="mongolian">Монгол хэл</option>
+                <option value="mn" data-lang-key="mongolian">Монгол хэл</option> 
+                <option value="jp" data-lang-key="japanese">日本語</option>
+                <option value="zh" data-lang-key="chinese">中文</option>
+                <option value="ko" data-lang-key="korean">한국어</option>                 
+                <option value="de" data-lang-key="german">Deutsch</option>
+                <option value="fr" data-lang-key="french">Français</option>
+                <option value="it" data-lang-key="italian">Italiano</option>                              
+                <option value="es" data-lang-key="spanish">Español</option>
+                <option value="ru" data-lang-key="russian">Русский</option>
+                <option value="pt" data-lang-key="portuguese">Português</option>
+                <option value="el" data-lang-key="greek">ελληνικά</option>                
+                <option value="ar" data-lang-key="arabic">العربية</option>
                 <option value="he" data-lang-key="hebrew">עִברִית</option>
                 <option value="hi" data-lang-key="hindi">हिन्दी</option>
-                <option value="el" data-lang-key="greek">ελληνικά</option>
             </select>
             <label for="searchEngineSelect" data-lang-key="searchEngine">Arama Motoru:</label>
             <select id="searchEngineSelect">
@@ -261,6 +265,11 @@
             <select id="multiSearchEnabled">
                 <option value="true" data-lang-key="yes">Evet</option>
                 <option value="false" data-lang-key="no">Hayır</option>
+            </select>
+            <label for="disableAnimations" data-lang-key="disableAnimations">Animasyonları Kapat:</label>
+            <select id="disableAnimations">
+                <option value="false" data-lang-key="no">Hayır</option>
+                <option value="true" data-lang-key="yes">Evet</option>
             </select>
 
             <h3 data-lang-key="viewparts">Görünüm</h3>
@@ -350,6 +359,11 @@
                 <option value="true" data-lang-key="yes">Evet</option>
                 <option value="false" data-lang-key="no">Hayır</option>
             </select>
+            <label for="showTools" data-lang-key="showTools">Araçlar Panelini Göster:</label>
+            <select id="showTools">
+                <option value="true" data-lang-key="yes">Evet</option>
+                <option value="false" data-lang-key="no">Hayır</option>
+            </select>
             <label for="showAccountInfoText" data-lang-key="showAccountInfoText">Bilgi Barında Hesap İsmini Göster:</label>
             <select id="showAccountInfoText">
                 <option value="true" data-lang-key="yes">Evet</option>
@@ -398,6 +412,7 @@
                 <option value="30" data-lang-key="every30Min">Her 30 Dakika</option>
                 <option value="0" data-lang-key="manual">Manuel</option>
             </select>
+            
 
             <h3 data-lang-key="shortcuts">Klavye Kısayolları</h3>
             <label for="searchShortcutInput" data-lang-key="searchShortcut">Arama Çubuğu:</label>
@@ -407,19 +422,7 @@
             <label for="settingsShortcutInput" data-lang-key="settingsShortcut">Ayarlar Paneli:</label>
             <input type="text" id="settingsShortcutInput" placeholder="Ör: Ctrl + Shift + X" value="Ctrl + Shift + X">
             <label for="historyShortcutInput" data-lang-key="historyShortcut">Geçmiş Paneli:</label>
-            <input type="text" id="historyShortcutInput" placeholder="Ör: Ctrl + Shift + H" value="Ctrl + Shift + H">
-            <label for="supportShortcutInput" data-lang-key="supportShortcut">Destek Paneli:</label>
-            <input type="text" id="supportShortcutInput" placeholder="Ör: Ctrl + Alt + S" value="Ctrl + Alt + S">
-            <label for="imagesShortcutInput" data-lang-key="imagesShortcut">Görseller Araması:</label>
-            <input type="text" id="imagesShortcutInput" placeholder="Ör: Ctrl + i" value="Ctrl + i">
-            <label for="shoppingShortcutInput" data-lang-key="shoppingShortcut">Alışveriş Araması:</label>
-            <input type="text" id="shoppingShortcutInput" placeholder="Ör: Ctrl + S" value="Ctrl + S">
-            <label for="newsShortcutInput" data-lang-key="newsShortcut">Haberler Araması:</label>
-            <input type="text" id="newsShortcutInput" placeholder="Ör: Ctrl + N" value="Ctrl + N">
-            <label for="accountShortcutInput" data-lang-key="accountShortcut">Hesap Paneli:</label>
-            <input type="text" id="accountShortcutInput" placeholder="Ör: Ctrl + Shift + A" value="Ctrl + Shift + A">
-            <label for="aiShortcutInput" data-lang-key="aiShortcut">Yapay Zeka Araması:</label>
-            <input type="text" id="aiShortcutInput" placeholder="Ör: Ctrl + Shift + I" value="Ctrl + Shift + I">
+            <input type="text" id="historyShortcutInput" placeholder="Ör: Ctrl + Shift + H" value="Ctrl + Shift + H">           
 
             <button id="resetBrowserBtn" class="accent" data-lang-key="resetBrowser">Bu tarayıcıyı sıfırla</button>
         </div>
@@ -429,6 +432,7 @@
             <h3 data-lang-key="searchHistory">Arama Geçmişi</h3>
             <div id="historyList"></div>
         </div>
+
         <div id="supportContent" class="tab-content">
             <h3 data-lang-key="support">Destek</h3>
             <form id="feedbackForm">
@@ -437,12 +441,11 @@
                 <textarea id="feedbackMessage" data-lang-key="feedbackMessageHolder" name="message" placeholder="Geri bildiriminizi buraya yazın" rows="5" required></textarea>
 
                 <button type="button" id="submitFeedbackBtn" data-lang-key="submitFeedback" class="accent">Geri Bildirim Gönder</button>
-                <div id="feedbackStatus" class="error-message"></div>
+                <div id="feedbackStatus" class="feedback-error"></div>
             </form> 
             <hr>
-                <div class="contact-area" style="margin-top: 25px;">
-        <p data-lang-key="contactEmail">Email: lakastanmi@gmail.com</p>
-        <p data-lang-key="contactHours">Çalışma Saatleri: 16:30 - 21:30</p>
+        <div class="contact-area" style="margin-top: 25px;">
+            <p data-lang-key="contactHours">Çalışma Saatleri: 16:30 - 21:30</p>
         </div>
         <div class="social-links" style="margin-top: 10px; text-align: center;">
         <div class="social-icons" style="display: flex; justify-content: center; gap: 15px; margin-top: 10px;">
@@ -459,13 +462,37 @@
     <button id="accountButton" title="Hesap">
         <img id="accountIcon" src="assets/light/account.png" alt="Hesap">
     </button>
-    <div id="addFavoriteModal">
-        <span class="close" onclick="document.getElementById('addFavoriteModal').style.display='none'">×</span>
-        <label for="modalName" data-lang-key="favoriteName">İsim:</label>
-        <input type="text" data-lang-key="favoriteNameHolder" id="modalName" placeholder="Favori ismi">
-        <label for="modalUrl" data-lang-key="favoriteUrl">URL:</label>
-        <input type="text" id="modalUrl" placeholder="https://...">
-        <button id="addFavoriteModalBtn" class="accent" data-lang-key="add">Ekle</button>
+
+<div id="addFavoriteModal">
+    <span class="close" onclick="document.getElementById('addFavoriteModal').style.display='none'">×</span>
+    <label for="modalName" data-lang-key="favoriteName">İsim:</label>
+    <input type="text" data-lang-key="favoriteNameHolder" id="modalName" placeholder="Favori ismi">
+    <label for="modalUrl" data-lang-key="favoriteUrl">URL:</label>
+    <input type="text" id="modalUrl" placeholder="https://...">
+    <hr>
+    <div class="button-group">
+        <button id="addFavoriteModalBtn" class="accent icon-only">
+            <img src="assets/light/add.png" id="addIcon" class="button-icon-favorite">
+        </button>
+        <button id="createFolderBtn" class="accent icon-only">
+            <img src="assets/light/addfolder.png" id="addFolderIcon" class="button-icon-favorite">
+        </button>
+        <button id="addToFolderBtn" class="accent icon-only">
+            <img src="assets/light/addtofolder.png" id="addToFolderIcon" class="button-icon-favorite">
+        </button>
+    </div>
+    <div id="folderSelect" style="display: none; margin-top: 10px;">
+        <label data-lang-key="selectFolder">Klasör Seç:</label>
+        <select id="folderDropdown"></select>
+    </div>
+</div>
+
+    <div id="folderContextMenu" style="display: none;">
+        <div class="fav-menu-item" data-lang-key="renameFolder" data-action="renameFolder">Yeniden Adlandır</div>
+        <div class="fav-menu-item" data-lang-key="changeIcon" data-action="changeIcon">İkon Değiştir</div>
+        <div class="fav-menu-item" data-lang-key="moveLeft" data-action="moveLeft">Sola Taşı</div>
+        <div class="fav-menu-item" data-lang-key="moveRight" data-action="moveRight">Sağa Taşı</div>
+        <div class="fav-menu-item" data-lang-key="removeFolder" data-action="removeFolder" style="padding:8px 16px; cursor:pointer; color:#ff4444;">Klasörü Kaldır</div>
     </div>
     <div id="multiSearchMenu" class="multi-search-menu">
         <div class="multi-search-item" data-engine="google"><img src="https://www.google.com/favicon.ico" alt="Google" class="search-icon"><span>Google</span></div>
@@ -474,13 +501,28 @@
         <div class="multi-search-item" data-engine="yandex"><img src="https://yandex.com/favicon.ico" alt="Yandex" class="search-icon"><span>Yandex</span></div>
         <div class="multi-search-item" data-engine="brave"><img src="https://brave.com/static-assets/images/brave-favicon.png" alt="Brave" class="search-icon"><span>Brave</span></div>
         <div class="multi-search-item" data-engine="yahoo"><img src="https://www.yahoo.com/favicon.ico" alt="Yahoo" class="search-icon"><span>Yahoo</span></div>
+        <hr>
         <div id="selectAllMultiSearch" data-lang-key="selectAll" class="multi-search-select-all">Tümünü Seç</div>
     </div>
+
+<div id="folderModal" class="modal" style="display: none;">
+    <div class="modal-content"> <!-- Yeni wrapper -->
+        <h3 id="folderTitle" data-lang-key="folderContents"></h3>
+        <div id="folderFavorites"></div>
+    </div>
+</div>
+
     <div id="voiceSearchModal" class="modal">
         <div id="voiceTranscript" contenteditable="true" class="transcript" data-placeholder="Söyledikleriniz burada görünecek..."></div>
-        <button id="confirmVoiceBtn" class="accent" data-lang-key="confirm">Tamam</button>
-        <button id="cancelVoiceBtn" class="accent" data-lang-key="cancel">İptal</button>
+        <hr>
+        <button id="confirmVoiceBtn" class="accent">
+            <img src="assets/light/check.png" id="checkIcon" class="button-icon-favorite">
+        </button>        
+        <button id="cancelVoiceBtn" class="accent">
+            <img src="assets/light/cancel.png" id="cancelIcon" class="button-icon-favorite">
+        </button>
     </div>
+
     <div class="container">
         <div class="logo" id="logo">
             <a href="#" onclick="window.location.reload()">
@@ -524,13 +566,150 @@
 <div id="weatherPopup" class="weather-popup">
     <span class="close-popup" onclick="closeWeatherPopup()">&times;</span>
     <h3 data-lang-key="forecastDayTitle" id="popupLocation">Hava Durumu Tahminleri</h3>
+    <hr>
     <div id="forecastList"></div>
 </div>
 </div>
+
+<div class="tools-widget" id="toolsWidget" onclick="toggleToolsPanel()">
+    <img src="assets/light/tools.png" alt="Araçlar" id="toolsIcon">
+</div>
+<div id="toolsPanel" class="tools-panel">
+    <span class="panel-close" onclick="toggleToolsPanel()">&times;</span>
+    <h3 style="font-size: 1.2rem; margin-bottom: 12px; font-weight: bold; " data-lang-key="tools">Araçlar</h3>
+    <div class="widget-grid">
+        <!-- Saat Widget -->
+        <div class="widget-item" id="clockWidget" draggable="true">
+            <h4 data-lang-key="clock"><span class="drag-handle">⋮⋮</span>Saat</h4>
+            <div id="clockDisplay">00:00:00</div>
+            <p id="dateDisplay"></p>
+        </div>
+
+        <!-- Not widget örneği -->
+        <div class="widget-item" id="noteWidget" draggable="true">
+            <h4 data-lang-key="notesWidget"><span class="drag-handle">⋮⋮</span>Notlar</h4>
+            <input type="text" data-lang-key="addNoteHolder" id="noteInput" placeholder="Yeni not ekle...">
+            <button data-lang-key="addNoteButton" class="accent small-accent-tools" onclick="addNote()">Ekle</button> <!-- .accent ekle -->
+            <ul id="notesList"></ul>
+        </div>
+
+        <!-- Finance Widget - Genişletilmiş Seçenekli -->
+        <div class="widget-item" id="financeWidget" draggable="true">
+            <h4 data-lang-key="finance"><span class="drag-handle">⋮⋮</span>Finans</h4>
+            <select id="financeSymbol" onchange="fetchFinanceData()">
+                <option value="XU100.IS">BIST100</option>
+                <option value="^GSPC">S&P 500</option>
+                <option value="^DJI">Dow Jones</option>
+                <option value="^IXIC">NASDAQ</option>
+                <option value="AAPL">Apple (AAPL)</option>
+                <option value="GOOGL">Google (GOOGL)</option>
+                <option value="MSFT">Microsoft (MSFT)</option>
+                <option value="TSLA">Tesla (TSLA)</option>
+                <option value="EURUSD=X">EUR/USD</option>
+                <option value="GBPUSD=X">GBP/USD</option>
+                <option value="USDTRY=X">USD/TRY</option>
+                <option value="EURTRY=X">EUR/TRY</option>
+            </select>
+            <div data-lang-key="financeDisplay" id="financeDisplay">Seçiniz...</div>
+            <button class="accent small-accent-tools" data-lang-key="updateButton" onclick="fetchFinanceData()">Güncelle</button> <!-- .accent ekle -->
+        </div>
+
+        <!-- QR örneği -->
+        <div class="widget-item" id="qrWidget" draggable="true">
+            <h4 data-lang-key="qrWidget"><span class="drag-handle">⋮⋮</span>QR Oluştur</h4>
+            <input type="text" id="qrInput" data-lang-key="qrInputHolder" placeholder="QR metni gir...">
+            <button class="accent small-accent-tools" onclick="downloadQR()" style="display: none;" data-lang-key="downloadQR" id="downloadQrBtn">İndir</button>
+            <button class="accent small-accent-tools" data-lang-key="generateButton" onclick="generateQR()">Oluştur</button> <!-- .accent ekle -->
+            <div id="qrDisplay"></div>
+        </div>
+
+        <!-- Döviz Çevirici Widget -->
+        <div class="widget-item" id="currencyWidget" draggable="true">
+            <h4 data-lang-key="currencyWidget"><span class="drag-handle">⋮⋮</span>Döviz Çevirici</h4>
+            <input type="number" id="currencyAmount" data-lang-key="currencyAmountHolder" placeholder="Miktar" value="1" min="0" step="0.01">
+            <select id="currencyFrom">
+                <option data-lang-key="USD" value="USD">USD - Amerikan Doları</option>
+                <option data-lang-key="EUR" value="EUR">EUR - Euro</option>
+                <option data-lang-key="TRY" value="TRY">TRY - Türk Lirası</option>
+                <option data-lang-key="GBP" value="GBP">GBP - İngiliz Sterlini</option>
+                <option data-lang-key="JPY" value="JPY">JPY - Japon Yeni</option>
+                <option data-lang-key="CAD" value="CAD">CAD - Kanada Doları</option>
+                <option data-lang-key="AUD" value="AUD">AUD - Avustralya Doları</option>
+                <option data-lang-key="CHF" value="CHF">CHF - İsviçre Frangı</option>
+                <option data-lang-key="CNY" value="CNY">CNY - Çin Yuanı</option>
+                <option data-lang-key="SEK" value="SEK">SEK - İsveç Kronu</option>
+                <option data-lang-key="NZD" value="NZD">NZD - Yeni Zelanda Doları</option>
+                <option data-lang-key="MXN" value="MXN">MXN - Meksika Peso</option>
+                <option data-lang-key="SGD" value="SGD">SGD - Singapur Doları</option>
+                <option data-lang-key="HKD" value="HKD">HKD - Hong Kong Doları</option>
+                <option data-lang-key="NOK" value="NOK">NOK - Norveç Kronu</option>
+                <option data-lang-key="KRW" value="KRW">KRW - Güney Kore Wonu</option>
+                <option data-lang-key="INR" value="INR">INR - Hint Rupisi</option>
+                <option data-lang-key="RUB" value="RUB">RUB - Rus Rublesi</option>
+                <option data-lang-key="ZAR" value="ZAR">ZAR - Güney Afrika Randı</option>
+                <option data-lang-key="BRL" value="BRL">BRL - Brezilya Reali</option>
+            </select>
+            <span> → </span>
+            <select id="currencyTo">
+                <option data-lang-key="EUR" value="EUR">EUR - Euro</option>
+                <option data-lang-key="USD" value="USD">USD - Amerikan Doları</option>
+                <option data-lang-key="TRY" value="TRY">TRY - Türk Lirası</option>
+                <option data-lang-key="GBP" value="GBP">GBP - İngiliz Sterlini</option>
+                <option data-lang-key="JPY" value="JPY">JPY - Japon Yeni</option>
+                <option data-lang-key="CAD" value="CAD">CAD - Kanada Doları</option>
+                <option data-lang-key="AUD" value="AUD">AUD - Avustralya Doları</option>
+                <option data-lang-key="CHF" value="CHF">CHF - İsviçre Frangı</option>
+                <option data-lang-key="CNY" value="CNY">CNY - Çin Yuanı</option>
+                <option data-lang-key="SEK" value="SEK">SEK - İsveç Kronu</option>
+                <option data-lang-key="NZD" value="NZD">NZD - Yeni Zelanda Doları</option>
+                <option data-lang-key="MXN" value="MXN">MXN - Meksika Peso</option>
+                <option data-lang-key="SGD" value="SGD">SGD - Singapur Doları</option>
+                <option data-lang-key="HKD" value="HKD">HKD - Hong Kong Doları</option>
+                <option data-lang-key="NOK" value="NOK">NOK - Norveç Kronu</option>
+                <option data-lang-key="KRW" value="KRW">KRW - Güney Kore Wonu</option>
+                <option data-lang-key="INR" value="INR">INR - Hint Rupisi</option>
+                <option data-lang-key="RUB" value="RUB">RUB - Rus Rublesi</option>
+                <option data-lang-key="ZAR" value="ZAR">ZAR - Güney Afrika Randı</option>
+                <option data-lang-key="BRL" value="BRL">BRL - Brezilya Reali</option>
+            </select>
+            <br>
+            <button class="accent small-accent-tools" data-lang-key="convertButton" onclick="convertCurrency()">Çevir</button>
+            <div id="currencyResult" style="margin-top: 10px; font-weight: bold;"></div>
+        </div>
+
+        <!-- Haberler Widget - Ülke Seçenekli -->
+        <div class="widget-item" id="newsWidget" draggable="true">
+            <h4 data-lang-key="newsWidget"><span class="drag-handle">⋮⋮</span>Haberler</h4>
+            <select id="newsCountry" onchange="fetchNews()">
+                <option value="https://feeds.bbci.co.uk/news/world/rss.xml">UK - BBC</option>
+                <option value="https://feeds.nbcnews.com/nbcnews/public/news">US - NBC</option>
+                <option value="https://www.nytimes.com/svc/collections/v1/publish/https://www.nytimes.com/section/world/rss.xml">US - NYT World</option>
+                <option value="https://www.france24.com/en/rss">France - France 24</option>
+                <option value="https://www.rfi.fr/en/international/rss">France - RFI</option>
+                <option value="https://www.lemonde.fr/international/rss_full.xml">France - Le Monde</option>
+                <option value="https://www.spiegel.de/international/index.rss">Germany - Spiegel</option>
+                <option value="https://www.smh.com.au/rss/world.xml">Australia - Sydney Morning Herald</option>
+                <option value="https://timesofindia.indiatimes.com/rssfeeds/296589292.cms">India - Times of India</option>
+                <option value="https://www.rt.com/rss/news/">Russia - RT</option>
+                <option value="https://www.aljazeera.com/xml/rss/all.xml">Qatar - Al Jazeera</option>
+                <option value="https://www.scmp.com/rss/91/feed/">China - SCMP</option>
+                <option value="https://globalnews.ca/world/feed/">Canada - Global News</option>
+                <option value="https://www.ntv.com.tr/gundem.rss">Turkey - NTV</option>
+                <option value="https://i12.haber7.net/sondakika/newsstand/latest.xml">Turkey - Haber7</option>
+            </select>
+            <ul id="newsList" style="list-style: none; padding: 0;">
+                <li> ... </li>
+            </ul>
+            <button class="accent small-accent-tools" data-lang-key="updateButton" onclick="fetchNews()">Güncelle</button>
+        </div>
+    </div>
+</div>
+
 <div id="accountModal">
     <div id="accountModalInner">
         <span class="close" onclick="closeAccountPanel()">×</span>
         <h3 id="accountModalTitle" data-lang-key="account">Hesap</h3>
+        <hr>
         <div id="accountForm">
             <input type="text" id="accountUsername" data-lang-key="usernameInput" placeholder="Kullanıcı adı" autocomplete="username">
             <input type="password" id="accountPassword" data-lang-key="accountPasswordInput" placeholder="" autocomplete="current-password">
@@ -543,7 +722,6 @@
         </div>
 <div id="accountLoggedIn">
     <div id="accountWelcome" class="welcome-section"></div>
-    
     <div class="profile-edit">
         <div class="edit-section">
             <label for="editNameInput" data-lang-key="changeAccountName" class="section-label">Ad Değiştir:</label>
@@ -558,20 +736,21 @@
         
     <div class="edit-section">
         <label for="profilePicInput" data-lang-key="profilePicInput" class="section-label">Profil Resmi Yükle:</label>
-    <div class="input-group">
-        <input type="file" id="profilePicInput" accept="image/*" style="display: none;">
-        <button id="uploadPicBtn" data-lang-key="choosePic" class="accent small-accent">Resim Seç</button>
-        <div id="picPreview" class="preview-container" style="margin-top: 10px;"></div>
-        <div class="button-group" style="margin-top: 10px;">
-            <button id="savePicBtn" data-lang-key="savePic" class="accent small-accent" style="display: none;">Resmi Kaydet</button>
-            <button id="removePicBtn" data-lang-key="deletePic" class="accent small-accent danger" style="display: none;">Resmi Kaldır</button>
+            <div class="input-group">
+                <input type="file" id="profilePicInput" accept="image/*" style="display: none;">
+                <button id="uploadPicBtn" data-lang-key="choosePic" class="accent small-accent">Resim Seç</button>
+                <div id="picPreview" class="preview-container" style="margin-top: 10px;"></div>
+                <div class="button-group" style="margin-top: 10px;">
+                    <button id="savePicBtn" data-lang-key="savePic" class="accent small-accent" style="display: none;">Resmi Kaydet</button>
+                    <button id="removePicBtn" data-lang-key="deletePic" class="accent small-accent danger" style="display: none;">Resmi Kaldır</button>
+                </div>
+            </div>
         </div>
+    <button id="accountLogoutBtn" class="accent logout-btn" data-lang-key="logout">Çıkış Yap</button>
+                </div>
             </div>
         </div>
     </div>
-    
-    <button id="accountLogoutBtn" class="accent logout-btn" data-lang-key="logout">Çıkış Yap</button>
-</div>
     <!-- Sağ tık menüsü -->
     <div id="favoriteContextMenu" data-index="-1">
         <div class="fav-menu-item" data-action="open" data-lang-key="openFav" style="padding:8px 16px; cursor:pointer;">Aç</div>
@@ -583,19 +762,19 @@
 
     <script type="module">
         import { translations, updateLanguage } from './system/language.js';
-        import { resetBrowser, selectColor, rgbToHex, updateSearchEnginePreview, openImportExportModal, closeImportExportModal, exportSettings, importSettings, applySettings, saveSettingsFromInputs } from './system/settings.js';
+        import { resetBrowser, selectColor, rgbToHex, updateSearchEnginePreview, openImportExportModal, closeImportExportModal, exportSettings, importSettings, applySettings, saveSettingsFromInputs, bindShortcuts } from './system/settings.js';
         import { applyBackground, updateRecentBgList, removeBackground } from './system/background.js';
         import { search, fetchSuggestions, debounce, toggleMultiSearchMenu } from './system/search.js';
         import { loadFavorites, addFavoriteFromModal, showFavoriteContextMenu, handleDragStart, handleDragOver, handleDrop, removeFavorite } from './system/favorites.js';
         import { loadSearchHistory, removeSearchHistory } from './system/history.js';
         import { updateAccountUI, showAccountModal, closeAccountPanel, updateAccountModalTheme } from './system/account.js';
         import { initVoiceSearch } from './system/voice.js';
-        import { bindShortcuts } from './system/shortcuts.js';
         import { fetchWeather, startWeatherUpdate } from './system/weather.js';
         import { isInappropriateUsername } from './system/security.js';
 
         window.updateLanguage = updateLanguage;
         window.selectColor = selectColor;
+        window.translations = translations;
 
         // FONT SELECT CHANGE EVENT
         document.getElementById("fontSelect").addEventListener("change", function() {
@@ -862,6 +1041,9 @@ document.addEventListener("click", (e) => {
         menu.style.display = "none";
         document.querySelectorAll(".favorite-item").forEach(item => item.classList.remove("context-active"));
     }
+    if (e.target.id === "folderModal") {
+        closeFolderModal();
+    }
 });
 
 window.closeAccountPanel = closeAccountPanel;
@@ -882,7 +1064,7 @@ searchInput.addEventListener("input", () => {
     }
 });
 
-searchInput.addEventListener("keydown", (e) => {
+document.addEventListener("keydown", (e) => {
     const suggestions = suggestionsBox.querySelectorAll("li");
     if (e.key === "ArrowDown") {
         e.preventDefault();
@@ -939,13 +1121,8 @@ window.onload = () => {
     const favoriteShortcut = localStorage.getItem("favoriteShortcut") || "Ctrl + Shift + F";
     const settingsShortcut = localStorage.getItem("settingsShortcut") || "Ctrl + Shift + X";
     const historyShortcut = localStorage.getItem("historyShortcut") || "Ctrl + Shift + H";
-    const imagesShortcut = localStorage.getItem("imagesShortcut") || "Ctrl + i";
-    const shoppingShortcut = localStorage.getItem("shoppingShortcut") || "Ctrl + S";
-    const newsShortcut = localStorage.getItem("newsShortcut") || "Ctrl + N";
-    const accountShortcut = localStorage.getItem("accountShortcut") || "Ctrl + Shift + A";
-    const aiShortcut = localStorage.getItem("aiShortcut") || "Ctrl + Shift + I";
     const weatherLocation = localStorage.getItem("weatherLocation") || "";
-    const weatherUpdateInterval = localStorage.getItem("weatherUpdateInterval") || "manual";
+    const weatherUpdateInterval = localStorage.getItem("weatherUpdateInterval") || "0";
     const linkBehavior = localStorage.getItem("linkBehavior") || "newTab";
     const aiProvider = localStorage.getItem("aiProvider") || "chatgpt";
     const customAiUrl = localStorage.getItem("customAiUrl") || "";
@@ -953,6 +1130,7 @@ window.onload = () => {
     const showSearchShortcuts = localStorage.getItem("showSearchShortcuts") || "true";
     const showAccountButton = localStorage.getItem("showAccountButton") || "true";
     const showAccountInfoText = localStorage.getItem("showAccountInfoText") || "true";
+    const showTools = localStorage.getItem("showTools") || "true";
     const logoPosition = localStorage.getItem("logoPosition") || "center";
     const showBgRemove = localStorage.getItem('showBgRemove') || 'true';
     const multiSearchEnabled = localStorage.getItem("multiSearchEnabled") || "false";
@@ -989,11 +1167,6 @@ window.onload = () => {
     document.getElementById("favoriteShortcutInput").value = favoriteShortcut;
     document.getElementById("settingsShortcutInput").value = settingsShortcut;
     document.getElementById("historyShortcutInput").value = historyShortcut;
-    document.getElementById("imagesShortcutInput").value = imagesShortcut;
-    document.getElementById("shoppingShortcutInput").value = shoppingShortcut;
-    document.getElementById("newsShortcutInput").value = newsShortcut;
-    document.getElementById("accountShortcutInput").value = accountShortcut;
-    document.getElementById("aiShortcutInput").value = aiShortcut;
     document.getElementById("weatherLocation").value = weatherLocation;
     document.getElementById("weatherUpdateInterval").value = weatherUpdateInterval;
     document.getElementById("linkBehavior").value = linkBehavior;
@@ -1008,11 +1181,19 @@ window.onload = () => {
     document.getElementById("logoPositionSelect").value = logoPosition;
     document.getElementById("systemThemeSelect").value = st;
     document.getElementById("multiSearchEnabled").value = multiSearchEnabled;
+    document.getElementById("createFolderBtn").onclick = createFolder;
+    document.getElementById("addToFolderBtn").onclick = toggleFolderAdd;
 
     document.getElementById("linkBehavior").addEventListener("change", () => {
     localStorage.setItem("linkBehavior", document.getElementById("linkBehavior").value);
     console.log("LinkBehavior set to:", document.getElementById("linkBehavior").value);
     });
+
+        const themeDisplay = document.getElementById("themeDisplay");
+    if (themeDisplay) {
+        const systemTheme = localStorage.getItem("systemTheme") || "vanilla";
+        themeDisplay.textContent = systemTheme.charAt(0).toUpperCase() + systemTheme.slice(1);
+    }
 
     // Logo settings
     const logoImg = document.getElementById("logoImg");
@@ -1034,6 +1215,10 @@ window.onload = () => {
             logoPosition === "right" ? "flex-end" : "center";
     }
 
+    window.closeFolderModal = function() {
+    document.getElementById("folderModal").style.display = "none";
+};
+
     // Display toggles
     document.getElementById("searchBar").style.display = showSearch === "true" ? "flex" : "none";
     document.getElementById("favorites").style.display = sf === "true" ? "flex" : "none";
@@ -1043,6 +1228,7 @@ window.onload = () => {
     document.getElementById("accountButton").style.display = showAccountButton === "true" ? "block" : "none";
     document.getElementById("accountInfo").style.display = showAccountInfoText === "true" && localStorage.getItem("accountUsername") ? "inline" : "none";
     document.querySelector(".buttons").style.display = showSearchShortcuts === "true" ? "flex" : "none";
+    document.getElementById("toolsWidget").style.display = showTools === "true" ? "block" : "none";
     document.getElementById("removeBgBtn").style.display = showBgRemove === "true" ? "block" : "none";
 
     
