@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="icon" type="image/icon" href="assets/404favicon.png">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/icon" href="assets/404favicon.png" />
   <title>404 - Page Not Found</title>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -19,6 +19,69 @@
       font-family: "Segoe UI", sans-serif;
       overflow: hidden;
       position: relative;
+      transition: background 0.5s;
+    }
+
+    /* 🌙 Switch container */
+    .switch-container {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.9em;
+      z-index: 5;
+    }
+
+    .switch-label {
+      color: #fff;
+    }
+
+    /* 🟢 Switch */
+    .switch {
+      position: relative;
+      display: inline-block;
+      width: 50px;
+      height: 26px;
+    }
+
+    .switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: #555;
+      transition: 0.4s;
+      border-radius: 34px;
+    }
+
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 20px;
+      width: 20px;
+      left: 3px;
+      bottom: 3px;
+      background-color: white;
+      transition: 0.4s;
+      border-radius: 50%;
+    }
+
+    input:checked + .slider {
+      background-color: #ff5252;
+    }
+
+    input:checked + .slider:before {
+      transform: translateX(24px);
     }
 
     h1 {
@@ -28,7 +91,11 @@
       animation: glow 1.5s ease-in-out infinite alternate;
       z-index: 3;
       cursor: pointer;
-      user-select: none; /* Yazı seçilemesin */
+      user-select: none;
+    }
+    h1.no-anim {
+      animation: none;
+      text-shadow: none;
     }
 
     p, a, #countdown { z-index: 3; }
@@ -50,13 +117,13 @@
       font-weight: bold;
       transition: 0.3s;
     }
-
     a:hover { background: #ff7b7b; transform: scale(1.05); }
 
     #countdown {
       margin-top: 10px;
       color: #aaa;
       font-size: 0.95em;
+      transition: color 0.3s;
     }
 
     @keyframes glow {
@@ -75,19 +142,6 @@
     @keyframes float {
       from { transform: translateY(100vh) scale(0); opacity: 1; }
       to { transform: translateY(-10vh) scale(1); opacity: 0; }
-    }
-
-    /* 🖱 Mouse glow (daha da küçültülmüş) */
-    .cursor-glow {
-      position: fixed;
-      width: 25px;
-      height: 25px;
-      pointer-events: none;
-      background: radial-gradient(circle, rgba(255,255,255,0.35) 0%, transparent 70%);
-      border-radius: 50%;
-      transform: translate(-50%, -50%);
-      mix-blend-mode: screen;
-      z-index: 2;
     }
 
     /* 💥 Patlama efekti */
@@ -110,26 +164,44 @@
       50% { transform: translate(-50%, -50%) scale(2.5); opacity: 0.8; }
       100% { transform: translate(-50%, -50%) scale(4); opacity: 0; }
     }
+
+    /* 🫨 Shake effect */
+    @keyframes shake {
+      0% { transform: translate(0, 0); }
+      20% { transform: translate(-10px, 0); }
+      40% { transform: translate(10px, 0); }
+      60% { transform: translate(-6px, 0); }
+      80% { transform: translate(6px, 0); }
+      100% { transform: translate(0, 0); }
+    }
+    .shake {
+      animation: shake 0.4s;
+    }
   </style>
 </head>
 <body>
-  <div class="cursor-glow"></div>
+  <div class="switch-container">
+    <span class="switch-label">Animasyonlar</span>
+    <label class="switch">
+      <input type="checkbox" id="animSwitch">
+      <span class="slider"></span>
+    </label>
+  </div>
 
-  <h1 id="error-title">404</h1>
+  <h1 id="error-title" class="no-anim">404</h1>
   <p><strong>Oops! Page not found :(</strong></p>
   <p>The page you are looking for doesn’t exist.</p>
   <a href="/">Go Back Home</a>
-  <div id="countdown">You will be redirected in <span id="time">30</span> seconds...</div>
+  <div id="countdown">You will be redirected in <span id="time">40</span> seconds...</div>
 
   <script>
-    // Başlangıç değerleri
-    let timeLeft = 30;
-    let countdownSpeed = 1000; // 1 saniye
-    let particleIntervalSpeed = 100; // yıldızların aralığı (ms)
+    let timeLeft = 40;
+    let countdownSpeed = 1000;
     const timerElement = document.getElementById('time');
-
-    // Geri sayım fonksiyonu
     let timer = setInterval(countDown, countdownSpeed);
+    let particleInterval;
+    let animationsEnabled = false;
+
     function countDown() {
       timeLeft--;
       timerElement.textContent = timeLeft;
@@ -139,8 +211,23 @@
       }
     }
 
-    // 🌠 Kayan yıldızlar
+    const switchInput = document.getElementById('animSwitch');
+    const title = document.getElementById('error-title');
+
+    switchInput.addEventListener('change', () => {
+      animationsEnabled = switchInput.checked;
+      title.classList.toggle('no-anim', !animationsEnabled);
+
+      if (animationsEnabled) {
+        particleInterval = setInterval(createParticle, 100);
+      } else {
+        clearInterval(particleInterval);
+        document.querySelectorAll('.particle').forEach(p => p.remove());
+      }
+    });
+
     function createParticle() {
+      if (!animationsEnabled) return;
       const particle = document.createElement('div');
       particle.classList.add('particle');
       const size = Math.random() * 6 + 4;
@@ -151,36 +238,25 @@
       document.body.appendChild(particle);
       setTimeout(() => particle.remove(), 10000);
     }
-    let particleInterval = setInterval(createParticle, particleIntervalSpeed);
 
-    // 🖱 Mouse Glow
-    const cursorGlow = document.querySelector('.cursor-glow');
-    document.addEventListener('mousemove', (e) => {
-      cursorGlow.style.top = `${e.clientY}px`;
-      cursorGlow.style.left = `${e.clientX}px`;
-    });
-
-    // 💥 404 yazısına 5 kez tıklanınca patlama + hızlanma
     let clickCount = 0;
-    const title = document.getElementById('error-title');
     title.addEventListener('click', () => {
+      if (!animationsEnabled) return;
       clickCount++;
       if (clickCount === 5) {
-        // Patlama efekti oluştur
         const explosion = document.createElement('div');
         explosion.classList.add('explosion');
         document.body.appendChild(explosion);
         setTimeout(() => explosion.remove(), 800);
 
-        // Geri sayımı hızlandır
+        document.body.classList.add('shake');
+        setTimeout(() => document.body.classList.remove('shake'), 400);
+
         clearInterval(timer);
         countdownSpeed = 500;
         timer = setInterval(countDown, countdownSpeed);
-
-        // Yıldızları hızlandır
-        clearInterval(particleInterval);
-        particleIntervalSpeed = 50;
-        particleInterval = setInterval(createParticle, particleIntervalSpeed);
+        timerElement.style.color = "#ff5252";
+        timerElement.style.fontWeight = "bold";
 
         clickCount = 0;
       }
