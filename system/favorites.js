@@ -45,14 +45,13 @@ export function loadFavorites() {
         localStorage.setItem(FOLDERS_KEY, "[]");
     }
 
-// Klasörleri render et
-folders.forEach((folder, fIndex) => {
-    const folderDiv = document.createElement("div");
-    folderDiv.className = "favorite-item folder-item";
-    folderDiv.setAttribute("data-folder-index", fIndex);
-    const theme = localStorage.getItem("theme") || "light";
-    
-    // Eğer folder.icon varsa onu kullan yoksa varsayılanı kullan
+    // Klasörleri render et
+    folders.forEach((folder, fIndex) => {
+        const folderDiv = document.createElement("div");
+        folderDiv.className = "favorite-item folder-item";
+        folderDiv.setAttribute("data-folder-index", fIndex);
+        const theme = localStorage.getItem("theme") || "light";
+        
 const iconSrc = folder.icon && folder.icon !== "" 
     ? folder.icon 
     : (theme === "light" ? "assets/dark/folder.png" : "assets/light/folder.png");
@@ -108,7 +107,7 @@ const iconSrc = folder.icon && folder.icon !== ""
         btn.setAttribute("data-index", i);
         btn.innerHTML = `
             <div style="display:flex; flex-direction: column; align-items: center; gap:4px; text-align: center;">
-                <img src="${faviconUrl}" style="width:32px;height:32px;border-radius:6px;" onerror="this.src='ico/default-favicon.png'">
+                <img src="${faviconUrl}" style="width:32px;height:32px;border-radius:6px; cursor: pointer; pointer-events: none;" onerror="this.src='ico/default-favicon.png'">
                 <a href="${f.url}" ${linkBehavior === "closeCurrent" ? "" : 'target="_blank"'}>${f.name}</a>
             </div>
         `;
@@ -120,6 +119,14 @@ const iconSrc = folder.icon && folder.icon !== ""
             e.preventDefault();
             showFavoriteContextMenu(e, i, f);
         });
+
+        btn.onclick = (e) => {
+            const url = f.url;
+            e.preventDefault();
+            e.stopPropagation();
+            window.open(url, linkBehavior === "newTab" ? "_blank" : "_self");
+        };
+
         cont.appendChild(btn);
     });
 
@@ -146,13 +153,11 @@ export function removeFavorite(i) {
     loadFavorites();
 }
 
-let draggedIndex = null;
 let currentOpenFolderIndex = -1;
 let lastModalPos = {x: 100, y: 100};
 
 export function handleDragStart(e) {
-    draggedIndex = e.target.getAttribute("data-index");
-    e.dataTransfer.setData("text/plain", draggedIndex);
+    e.dataTransfer.setData("text/plain", e.currentTarget.getAttribute("data-index"));
 }
 
 export function handleDragOver(e) {
@@ -181,23 +186,22 @@ export function handleDrop(e) {
     let moved = false;
     const favs = JSON.parse(localStorage.getItem("userFavorites") || "[]");
     const folders = JSON.parse(localStorage.getItem(FOLDERS_KEY) || "[]");
-    const totalItems = favs.length + folders.reduce((sum, f) => sum + f.items.length, 0);
-    const maxFavorites = getMaxFavorites();
 
     if (!isNaN(sourceFavIndex)) {
         if (sourceFavIndex !== droppedIndex) {
             const draggedFav = favs.splice(sourceFavIndex, 1)[0];
-            favs.splice(droppedIndex, 0, draggedFav);
+            let insertIndex = droppedIndex;
+            if (sourceFavIndex < droppedIndex) {
+                insertIndex--;
+            }
+            favs.splice(insertIndex, 0, draggedFav);
             saveFavorites(favs);
             moved = true;
         }
     } else if (!isNaN(sourceFolderIndex) && !isNaN(sourceItemIndex)) {
-        if (totalItems >= maxFavorites) {
-            alert(`Toplam ${maxFavorites} favori sınırına ulaşıldı.`);
-            return;
-        }
         const item = folders[sourceFolderIndex].items.splice(sourceItemIndex, 1)[0];
-        favs.splice(droppedIndex, 0, item);
+        let insertIndex = droppedIndex;
+        favs.splice(insertIndex, 0, item);
         localStorage.setItem(FOLDERS_KEY, JSON.stringify(folders));
         saveFavorites(favs);
         moved = true;
@@ -210,7 +214,6 @@ export function handleDrop(e) {
             setTimeout(() => openFolderModal(currentOpenFolderIndex, updatedFolders[currentOpenFolderIndex], lastModalPos.x, lastModalPos.y), 100);
         }
     }
-    draggedIndex = null;
 }
 
 export function handleDropToFolder(e, targetFolderIndex) {
@@ -225,20 +228,14 @@ export function handleDropToFolder(e, targetFolderIndex) {
     }
     const folders = JSON.parse(localStorage.getItem(FOLDERS_KEY) || "[]");
     const favs = JSON.parse(localStorage.getItem("userFavorites") || "[]");
-    const totalItems = favs.length + folders.reduce((sum, f) => sum + f.items.length, 0);
-    const maxFavorites = getMaxFavorites();
     
     if (folders[targetFolderIndex].items.length >= MAX_ITEMS_PER_FOLDER) {
         alert("Klasör maksimum kapasiteye ulaştı (5 öğe).");
         return;
     }
-    if (totalItems >= maxFavorites) {
-        alert(`Toplam ${maxFavorites} favori sınırına ulaşıldı.`);
-        return;
-    }
     
     const targetItem = e.target.closest("[data-item-index]");
-    const targetItemIndex = targetItem ? parseInt(targetItem.getAttribute("data-item-index")) : folders[targetFolderIndex].items.length;
+    let targetItemIndex = targetItem ? parseInt(targetItem.getAttribute("data-item-index")) : folders[targetFolderIndex].items.length;
     let moved = false;
     let sourceF = isNaN(sourceFolderIndex) ? -1 : sourceFolderIndex;
 
@@ -252,7 +249,11 @@ export function handleDropToFolder(e, targetFolderIndex) {
         if (sourceFolderIndex === targetFolderIndex) {
             if (sourceItemIndex !== targetItemIndex) {
                 const item = folders[sourceFolderIndex].items.splice(sourceItemIndex, 1)[0];
-                folders[sourceFolderIndex].items.splice(targetItemIndex, 0, item);
+                let insertIndex = targetItemIndex;
+                if (sourceItemIndex < targetItemIndex) {
+                    insertIndex--;
+                }
+                folders[sourceFolderIndex].items.splice(insertIndex, 0, item);
                 moved = true;
             }
         } else {
@@ -397,10 +398,8 @@ window.openFolderModal = function(folderIndex, folder, x, y) {
     const modalContent = modal.querySelector(".modal-content");
     const folderTitle = document.getElementById("folderTitle");
     
-    // Başlık başlangıçta normal metin
     folderTitle.textContent = folder.name;
     
-    // Başlık düzenleme için olay dinleyici
     folderTitle.onclick = () => {
         const input = document.createElement("input");
         input.type = "text";
@@ -416,26 +415,22 @@ window.openFolderModal = function(folderIndex, folder, x, y) {
         folderTitle.appendChild(input);
         input.focus();
         
-        // Enter ile kaydet
         input.addEventListener("keypress", (e) => {
             if (e.key === "Enter") {
                 saveFolderName(input.value.trim());
             }
         });
         
-        // Escape ile iptal
         input.addEventListener("keydown", (e) => {
             if (e.key === "Escape") {
                 folderTitle.textContent = folder.name;
             }
         });
         
-        // Odak kaybında kaydet
         input.addEventListener("blur", () => {
             saveFolderName(input.value.trim());
         });
         
-        // Ad kaydetme fonksiyonu
         function saveFolderName(newName) {
             if (newName) {
                 const folders = JSON.parse(localStorage.getItem(FOLDERS_KEY) || "[]");
@@ -466,12 +461,12 @@ window.openFolderModal = function(folderIndex, folder, x, y) {
         itemDiv.setAttribute("draggable", "true");
         itemDiv.setAttribute("data-item-index", i);
         itemDiv.setAttribute("data-folder-index", folderIndex);
-        itemDiv.innerHTML = `
-            <div style="display:flex; flex-direction: column; align-items: center; gap:4px; text-align: center;">
-                <img src="${faviconUrl}" style="width:32px;height:32px;border-radius:6px;" onerror="this.src='ico/default-favicon.png'">
-                <a href="${item.url}" ${linkBehavior === "closeCurrent" ? "" : 'target="_blank"'}>${item.name}</a>
-            </div>
-        `;
+itemDiv.innerHTML = `
+    <div style="display:flex; flex-direction: column; align-items: center; gap:4px; text-align: center;">
+        <img src="${faviconUrl}" style="width:32px;height:32px;border-radius:6px; cursor: pointer; pointer-events: none;" onerror="this.src='ico/default-favicon.png'">
+        <a href="${item.url}" ${linkBehavior === "closeCurrent" ? "" : 'target="_blank"'}>${item.name}</a>
+    </div>
+`;
 
         itemDiv.addEventListener("dragstart", (e) => {
             e.dataTransfer.setData("text/plain", `${folderIndex}-${i}`);
@@ -482,6 +477,14 @@ window.openFolderModal = function(folderIndex, folder, x, y) {
             e.preventDefault();
             showItemContextMenu(e, "folder-item", i, item, folderIndex);
         });
+
+itemDiv.onclick = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    const url = item.url;
+    window.open(url, linkBehavior === "newTab" ? "_blank" : "_self");
+};
+
         folderCont.appendChild(itemDiv);
     });
     
@@ -644,12 +647,6 @@ document.getElementById("favoriteContextMenu")?.addEventListener("click", functi
                     break;
                 case "moveToMain":
                     const favs = JSON.parse(localStorage.getItem("userFavorites") || "[]");
-                    const totalItems = favs.length + folders.reduce((sum, f) => sum + f.items.length, 0);
-                    const maxFavorites = getMaxFavorites();
-                    if (totalItems >= maxFavorites) {
-                        alert(`Toplam ${maxFavorites} favori sınırına ulaşıldı.`);
-                        break;
-                    }
                     const movedItem = folders[folderIndex].items.splice(index, 1)[0];
                     favs.push(movedItem);
                     localStorage.setItem(FOLDERS_KEY, JSON.stringify(folders));
