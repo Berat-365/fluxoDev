@@ -1,7 +1,30 @@
 # 📑 Changelog
 
 Bu dosya projede yapılan tüm önemli değişiklikleri takip eder.  
-Sürüm numaraları: Fluxo 4 (Part 9'den Part 17'ye)
+Sürüm numaraları: Fluxo 4 (Part 9'den Part 18'e)
+
+---
+
+## 🗺️ Yol Haritası
+### Part 19 Güncellemesi
+- Gelişmiş klavye kısayolları
+- Fluxo Secure Ultra
+- Değişebilir simge paketleri (Kişiselleştirme ayarları)
+- Kullanıcı dostu varsayılan ayarlar
+- Arama önerilerinde görsel öneriler
+
+### Part 20 Güncellemesi
+- Sistem geneli optimizasyon
+- Modüler language.js (her dile özel parçalar) (Kesin değil)
+- Telefonlar İçin Optimize Edilen Arayüz
+- (Eğer oluşursa) Hata Fix
+
+### Final
+- Dev Kanalı kapatılır
+
+## Yenilenecek Güncelleme Sistemi
+- Artık stabil sürümler güvenlik ve özellik güncellemesi alacak
+- Fluxo, versiyon numarası, kod adı. olarak kullanılacak (Fluxo 4 | Zenora)
 
 ---
 
@@ -9,9 +32,28 @@ Sürüm numaraları: Fluxo 4 (Part 9'den Part 17'ye)
 - Part 20 aşamasında artık sistemi DEV statüsünden çıkarıp ana sürüm haline getireceğiz!
 
 ## 🧩 Eklenecek Sistemler
-- Bölünmüş Görünüm (Test Aşamasında)
 - Temaya Göre Simgeler (Test Aşamasında)
 - Telefonlar İçin Optimize Edilen Arayüz
+
+### ❌ İptal Edilen Sistemler
+- Bölünmüş Görünüm
+
+
+---
+
+## Fluxo 4 Part 18 - 2025-10-24
+### Eklendi (Added)
+- Artık favori ikonuna tıklayınca linke yönlendirilebileceksiniz (eskiden yanlızca yazıya tıklayınca oluyordu)
+- Favori ekleyebilme üst sınırı 50'ye çıkarıldı 
+- Yapay zeka API'leri güncellendi (GPT 4.5'e yükseltildi...)
+- Fluent teması içerikleri düzenlendi ve tema düzenlendi
+- Klasör sayısı bilgilendirmeleri kaldırıldı
+
+### Düzenlendi (Fixed)
+- Lens ikonunu kapatınca mikrofon ikonunun yerinde sabitlenmesi düzeltildi
+
+### Bilinen Hatalar (Erors)
+- Bu sürümde mevcut bir hata bulamadık eğer hata tespit ederseniz bize ulaşın
 
 ---
 
