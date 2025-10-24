@@ -705,17 +705,16 @@ body.light .url-sidebar::-webkit-scrollbar-thumb:hover {
 .icon-left { left: 12px; z-index: 1002; }
 .icon-right { right: 12px; }
 
-#voiceSearchBtn { margin-right: 2rem; }
-
 #lensSearchBtn {
-    margin-left: 0.25rem;
-    opacity: 0.8;
-    transition: opacity 0.2s, transform 0.2s;
+    right: 12px;  /* Lens konum */
 }
 
-#lensButton { 
-    margin-left: 6px; 
-    cursor: pointer; 
+#voiceSearchBtn {
+    right: 45px;  /* Lens varsa mikrofon sola */
+}
+
+#voiceSearchBtn.no-lens {
+    right: 12px !important;  /* Lens kapalıyken sağa yapıştır */
 }
 
 .icon-left img, .icon-right img { width: 24px; height: 24px; }
