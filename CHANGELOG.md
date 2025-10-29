@@ -9,9 +9,7 @@ Sürüm numaraları: Fluxo 4 (Part 9'den Part 18'e)
 ### Part 19 Güncellemesi
 - Gelişmiş klavye kısayolları
 - Fluxo Secure Ultra
-- Değişebilir simge paketleri (Kişiselleştirme ayarları)
 - Kullanıcı dostu varsayılan ayarlar
-- Arama önerilerinde görsel öneriler
 
 ### Part 20 Güncellemesi
 - Sistem geneli optimizasyon
@@ -32,11 +30,11 @@ Sürüm numaraları: Fluxo 4 (Part 9'den Part 18'e)
 - Part 20 aşamasında artık sistemi DEV statüsünden çıkarıp ana sürüm haline getireceğiz!
 
 ## 🧩 Eklenecek Sistemler
-- Temaya Göre Simgeler (Test Aşamasında)
 - Telefonlar İçin Optimize Edilen Arayüz
 
 ### ❌ İptal Edilen Sistemler
-- Bölünmüş Görünüm
+- Bölünmüş Görünüm - Cors ve tarayıcı engelleri
+- Değişebilir simge paketleri - Sistemin ağırlaşmasına neden oluyor
 
 
 ---
