@@ -1,20 +1,17 @@
 # 📑 Changelog
 
-Bu dosya projede yapılan tüm önemli değişiklikleri takip eder.  
-Sürüm numaraları: Fluxo 4 (Part 9'den Part 18'e)
+Bu dosya projede yapılan tüm değişiklikleri takip eder.  
+Sürüm numaraları: Fluxo 4 (Part 9'dan Part 19'a)
 
 ---
 
 ## 🗺️ Yol Haritası
-### Part 19 Güncellemesi
-- Gelişmiş klavye kısayolları
-- Fluxo Secure Ultra
-- Kullanıcı dostu varsayılan ayarlar
 
-### Part 20 Güncellemesi
-- Sistem geneli optimizasyon
+### Part 20 Güncellemesi 
 - Modüler language.js (her dile özel parçalar) (Kesin değil)
 - Telefonlar İçin Optimize Edilen Arayüz
+- Fluxo Secure Ultra
+- Gelişmiş klavye kısayolları
 - (Eğer oluşursa) Hata Fix
 
 ### Final
@@ -32,10 +29,28 @@ Sürüm numaraları: Fluxo 4 (Part 9'den Part 18'e)
 ## 🧩 Eklenecek Sistemler
 - Telefonlar İçin Optimize Edilen Arayüz
 
-### ❌ İptal Edilen Sistemler
-- Bölünmüş Görünüm - Cors ve tarayıcı engelleri
-- Değişebilir simge paketleri - Sistemin ağırlaşmasına neden oluyor
+---
+## Fluxo 4 Part 19 - 2025-10-31 
+### Eklendi (Added)
+- **Genel sistem optimizasyonu yapıldı sistem eskisine kıyasla yüzde 23 daha hızlı çalışıyor**
+- Fluent, Skeuomorphism temaları optimize edildi 3000+ satır > 600+ satır
+- Settings.js eski kullanılmayan elementler kaldırıldı
+- Destek kısmı değişiklikleri
+- Kutu Temasının ismi değiştirildi (Flat)
+- Varsayılanlar değiştirildi
+- Bilgi barı Düzenlendi ve görünüm güncellendi
+- 3 duvar kağıdı geçmişi politikası yeniden yaratıldı
+- Settings.js Optimize edildi ve sistem dengesizlikleri fixlendi
 
+### Düzenlendi (Fixed)
+- Skeuomorphism temasının aydınlık tema görünüm hataları giderildi
+- Fluent, Skeuomorphism temalarında seçim menülerinin görünmemesi düzeltildi
+- Bazı Türkçe dil elementleri düzenlendi
+- Reset page opsiyonu düzenlendi
+
+### Bir Sonraki Yamaya Ertelendi
+- Fluxo Secure Ultra
+- Gelişmiş klavye kısayolları
 
 ---
 
