@@ -12,7 +12,7 @@ const auth = getAuth(app);
 let storedUsers = JSON.parse(localStorage.getItem("users") || "{}");
 
 // Rate Limiting için yapılandırma
-const MAX_ATTEMPTS = 20;
+const MAX_ATTEMPTS = 100;
 const LOCKOUT_DURATION = 300000; // 5 dakika (milisaniye cinsinden)
 
 // Rate Limiting kontrolü
@@ -135,10 +135,10 @@ export function updateAccountUI() {
     const info = document.getElementById("accountInfo");
     const btn = document.getElementById("accountButton");
     if (username) {
-        info.textContent = `| 👤 ${username}`;
+        info.textContent = `👤 ${username}`;
         btn.title = translations[localStorage.getItem("language") || "tr"].accountLoggedIn || "Hesap (Çıkış için tıkla)";
     } else {
-        info.textContent = "|";
+        info.textContent = "";
         btn.title = translations[localStorage.getItem("language") || "tr"].accountLogin || "Hesap (Giriş için tıkla)";
     }
 }
