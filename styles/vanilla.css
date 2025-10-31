@@ -1,9 +1,9 @@
 /* vanilla.css */
 :root {
     --accent-color: #dce4e6;
-    --accent-hover: #b8c5c8; /* Yeni eklenen: Accent hover varyasyonu */
-    --success-color: #00ff00; /* Yeni eklenen: Pozitif değişim rengi */
-    --error-color: #ff0000; /* Yeni eklenen: Negatif değişim rengi */
+    --accent-hover: #b8c5c8; 
+    --success-color: #00ff00; 
+    --error-color: #ff0000; 
     --dark-bg: #202124;
     --dark-surface: #303134;
     --dark-input: #2b2c2f;
@@ -161,7 +161,8 @@ body.light #suggestions { background-color: var(--light-surface); color: var(--t
 body.light #suggestions li:hover { background-color: #e0e0e0; }
 body.light #suggestions li.selected { background-color: #d1d1d1; }
 body.light .logo .logo-name { color: var(--text-dark) !important; }
-body.light .info-bar { background-color: rgba(241, 243, 244, 0.9); color: var(--text-dark); }
+body.light .info-left { background-color: rgba(241, 243, 244, 0.9); color: var(--text-dark); }
+body.light .info-right { background-color: rgba(241, 243, 244, 0.9); color: var(--text-dark); }
 body.light #menuPanel input,
 body.light #menuPanel select { background-color: #e0e0e0; color: var(--text-dark); }
 body.light #menuPanel h3 { border-bottom: 2px solid var(--border-light); }
@@ -362,17 +363,43 @@ body.light .danger {
     transform: scale(1.02);
 }
 
-.info-bar {
+.info-wrapper {
     position: fixed;
     bottom: 20px;
     left: 50%;
     transform: translateX(-50%);
+    display: flex;
+    justify-content: center; /* Ortala */
+    align-items: center;
+    gap: 5px;
+    z-index: 1000;
+    width: auto;
+}
+
+.info-left {
     background-color: var(--dark-surface);
     color: var(--text-light);
-    padding: 10px 20px;
+    padding: 10px 15px;
     border-radius: 20px;
     font-size: 12px;
-    z-index: 1000;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    flex-shrink: 0; /* Büyüdükçe küçülme */
+    order: 1; /* Sol önce */
+}
+
+.info-right {
+    background-color: var(--dark-surface);
+    color: var(--text-light);
+    padding: 10px 15px;
+    border-radius: 20px;
+    font-size: 12px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-left: 0;
+    order: 2; /* Sağ sonra */
 }
 
 .info-bar.hidden { display: none; }
