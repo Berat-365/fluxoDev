@@ -116,7 +116,7 @@ tr: {
     showSearchShortcuts: "Arama Kısayollarını Göster",
     showAccountButton: "Hesap Düğmesini Göster",
     showAccountInfoText: "Hesap Bilgi Metnini Göster",
-    aiSettings: "AI Ayarları",
+    aiSettings: "Yapay Zeka Ayarları",
     securityandprivacy: "Güvenlik ve Gizlilik",
     safeSearchOptions: "Güvenli Arama Seçenekleri",
     disableSearchHistoryLogging: "Arama Geçmişini Devre Dışı Bırak",
