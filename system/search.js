@@ -128,7 +128,7 @@ export async function search(type = 'web') {
     
     const engine = localStorage.getItem("searchEngine") || "google";
     const linkBehavior = localStorage.getItem("linkBehavior") || "newTab";
-    const aiProvider = localStorage.getItem("aiProvider") || "chatgpt";
+    const aiProvider = localStorage.getItem("aiProvider") || "grok";
     const customAiUrl = localStorage.getItem("customAiUrl") || "";
     const lang = localStorage.getItem("language") || "tr";
     let url;
