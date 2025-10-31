@@ -44,10 +44,14 @@
     </video>
     <iframe id="backgroundYouTube" frameborder="0" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; object-fit: cover; transform: scale(1.1); will-change: transform;" allow="autoplay; encrypted-media" src=""></iframe>
     <div class="weather-widget" id="weatherWidget" onclick="openWeatherWidget()"> ... </div>
-    <div class="info-bar" id="infoBar">
-        FluxoDev 4 Part 18 - <span id="themeDisplay"></span> | <span id="languageDisplay"></span>
+<div class="info-wrapper" id="infoWrapper">
+    <div class="info-left" id="infoLeft">
+        FluxoDev 4 Part 19 - <span id="themeDisplay"></span> | <span id="languageDisplay"></span>
+    </div>
+    <div class="info-right" id="infoRight">
         <span id="accountInfo" style="margin-left:0px;"></span>
     </div>
+</div>
     <div class="url-sidebar" id="urlSidebar"></div>
     <button id="menuButton">
         <img id="menuIcon" src="assets/light/menu.png" alt="Menü">
@@ -187,7 +191,7 @@
             <select id="systemThemeSelect">
                 <option value="vanilla" data-lang-key="vanilla">Vanilla (Varsayılan)</option>
                 <option value="fluent" data-lang-key="fluent">Fluent</option>
-                <option value="box" data-lang-key="box">Box</option>
+                <option value="flat" data-lang-key="flat">Flat</option>
                 <option value="neomorph" data-lang-key="neomorph">Neomorph</option>
                 <option value="glassmorph" data-lang-key="glassmorph">Glassmorph</option>
                 <option value="skeuomorph" data-lang-key="skeuomorph">Skeuomorphism</option>
@@ -404,7 +408,7 @@
             <select id="privateModeOptions">
                 <option value="privateModeDisable" data-lang-key="no">Kapalı</option>
                 <option value="privateModeEnable" data-lang-key="yes">Açık</option>
-            </select>
+            </select>       
 
             <h3 data-lang-key="widgetsSet">Araç Ayarları</h3>
             <label for="weatherLocation" data-lang-key="weatherLocation">Hava Durumu Konumu:</label>
@@ -457,7 +461,10 @@
                 <img src="assets/contacts/telegram.png" alt="Telegram" class="social-icon">
             </a>
             <a href="https://berat-365.github.io/Github-Page/" target="_blank" title="My Github Page" class="social-link">
-                <img src="assets/contacts/github.png" alt="My Github Page" class="social-icon">
+                <img src="assets/contacts/LynLabs.png" alt="My Github Page" class="social-icon">
+            </a>
+            <a href="https://github.com/Berat-365/fluxoDev" target="_blank" title="FluxoDev Github Repo" class="social-link">
+                <img src="assets/contacts/github.png" alt="FluxoDev Github Repo" class="social-icon">
             </a>
         </div>
         </div>
@@ -849,20 +856,10 @@ document.getElementById("applySettingsBtn").addEventListener("click", () => {
     const statusEl = document.getElementById("applyStatus");
     statusEl.style.display = "block";  // Mesajı göster
     
-    // saveSettingsFromInputs çağır (içinde applySettings var, options geçir)
-    const options = {
-        updateSearchEnginePreview,
-        loadCachedBackground: applyBackground,  // background.js'den
-        updateLanguage,
-        loadFavorites,
-        fetchWeather,
-        bindShortcuts,
-        startWeatherUpdate
-    };
     
     const lang = localStorage.getItem("language") || "tr";  // Dil al
     
-    if (saveSettingsFromInputs(options)) {  // Başarı kontrolü
+    if (saveSettingsFromInputs()) {  // Başarı kontrolü
         statusEl.textContent = translations[lang].settingsApplied || "Ayarlar uygulandı.";  // Çeviri kullan
         statusEl.className = "status-message success";
         
@@ -1121,7 +1118,7 @@ window.onload = () => {
         return;
     }
     const bgUrl = localStorage.getItem("bgUrl") || "";
-    const f = localStorage.getItem("font") || "'Open Sans', sans-serif";
+    const f = localStorage.getItem("font") || "'Segoe UI', sans-serif";
     const t = localStorage.getItem("theme") || "dark";
     const showAISearch = localStorage.getItem('showAISearch') || 'true';
     const st = localStorage.getItem("systemTheme") || "vanilla";
@@ -1131,7 +1128,7 @@ window.onload = () => {
     const sf = localStorage.getItem("showFavorites") || "true";
     const ss = localStorage.getItem("showSuggestions") || "true";
     const sw = localStorage.getItem("showWeather") || "true";
-    const si = localStorage.getItem("showInfoBar") || "true";
+    const showInfoBar = localStorage.getItem("showInfoBar") || "true";
     const ld = localStorage.getItem("logoDisplay") || "logo-name";
     const maxFav = localStorage.getItem("maxFavorites") || "5";
     const searchShortcut = localStorage.getItem("searchShortcut") || "Ctrl + /";
@@ -1141,16 +1138,21 @@ window.onload = () => {
     const weatherLocation = localStorage.getItem("weatherLocation") || "";
     const weatherUpdateInterval = localStorage.getItem("weatherUpdateInterval") || "0";
     const linkBehavior = localStorage.getItem("linkBehavior") || "newTab";
-    const aiProvider = localStorage.getItem("aiProvider") || "chatgpt";
+    const aiProvider = localStorage.getItem("aiProvider") || "grok";
     const customAiUrl = localStorage.getItem("customAiUrl") || "";
     const showSearch = localStorage.getItem("showSearch") || "true";
     const showSearchShortcuts = localStorage.getItem("showSearchShortcuts") || "true";
+    const wrapper = document.getElementById("infoWrapper");
     const showAccountButton = localStorage.getItem("showAccountButton") || "true";
     const showAccountInfoText = localStorage.getItem("showAccountInfoText") || "true";
     const showTools = localStorage.getItem("showTools") || "true";
     const logoPosition = localStorage.getItem("logoPosition") || "center";
-    const showBgRemove = localStorage.getItem('showBgRemove') || 'true';
     const multiSearchEnabled = localStorage.getItem("multiSearchEnabled") || "false";
+    const si = localStorage.getItem("showInfoBar") || "true";
+    const infoLeft = document.getElementById("infoLeft");
+    if (infoLeft) {
+        infoLeft.style.display = si === "true" ? "block" : "none";
+    }
     document.getElementById("lensSearchBtn").addEventListener("click", () => {
     window.open("https://lens.google.com/", "_blank");
     });
@@ -1163,7 +1165,7 @@ window.onload = () => {
     }
 
     localStorage.setItem("linkBehavior", "newTab"); 
-    localStorage.setItem("aiProvider", "chatgpt"); 
+    localStorage.setItem("aiProvider", "grok"); 
     localStorage.setItem("customAiUrl", ""); 
     localStorage.setItem('showAISearch', 'true');
 
@@ -1200,6 +1202,7 @@ window.onload = () => {
     document.getElementById("multiSearchEnabled").value = multiSearchEnabled;
     document.getElementById("createFolderBtn").onclick = createFolder;
     document.getElementById("addToFolderBtn").onclick = toggleFolderAdd;
+    document.getElementById("showInfoBar").value = si;
 
     document.getElementById("linkBehavior").addEventListener("change", () => {
     localStorage.setItem("linkBehavior", document.getElementById("linkBehavior").value);
@@ -1241,12 +1244,12 @@ window.onload = () => {
     document.getElementById("favorites").style.display = sf === "true" ? "flex" : "none";
     document.getElementById("suggestions").style.display = ss === "true" && searchInput.value.trim() ? "block" : "none";
     document.getElementById("weatherWidget").style.display = sw === "true" ? "block" : "none";
-    document.getElementById("infoBar").style.display = si === "true" ? "flex" : "none";
     document.getElementById("accountButton").style.display = showAccountButton === "true" ? "block" : "none";
     document.getElementById("accountInfo").style.display = showAccountInfoText === "true" && localStorage.getItem("accountUsername") ? "inline" : "none";
     document.querySelector(".buttons").style.display = showSearchShortcuts === "true" ? "flex" : "none";
     document.getElementById("toolsWidget").style.display = showTools === "true" ? "block" : "none";
-    document.getElementById("removeBgBtn").style.display = showBgRemove === "true" ? "block" : "none";
+    document.getElementById("infoWrapper").style.display = si === "true" ? "block" : "none";
+    document.getElementById("infoRight").style.display = showAccountInfoText === "true" && localStorage.getItem("accountUsername") ? "block" : "none";    
 
     document.getElementById("showLensSearch").addEventListener("change", function() {
     const lensVisible = this.value === "true";
@@ -1254,7 +1257,7 @@ window.onload = () => {
     updateVoicePosition();  // Bu satırı ekle
 });
 
-    
+
     updateLanguage(l);  
 
     loadFavorites();
@@ -1265,10 +1268,14 @@ window.onload = () => {
     updateAccountModalTheme();
     bindShortcuts();
     updateAccountUI();
+    applySettings({});
     updateRecentBgList();
     updateVoicePosition();
     initVoiceSearch();
+    updateInfoBarPosition(); 
 };
+
+function updateInfoBarPosition() { const infoWrapper = document.getElementById("infoWrapper");}
 
 // Background DOMContentLoaded
 window.addEventListener("DOMContentLoaded", () => {
