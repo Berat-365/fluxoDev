@@ -1,4 +1,4 @@
-/* box.css */
+/* flat.css */
 :root {
     --accent-color: #333;
     --accent-hover: #555;
@@ -86,7 +86,8 @@ body.light #suggestions { background-color: var(--light-surface); color: var(--t
 body.light #suggestions li:hover { background-color: #f0f0f0; }
 body.light #suggestions li.selected { background-color: #e8e8e8; }
 body.light .logo .logo-name { color: var(--text-dark) !important; }
-body.light .info-bar { background-color: rgba(248, 248, 248, 0.9); color: var(--text-dark); }
+body.light .info-left { background-color: rgba(248, 248, 248, 0.9); color: var(--text-dark); }
+body.light .info-right { background-color: rgba(248, 248, 248, 0.9); color: var(--text-dark); }
 body.light #menuPanel input, body.light #menuPanel select { background-color: #f0f0f0; color: var(--text-dark); }
 body.light #menuPanel h3 { border-bottom: none; }
 body.light #addFavoriteModal input { background-color: #f0f0f0; color: var(--text-dark); }
@@ -158,7 +159,43 @@ body.light .accent:hover { box-shadow: 0 1px 2px var(--shadow-light); }
 body.light .danger { background-color: var(--error-color); }
 .danger:hover { background-color: #555; transform: scale(1.01); }
 
-.info-bar { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); background-color: var(--dark-surface); color: var(--text-light); padding: 10px 20px; border-radius: 0; font-size: 12px; z-index: 1000; }
+.info-wrapper {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    justify-content: center; /* Ortala */
+    align-items: center;
+    gap: 5px;
+    z-index: 1000;
+    width: auto;
+}
+
+.info-left {
+    background-color: var(--dark-surface);
+    color: var(--text-light);
+    padding: 10px 15px;
+    font-size: 12px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    flex-shrink: 0; /* Büyüdükçe küçülme */
+    order: 1; /* Sol önce */
+}
+
+.info-right {
+    background-color: var(--dark-surface);
+    color: var(--text-light);
+    padding: 10px 15px;
+    font-size: 12px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-left: 0;
+    order: 2; /* Sağ sonra */
+}
+
 .info-bar.hidden { display: none; }
 
 .url-sidebar { position: fixed; width: 200px; height: calc(100vh - 40px); background-color: rgba(17, 17, 17, 0.9); color: var(--text-light); padding: 10px; border-radius: 0; z-index: 1000; display: none; overflow-y: auto; }
