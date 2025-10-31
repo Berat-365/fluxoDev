@@ -1,6 +1,6 @@
 const defaultSettings = {
   bgUrl: "",
-  font: "'Open Sans', sans-serif",
+  font: "'Segoe UI', sans-serif",
   theme: "dark",
   systemTheme: "vanilla",
   accentColor: "#6F958D",
@@ -8,14 +8,13 @@ const defaultSettings = {
   searchEngine: "google",
   showFavorites: "true",
   showSuggestions: "true",
-  showBgRemove: "true",
   showWeather: "true",
   showInfoBar: "true",
   showSearch: "true",
   showSearchShortcuts: "true",
   showAISearch: "true",
   showAccountButton: "true",
-  showAccountInfoText: "true",
+  showAccountInfoText: "false",
   logoDisplay: "logo-name",
   logoPosition: "center",
   logoColor: "colored",
@@ -34,11 +33,12 @@ const defaultSettings = {
   weatherUpdateInterval: "0",
   linkBehavior: "newTab",
   multiSearchEnabled: "false",
-  aiProvider: "chatgpt",
+  aiProvider: "grok",
   customAiUrl: "",
   buttonDisplayMode: "text-only", 
   disableAnimations: "false",
   showTools: "true",
+  backgroundHistory: JSON.stringify([]),
 };
 
 // Global ayar cache'i (performans için)
@@ -143,13 +143,6 @@ export function bindShortcuts() {
     favorite: safeGetItem("favoriteShortcut") || defaultSettings.favoriteShortcut,
     settings: safeGetItem("settingsShortcut") || defaultSettings.settingsShortcut,
     history: safeGetItem("historyShortcut") || defaultSettings.historyShortcut,
-    images: safeGetItem("imagesShortcut") || defaultSettings.imagesShortcut,
-    shopping: safeGetItem("shoppingShortcut") || defaultSettings.shoppingShortcut,
-    news: safeGetItem("newsShortcut") || defaultSettings.newsShortcut,
-    account: safeGetItem("accountShortcut") || defaultSettings.accountShortcut,
-    ai: safeGetItem("aiShortcut") || defaultSettings.aiShortcut,
-    support: safeGetItem("supportShortcut") || defaultSettings.supportShortcut,
-    tools: safeGetItem("toolsShortcut") || defaultSettings.toolsShortcut
   };
 
   Object.keys(shortcuts).forEach(k => { shortcuts[k] = _normalizeShortcut(shortcuts[k]); });
@@ -193,34 +186,6 @@ export function bindShortcuts() {
           document.querySelector(".tab-button[data-tab='history']")?.classList.add("active");
           if (typeof window.loadSearchHistory === 'function') window.loadSearchHistory();
         }
-      } else if (keyCombo === shortcuts.images && $('searchInput')?.value.trim()) {
-        e.preventDefault();
-        if (typeof window.search === 'function') window.search("images");
-      } else if (keyCombo === shortcuts.shopping && $('searchInput')?.value.trim()) {
-        e.preventDefault();
-        if (typeof window.search === 'function') window.search("shopping");
-      } else if (keyCombo === shortcuts.news && $('searchInput')?.value.trim()) {
-        e.preventDefault();
-        if (typeof window.search === 'function') window.search("news");
-      } else if (keyCombo === shortcuts.ai && $('searchInput')?.value.trim()) {
-        e.preventDefault();
-        if (typeof window.search === 'function') window.search("ai");
-      } else if (keyCombo === shortcuts.account) {
-        e.preventDefault();
-        if (typeof showAccountModal === 'function') showAccountModal();
-      } else if (keyCombo === shortcuts.tools) {
-        e.preventDefault();
-        if (typeof window.toggleToolsPanel === 'function') window.toggleToolsPanel();
-      } else if (keyCombo === shortcuts.support) {
-        e.preventDefault();
-        const p = $('menuPanel');
-        if (p) {
-          p.style.display = p.style.display === "block" ? "none" : "block";
-          document.querySelectorAll(".tab-content").forEach(c => c.classList.remove("active"));
-          $('supportContent')?.classList.add("active");
-          document.querySelectorAll(".tab-button").forEach(btn => btn.classList.remove("active"));
-          document.querySelector(".tab-button[data-tab='support']")?.classList.add("active");
-        }
       }
     } catch (err) {
       console.error('bindShortcuts handler error:', err);
@@ -235,8 +200,11 @@ export function bindShortcuts() {
 const IDB_DB = 'fluxo_bg_db';
 const IDB_STORE = 'backgrounds';
 
+let idbPromise = null; // Tek seferlik açılış için cache
+
 function openIdb() {
-  return new Promise((resolve, reject) => {
+  if (idbPromise) return idbPromise;
+  idbPromise = new Promise((resolve, reject) => {
     if (!('indexedDB' in window)) return resolve(null);
     const req = indexedDB.open(IDB_DB, 1);
     req.onupgradeneeded = () => {
@@ -246,6 +214,7 @@ function openIdb() {
     req.onsuccess = () => resolve(req.result);
     req.onerror = () => resolve(null);
   });
+  return idbPromise;
 }
 
 async function idbPut(key, value) {
@@ -283,6 +252,21 @@ export async function cacheBackgroundImage(url) {
     const isYouTube = /youtube\.com|youtu\.be/i.test(url);
     if (isYouTube) {
       safeSetItem(`bgCache_${url}`, url);
+      // Tarihçe güncelle (sadece yeni ekle, filtrele)
+      let history = JSON.parse(safeGetItem('backgroundHistory') || '[]');
+      history = [url, ...history.filter(h => h !== url).slice(0, 2)]; // Max 3
+      safeSetItem('backgroundHistory', JSON.stringify(history));
+      // Eski cache'leri temizle (fire-and-forget, paralel)
+      history.slice(3).forEach(oldUrl => {
+        safeRemoveItem(`bgCache_${oldUrl}`);
+        openIdb().then(db => {
+          if (db) {
+            const tx = db.transaction(IDB_STORE, 'readwrite');
+            tx.objectStore(IDB_STORE).delete(`bg_${oldUrl}`);
+            db.close();
+          }
+        }).catch(console.error);
+      });
       return;
     }
 
@@ -300,6 +284,21 @@ export async function cacheBackgroundImage(url) {
       });
       safeSetItem(`bgCache_${url}`, await reader);
     }
+    // Tarihçe güncelle
+    let history = JSON.parse(safeGetItem('backgroundHistory') || '[]');
+    history = [url, ...history.filter(h => h !== url).slice(0, 2)];
+    safeSetItem('backgroundHistory', JSON.stringify(history));
+    // Eski cache'leri temizle (paralel)
+    history.slice(3).forEach(oldUrl => {
+      safeRemoveItem(`bgCache_${oldUrl}`);
+      openIdb().then(db => {
+        if (db) {
+          const tx = db.transaction(IDB_STORE, 'readwrite');
+          tx.objectStore(IDB_STORE).delete(`bg_${oldUrl}`);
+          db.close();
+        }
+      }).catch(console.error);
+    });
   } catch (e) {
     console.error('cacheBackgroundImage hata:', e);
   }
@@ -312,11 +311,19 @@ export function extractYouTubeId(url) {
   return match ? match[1] : null;
 }
 
-export async function loadCachedBackground(url) {
+export async function loadCachedBackground(url, delay = 0) {
+  // Gecikme ekle (render'ı bloke etmemek için)
+  if (delay > 0) await new Promise(r => setTimeout(r, delay));
+  
   const videoElement = $('backgroundVideo');
   const youTubeElement = $('backgroundYouTube');
 
   if (!url) {
+    const history = JSON.parse(safeGetItem('backgroundHistory') || '[]');
+    if (history.length > 0) {
+      await loadCachedBackground(history[0], 100); // Sonuncuyu gecikmeli yükle
+      return;
+    }
     if (videoElement) {
       videoElement.style.display = 'none';
       videoElement.pause?.();
@@ -401,7 +408,7 @@ export async function loadCachedBackground(url) {
       const blob = await resp.blob();
       const saved = await idbPut(`bg_${url}`, blob);
       if (saved) {
-        return loadCachedBackground(url);
+        return loadCachedBackground(url, 0);
       }
       cached = await new Promise((res) => {
         const reader = new FileReader();
@@ -475,7 +482,7 @@ export function saveSettings(settings) {
     Object.entries(settings).forEach(([k, v]) => {
       if (v !== undefined && v !== null) {
         safeSetItem(k, String(v));
-        if (cachedSettings) cachedSettings[k] = String(v);  // Cache güncelle
+        if (cachedSettings) cachedSettings[k] = String(v);
       }
     });
     return true;
@@ -504,7 +511,6 @@ export function saveSettingsFromInputs() {
       showSearch: getSettingFromInputs('showSearch', 'showSearch'),
       showSearchShortcuts: getSettingFromInputs('showSearchShortcuts', 'showSearchShortcuts'),
       showAISearch: getSettingFromInputs('showAISearch', 'showAISearch'),
-      showScienceSearch: getSettingFromInputs('showScienceSearch', 'showScienceSearch'),
       showAccountButton: getSettingFromInputs('showAccountButton', 'showAccountButton'),
       showAccountInfoText: getSettingFromInputs('showAccountInfoText', 'showAccountInfoText'),
       showTools: getSettingFromInputs('showTools', 'showTools'),
@@ -516,13 +522,6 @@ export function saveSettingsFromInputs() {
       favoriteShortcut: _normalizeShortcut(getSettingFromInputs('favoriteShortcut', 'favoriteShortcutInput')),
       settingsShortcut: _normalizeShortcut(getSettingFromInputs('settingsShortcut', 'settingsShortcutInput')),
       historyShortcut: _normalizeShortcut(getSettingFromInputs('historyShortcut', 'historyShortcutInput')),
-      imagesShortcut: _normalizeShortcut(getSettingFromInputs('imagesShortcut', 'imagesShortcutInput')),
-      shoppingShortcut: _normalizeShortcut(getSettingFromInputs('shoppingShortcut', 'shoppingShortcutInput')),
-      newsShortcut: _normalizeShortcut(getSettingFromInputs('newsShortcut', 'newsShortcutInput')),
-      accountShortcut: _normalizeShortcut(getSettingFromInputs('accountShortcut', 'accountShortcutInput')),
-      aiShortcut: _normalizeShortcut(getSettingFromInputs('aiShortcut', 'aiShortcutInput')),
-      supportShortcut: _normalizeShortcut(getSettingFromInputs('supportShortcut', 'supportShortcutInput')),
-      toolsShortcut: _normalizeShortcut(getSettingFromInputs('toolsShortcut', 'toolsShortcutInput')),
       weatherLocation: getSettingFromInputs('weatherLocation', 'weatherLocation'),
       weatherUpdateInterval: getSettingFromInputs('weatherUpdateInterval', 'weatherUpdateInterval'),
       linkBehavior: getSettingFromInputs('linkBehavior', 'linkBehavior'),
@@ -532,12 +531,12 @@ export function saveSettingsFromInputs() {
       showLensSearch: getSettingFromInputs('showLensSearch', 'showLensSearch'),
       showVoiceSearch: getSettingFromInputs('showVoiceSearch', 'showVoiceSearch'),
       showMultiSearch: getSettingFromInputs('showMultiSearch', 'showMultiSearch'),
-      showBgRemove: getSettingFromInputs('showBgRemove', 'showBgRemove'),
       buttonDisplayMode: getSettingFromInputs('buttonDisplayMode', 'buttonDisplayMode'),
       disableAnimations: getSettingFromInputs('disableAnimations', 'disableAnimations'),
       safeSearch: getSettingFromInputs('safeSearchOptions', 'safeSearchOptions') === 'safeSearchEnable' ? 'true' : 'false',
       disableSearchHistoryLog: getSettingFromInputs('disableSearchHistoryLogOptions', 'disableSearchHistoryLogOptions') === 'disableSearchHistoryLogEnable' ? 'true' : 'false',
       privateMode: getSettingFromInputs('privateModeOptions', 'privateModeOptions') === 'privateModeEnable' ? 'true' : 'false',
+      backgroundHistory: JSON.stringify(JSON.parse(safeGetItem('backgroundHistory') || '[]')),
     };
 
     saveSettings(settings);
@@ -557,17 +556,19 @@ export function saveSettingsFromInputs() {
   }
 }
 
-export function applySettings(options = {}) {
+// Kritik ayarları hemen uygula (sync), diğerlerini async ertele
+export async function applySettings(options = {}) {
   try {
     if (!checkStorageAvailability()) {
       console.warn('Depolama kullanılamıyor, varsayılan ayarlar uygulanacak.');
       cachedSettings = { ...defaultSettings };
     } else {
-      loadCachedSettings();  // Cache yükle
+      loadCachedSettings();
     }
     const settings = cachedSettings || { ...defaultSettings };
 
-    const themeStylesheet = document.getElementById('themeStylesheet');
+    // Sync kritik UI (tema, font, accent, logo, buttons, animations)
+    const themeStylesheet = document.getElementById('systemThemeLink');
     if (themeStylesheet) {
         const systemTheme = settings.systemTheme || 'vanilla';
         themeStylesheet.href = `./styles/${systemTheme}.css`;
@@ -576,23 +577,24 @@ export function applySettings(options = {}) {
     document.body.classList.remove('light', 'dark');
     if (settings.theme) document.body.classList.add(settings.theme);
 
-    // Fontu uygula (sadece family)
     const fontFamily = settings.font || defaultSettings.font;
     document.documentElement.style.setProperty('--font-family', fontFamily, 'important');
     document.body.style.setProperty('font-family', fontFamily, 'important');
 
-    // --- Eklendi: Google Fonts veya harici font linkini güncelle ---
+    // Font linki (sadece Google Fonts için)
     let fontLink = document.getElementById('fontStylesheet');
     if (fontLink) {
       const match = fontFamily.match(/'([^']+)'/);
       const fontName = match ? match[1] : fontFamily.split(',')[0].replace(/['"]/g, '').trim();
-      fontLink.href = `https://fonts.googleapis.com/css?family=${encodeURIComponent(fontName)}:400,700&display=swap`;
+      if (fontName !== 'Segoe UI') { // Sistem fontu atla
+        fontLink.href = `https://fonts.googleapis.com/css?family=${encodeURIComponent(fontName)}:400,700&display=swap`;
+      } else {
+        fontLink.remove(); // Gereksizse kaldır
+      }
     }
 
-    // Vurgu rengi
     selectColor(settings.accentColor || defaultSettings.accentColor);
 
-    // Logo ayarları
     const logoEl = document.getElementById('logo');
     if (logoEl) {
         logoEl.style.display = settings.logoDisplay === 'none' ? 'none' : 'flex';
@@ -611,19 +613,13 @@ export function applySettings(options = {}) {
                     logoImg.src = 'assets/logo/logo.png';
             }
             logoImg.style.filter = 'none';
-        } else {
-            console.warn('Logo resmi bulunamadı.');
         }
-    } else {
-        console.warn('Logo elementi bulunamadı.');
     }
 
-    // Arama butonları görünümü
     const buttonMode = settings.buttonDisplayMode || defaultSettings.buttonDisplayMode;
     const buttonsEl = document.getElementById('buttons');
     if (buttonsEl) {
       buttonsEl.classList.remove('icons-only', 'text-only');
-      
       if (buttonMode === 'icons-only') {
         buttonsEl.classList.add('icons-only');
       } else if (buttonMode === 'text-only') {
@@ -631,102 +627,107 @@ export function applySettings(options = {}) {
       }
     }
 
-    // Direct style manipulation
+    // Button ikon/text batch update
     const buttonIcons = document.querySelectorAll('.buttons .accent .button-icon');
     const buttonTexts = document.querySelectorAll('.buttons .accent .button-text');
+    buttonIcons.forEach(icon => icon.style.display = (buttonMode === 'text-only') ? 'none' : 'inline-block');
+    buttonTexts.forEach(text => text.style.display = (buttonMode === 'icons-only') ? 'none' : 'inline');
 
-    buttonIcons.forEach(icon => {
-      icon.style.display = (buttonMode === 'text-only') ? 'none' : 'inline-block';
-    });
+    if (settings.disableAnimations === "true") {
+      document.body.classList.add("no-animations");
+    } else {
+      document.body.classList.remove("no-animations");
+    }
 
-    buttonTexts.forEach(text => {
-      text.style.display = (buttonMode === 'icons-only') ? 'none' : 'inline';
-    });
-
-    // Animasyon devre dışı bırakma
-  if (settings.disableAnimations === "true") {
-    document.body.classList.add("no-animations");
-  } else {
-    document.body.classList.remove("no-animations");
-  }
-
-    // Görünüm ayarları - Genişletilmiş toggleMap
+    // Toggle'ları batch uygula
     const toggleMap = {
       showFavorites: 'favorites',
       showSuggestions: 'suggestions',
       showWeather: 'weatherWidget',
-      showInfoBar: 'infoBar',
+      showInfoBar: 'infoWrapper',
       showSearch: 'searchBar',
       showSearchShortcuts: 'buttons',
       showAISearch: 'searchAIBtn',
       showAccountButton: 'accountButton',
       showLensSearch: 'lensSearchBtn',
-      showAccountInfoText: 'accountInfo',
+      showAccountInfoText: 'infoRight',
       showTools: 'toolsWidget',
       showVoiceSearch: 'voiceSearchBtn',
       showMultiSearch: 'multiSearchIcon',
-      showBgRemove: 'removeBgBtn'  // Eksik ekle
     };
     Object.entries(toggleMap).forEach(([settingKey, elId]) => {
       const el = $(elId);
-      if (el) {
-        el.style.display = settings[settingKey] === 'true' ? '' : 'none';
-      }
+      if (el) el.style.display = settings[settingKey] === 'true' ? '' : 'none';
     });
 
-    // Diğer ayarlar - Tutarlı okuma
+    // Global değişkenler
     window.linkBehavior = settings.linkBehavior || defaultSettings.linkBehavior;
     window.multiSearchEnabled = settings.multiSearchEnabled === 'true';
-    window.safeSearch = settings.safeSearch === 'true';  // Tutarlı boolean
+    window.safeSearch = settings.safeSearch === 'true';
     window.disableSearchHistory = settings.disableSearchHistoryLog === 'true';
     window.privateMode = settings.privateMode === 'true';
+    window.backgroundHistory = JSON.parse(settings.backgroundHistory || '[]');
 
-    // Arama motoru önizlemesi
-    if (typeof options.updateSearchEnginePreview === 'function') options.updateSearchEnginePreview();
+    // Async ertelemeler (paralel, güvenli try-catch ile)
+    const asyncTasks = [
+      async () => {
+        try {
+          return options.updateSearchEnginePreview?.() || updateSearchEnginePreview();
+        } catch (e) { console.error(e); }
+      },
+      async () => {
+        try {
+          await loadCachedBackground(settings.bgUrl || defaultSettings.bgUrl, 50);
+        } catch (e) { console.error(e); }
+      },
+      async () => {
+        try {
+          const lang = settings.language || defaultSettings.language;
+          if (options.updateLanguage) {
+            options.updateLanguage(lang);
+          } else if (typeof window.updateLanguage === 'function') {
+            window.updateLanguage(lang);
+          }
+        } catch (e) { console.error(e); }
+      },
+      async () => {
+        try {
+          const maxFav = settings.maxFavorites || defaultSettings.maxFavorites;
+          if (options.loadFavorites) {
+            options.loadFavorites(maxFav);
+          } else if (typeof window.loadFavorites === 'function') {
+            window.loadFavorites(maxFav);
+          }
+        } catch (e) { console.error(e); }
+      },
+      async () => {
+        try {
+          if (options.fetchWeather) {
+            options.fetchWeather();
+          } else if (typeof window.fetchWeather === 'function') {
+            window.fetchWeather();
+          }
+        } catch (e) { console.error(e); }
+      },
+      async () => {
+        try {
+          options.bindShortcuts?.() || bindShortcuts();
+        } catch (e) { console.error(e); }
+      },
+      async () => {
+        try {
+          if (options.startWeatherUpdate) {
+            options.startWeatherUpdate();
+          } else if (typeof window.startWeatherUpdate === 'function') {
+            window.startWeatherUpdate();
+          }
+        } catch (e) { console.error(e); }
+      }
+    ];
 
-    // Arka plan
-    if (typeof options.loadCachedBackground === 'function') {
-      options.loadCachedBackground(settings.bgUrl || defaultSettings.bgUrl);
-    } else {
-      loadCachedBackground(settings.bgUrl || defaultSettings.bgUrl);
-    }
-
-    // Dil
-    if (typeof options.updateLanguage === 'function') {
-      options.updateLanguage(settings.language || defaultSettings.language);
-    } else if (typeof window.updateLanguage === 'function') {
-      window.updateLanguage(settings.language || defaultSettings.language);
-    }
-
-    // Favoriler
-    if (typeof options.loadFavorites === 'function') {
-      options.loadFavorites(settings.maxFavorites || defaultSettings.maxFavorites);
-    } else if (typeof window.loadFavorites === 'function') {
-      window.loadFavorites(settings.maxFavorites || defaultSettings.maxFavorites);
-    }
-
-    // Hava durumu
-    if (typeof options.fetchWeather === 'function') {
-      options.fetchWeather();
-    } else if (typeof window.fetchWeather === 'function') {
-      window.fetchWeather();
-    }
-
-    // Kısayollar
-    if (typeof options.bindShortcuts === 'function') {
-      options.bindShortcuts();
-    } else {
-      bindShortcuts();
-    }
-
-    if (typeof options.startWeatherUpdate === 'function') {
-      options.startWeatherUpdate();
-    } else if (typeof window.startWeatherUpdate === 'function') {
-      window.startWeatherUpdate();
-    }
+    await Promise.all(asyncTasks.map(task => task().catch(console.error)));
 
     loadThemeIcons(settings.theme || defaultSettings.theme);
-
     updateSettingsInputs(settings);
 
     return settings;
@@ -743,7 +744,7 @@ if (themeDisplay) {
     themeDisplay.textContent = systemTheme.charAt(0).toUpperCase() + systemTheme.slice(1);
 }
 
-// Tema ikonlarını güncelle (loadTheme'den entegre)
+// Tema ikonlarını güncelle (batch)
 function loadThemeIcons(theme) {
   const icons = {
     multiSearchIcon: theme === "dark" ? "assets/light/multisearch.png" : "assets/dark/multisearch.png",
@@ -757,7 +758,6 @@ function loadThemeIcons(theme) {
     addToFolderIcon: theme === "light" ? "assets/dark/addtofolder.png" : "assets/light/addtofolder.png",
     checkIcon: theme === "light" ? "assets/dark/check.png" : "assets/light/check.png",
     cancelIcon: theme === "light" ? "assets/dark/cancel.png" : "assets/light/cancel.png",
-
   };
 
   Object.entries(icons).forEach(([id, src]) => {
@@ -765,7 +765,7 @@ function loadThemeIcons(theme) {
     if (el) el.src = src;
   });
 
-  // Tab ikonları
+  // Tab ikonları batch
   const tabIcons = {
     settings: theme === "light" ? "assets/dark/settings.png" : "assets/light/settings.png",
     history: theme === "light" ? "assets/dark/history.png" : "assets/light/history.png",
@@ -777,7 +777,7 @@ function loadThemeIcons(theme) {
     if (el) el.src = src;
   });
 
-  // Arama buton ikonları
+  // Arama buton ikonları batch
   const searchIcons = {
     searchWebBtn: theme === "light" ? "assets/dark/search.png" : "assets/light/search.png",
     searchImagesBtn: theme === "light" ? "assets/dark/images.png" : "assets/light/images.png",
@@ -798,7 +798,6 @@ function loadThemeIcons(theme) {
 
 // ------------------------- Settings Export / Import / Modal -------------------------
 export function exportSettings() {
-  // Sadece Fluxo anahtarlarını export et (temizlik)
   const s = {};
   Object.keys(defaultSettings).forEach(k => {
     const val = safeGetItem(k);
@@ -840,38 +839,29 @@ export function resetBrowser() {
     // localStorage ve sessionStorage temizle
     localStorage.clear();
     sessionStorage.clear();
-    cachedSettings = null;  // Cache temizle
+    cachedSettings = null;
 
     // Cookies temizle
     document.cookie.split(";").forEach(cookie => {
       document.cookie = cookie.replace(/^ +/, "").replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/");
     });
 
-    // IndexedDB tüm veritabanlarını sil (döngü ile)
-    if (window.indexedDB) {
-      const dbs = [];
-      const req = indexedDB.databases ? indexedDB.databases() : Promise.resolve([]);
-      req.then(dbsList => {
-        dbsList.forEach(db => indexedDB.deleteDatabase(db.name));
-        console.log('IndexedDB veritabanları silindi.');
+    // IndexedDB sil (async, Promise.all ile)
+    if (window.indexedDB && indexedDB.databases) {
+      indexedDB.databases().then(dbsList => {
+        Promise.all(dbsList.map(db => indexedDB.deleteDatabase(db.name))).then(() => console.log('IndexedDB silindi.'));
       }).catch(e => console.warn('IndexedDB listelenemedi:', e));
     }
 
-    // Cache ve service worker temizle
+    // Cache ve SW temizle (paralel)
     if ('caches' in window) {
-      caches.keys().then(keys => {
-        keys.forEach(key => caches.delete(key));
-        console.log('Cache silindi.');
-      });
+      caches.keys().then(keys => Promise.all(keys.map(key => caches.delete(key)))).then(() => console.log('Cache silindi.'));
     }
     if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.getRegistrations().then(registrations => {
-        registrations.forEach(reg => reg.unregister());
-        console.log('Service worker silindi.');
-      });
+      navigator.serviceWorker.getRegistrations().then(regs => Promise.all(regs.map(reg => reg.unregister()))).then(() => console.log('SW silindi.'));
     }
 
-    // Arka planı sıfırla
+    // Arka plan sıfırla
     const videoElement = $('backgroundVideo');
     const youTubeElement = $('backgroundYouTube');
     if (videoElement) {
@@ -899,16 +889,15 @@ export function resetBrowser() {
       startWeatherUpdate: typeof window.startWeatherUpdate === 'function' ? window.startWeatherUpdate : undefined
     });
 
-    // Sayfayı yenile (async tamamlandıktan sonra)
-    setTimeout(() => location.reload(true), 500);  // Gecikme, temizleme bitsin
+    setTimeout(() => location.reload(true), 100);
   } catch (e) {
     console.error('resetBrowser hata:', e);
-    location.reload(true);  // Hata durumunda reload
+    location.reload(true);
   }
 }
 
 // ------------------------- Event Listeners -------------------------
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
   // Uygula butonu
   $('applySettingsBtn')?.addEventListener('click', () => {
     if (saveSettingsFromInputs()) {
@@ -994,8 +983,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // Başlangıçta ayarları uygula
-  applySettings({
+  // Başlangıçta ayarları uygula (async)
+  await applySettings({
     updateSearchEnginePreview,
     loadCachedBackground,
     updateLanguage: typeof window.updateLanguage === 'function' ? window.updateLanguage : undefined,
@@ -1007,7 +996,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 function updateSettingsInputs(settings) {
-  // Text/select inputs
+  // Text/select inputs batch
   const inputMap = {
     bgUrlInput: 'bgUrl',
     fontSelect: 'font',
@@ -1024,14 +1013,6 @@ function updateSettingsInputs(settings) {
     favoriteShortcutInput: 'favoriteShortcut',
     settingsShortcutInput: 'settingsShortcut',
     historyShortcutInput: 'historyShortcut',
-    imagesShortcutInput: 'imagesShortcut',
-    shoppingShortcutInput: 'shoppingShortcut',
-    newsShortcutInput: 'newsShortcut',
-    accountShortcutInput: 'accountShortcut',
-    aiShortcutInput: 'aiShortcut',
-    toolsShortcutInput: "toolsShortcut",
-    supportShortcutInput: 'supportShortcut',
-    toolsShortcutInput: 'toolsShortcut',
     weatherLocation: 'weatherLocation',
     weatherUpdateInterval: 'weatherUpdateInterval',
     linkBehavior: 'linkBehavior',
@@ -1048,16 +1029,15 @@ function updateSettingsInputs(settings) {
     }
   });
 
-  // Checkbox/toggle inputs (as select or checkbox)
+  // Checkbox/toggle inputs batch
   const toggleIds = [
     'showFavorites', 'showSuggestions', 'showWeather', 'showInfoBar', 'showSearch',
-    'showSearchShortcuts', 'showAISearch', 'showScienceSearch', 'showAccountButton',
-    'showAccountInfoText', 'showTools', 'showLensSearch', 'showVoiceSearch', 'showMultiSearch', 'showBgRemove'
+    'showSearchShortcuts', 'showAISearch', 'showAccountButton',
+    'showAccountInfoText', 'showTools', 'showLensSearch', 'showVoiceSearch', 'showMultiSearch',
   ];
   toggleIds.forEach(id => {
     const el = document.getElementById(id);
     if (el && settings[id] !== undefined) {
-      // For checkbox
       if (el.type === 'checkbox') {
         el.checked = settings[id] === 'true';
       } else {
@@ -1066,8 +1046,8 @@ function updateSettingsInputs(settings) {
     }
   });
 
-  // Special select options for boolean settings
-  const safeSearchOptions = document.getElementById('safeSearchOptions');
+  // Special select options
+  const safeSearchOptions = document.getElementById('safeSearchOptions'); 
   if (safeSearchOptions) {
     safeSearchOptions.value = settings.safeSearch === 'true' ? 'safeSearchEnable' : 'safeSearchDisable';
   }
